@@ -27,7 +27,7 @@ const PropertyDetails = () => {
   useEffect(() => {
     const fetchProperty = async () => {
       try {
-        const { data } = await axios.get(`/property/${id}`);
+        const { data } = await axios.get(`http://localhost:3000/property/${id}`);
         setProperty(data);
       } catch (error) {
         console.error('Error fetching property details:', error.message);
@@ -40,7 +40,7 @@ const PropertyDetails = () => {
   useEffect(() => {
     const fetchReviews = async () => {
       try {
-        const { data } = await axios.get(`/property/${id}/reviews`);
+        const { data } = await axios.get(`http://localhost:3000/property/${id}/reviews`);
         setReviews(Array.isArray(data) ? data : []); // Ensure it's an array
       } catch (error) {
         console.error('Error fetching reviews:', error.message);
@@ -67,7 +67,7 @@ const PropertyDetails = () => {
   const handleAddReview = async () => {
     if (!newReview) return;
     try {
-      await axios.post(`/property/${id}/review`, {
+      await axios.post(`http://localhost:3000/property/${id}/review`, {
         review: newReview,
         reviewerName: user.displayName,
       });
@@ -87,7 +87,7 @@ const PropertyDetails = () => {
     <div className="container mx-auto p-4">
       {/* Property Details */}
       <div className="property-details bg-white p-6 rounded shadow-lg">
-        <img src={property.propertyImage} alt={property.propertyTitle} className="w-full h-64 object-cover rounded" />
+        <img src={property.image} alt={property.propertyTitle} className="w-full h-64 object-cover rounded" />
         <h1 className="text-2xl font-bold mt-4">{property.propertyTitle}</h1>
         <p className="text-gray-700 mt-2">{property.description}</p>
         <p className="text-lg font-semibold mt-2">Price Range: {property.priceRange}</p>

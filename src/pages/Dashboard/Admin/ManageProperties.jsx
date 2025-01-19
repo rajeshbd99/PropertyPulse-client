@@ -1,37 +1,27 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { useQuery } from "@tanstack/react-query";
 
 const ManageProperties = () => {
-  const [properties, setProperties] = useState([]);
 
   // Fetch all properties added by agents
-  useEffect(() => {
-    const fetchProperties = async () => {
-      try {
-        const response = await axios.get("http://localhost:3000/properties");
-        setProperties(response.data);
-      } catch (error) {
-        toast.error("Failed to load properties");
-      }
-    };
-    fetchProperties();
-  }, []);
+  const { data: properties, isLoading, refetch } = useQuery({
+    queryKey: ["properties"],
+    queryFn: async () => {
+      const { data } = await axios.get(`http://localhost:3000/all-properties`);
+      return data;
+    },
+  })
 
   // Handle Verify Property
   const handleVerify = async (propertyId) => {
     try {
-      await axios.post(`http://localhost:3000/properties/verify/${propertyId}`);
+    const {data} =  await axios.patch(`http://localhost:3000/properties/verify/${propertyId}`);
+    if(data.modifiedCount == 1){
+      refetch();
       toast.success("Property verified successfully");
-      // Update local state
-      setProperties((prevProperties) =>
-        prevProperties.map((property) =>
-          property._id === propertyId
-            ? { ...property, status: "verified" }
-            : property
-        )
-      );
-    } catch (error) {
+    }} catch (error) {
       toast.error("Failed to verify the property");
     }
   };
@@ -39,25 +29,21 @@ const ManageProperties = () => {
   // Handle Reject Property
   const handleReject = async (propertyId) => {
     try {
-      await axios.post(`http://localhost:3000/properties/reject/${propertyId}`);
+    const {data} =  await axios.patch(`http://localhost:3000/properties/reject/${propertyId}`);
+    if(data.modifiedCount == 1){
+      refetch();
       toast.success("Property rejected successfully");
-      // Update local state
-      setProperties((prevProperties) =>
-        prevProperties.map((property) =>
-          property._id === propertyId
-            ? { ...property, status: "rejected" }
-            : property
-        )
-      );
-    } catch (error) {
+    }} catch (error) {
       toast.error("Failed to reject the property");
     }
   };
+  
+  isLoading && <p>Loading...</p>
 
   return (
     <div className="p-6">
       <h2 className="text-2xl font-bold mb-4">Manage Properties</h2>
-      {properties.length > 0 ? (
+      {properties?.length > 0 ? (
         <table className="min-w-full bg-white shadow rounded overflow-hidden">
           <thead>
             <tr className="bg-gray-100 text-left">
@@ -73,31 +59,38 @@ const ManageProperties = () => {
           <tbody>
             {properties.map((property, index) => (
               <tr key={index} className="border-b">
-                <td className="py-2 px-4">{property.title}</td>
+                <td className="py-2 px-4">{property.propertyTitle}</td>
                 <td className="py-2 px-4">{property.location}</td>
                 <td className="py-2 px-4">{property.agentName}</td>
                 <td className="py-2 px-4">{property.agentEmail}</td>
                 <td className="py-2 px-4">${property.priceRange}</td>
-                <td className="py-2 px-4 capitalize">
-                  {property.status || "pending"}
+                <td className="py-2 px-4 capitalize ">
+                  {property.verificationStatus=="verified" ? <span className="text-green-600">
+                    {property.verificationStatus}
+                  </span> : property.verificationStatus=="rejected" ? <span className="text-red-600">
+                    {property.verificationStatus}
+                  </span> : <span className="text-yellow-600">
+                    {property.verificationStatus}
+                  </span>}
                 </td>
-                <td className="py-2 px-4">
-                  {property.status === "pending" && (
-                    <div className="flex gap-2">
-                      <button
-                        className="bg-green-500 text-white py-1 px-3 rounded"
-                        onClick={() => handleVerify(property._id)}
-                      >
-                        Verify
-                      </button>
-                      <button
-                        className="bg-red-500 text-white py-1 px-3 rounded"
-                        onClick={() => handleReject(property._id)}
-                      >
-                        Reject
-                      </button>
-                    </div>
-                  )}
+                <td className="py-2 px-4 ">
+                  {property.
+                    verificationStatus === "pending" && (
+                      <div className="flex gap-2">
+                        <button
+                          className="bg-green-500 text-white py-1 px-3 rounded"
+                          onClick={() => handleVerify(property._id)}
+                        >
+                          Verify
+                        </button>
+                        <button
+                          className="bg-red-500 text-white py-1 px-3 rounded"
+                          onClick={() => handleReject(property._id)}
+                        >
+                          Reject
+                        </button>
+                      </div>
+                    )}
                 </td>
               </tr>
             ))}
