@@ -1,22 +1,19 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { useQuery } from "@tanstack/react-query";
+import { AuthContext } from "../../../providers/AuthProvider";
+
 
 const ManageUsers = () => {
-  const [users, setUsers] = useState([]);
-
-  // Fetch all users
-  useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const response = await axios.get("http://localhost:3000/users");
-        setUsers(response.data);
-      } catch (error) {
-        toast.error("Failed to load users");
-      }
-    };
-    fetchUsers();
-  }, []);
+  const { user } = useContext(AuthContext);
+  const { data: users, isLoading, refetch } = useQuery({
+    queryKey: ["users"],
+    queryFn: async () => {
+      const { data } = await axios.get(`http://localhost:3000/users`);
+      return data;
+    },
+  })
 
   // Make Admin
   const handleMakeAdmin = async (userId) => {
@@ -41,13 +38,21 @@ const ManageUsers = () => {
   };
 
   // Mark as Fraud
-  const handleMarkAsFraud = async (userId) => {
+  const handleMarkAsFraud = async (userId, email) => {
     try {
-      await axios.post(`http://localhost:3000/users/mark-fraud/${userId}`);
-      toast.success("Agent marked as Fraud");
-      updateUserRole(userId, "fraud");
+      const { data } = await axios.put(`http://localhost:3000/users/mark-fraud/${userId}`);
+      if (data.modifiedCount == 1) {
+        const { data: deleteProperties } = await axios.delete(`http://localhost:3000/properties/agent/${email}`);
+        if (deleteProperties.deletedCount > 0) {
+          // toast.success("Agent's properties deleted successfully");
+          toast.success("Agent marked as Fraud");
+          refetch();
+
+        }
+
+      }
       // Optionally remove the agent's properties
-      await axios.delete(`http://localhost:3000/properties/agent/${userId}`);
+
     } catch (error) {
       toast.error("Failed to mark agent as Fraud");
     }
@@ -72,11 +77,12 @@ const ManageUsers = () => {
       )
     );
   };
+  isLoading && <p>Loading...</p>
 
   return (
     <div className="p-6">
       <h2 className="text-2xl font-bold mb-4">Manage Users</h2>
-      {users.length > 0 ? (
+      {users?.length > 0 ? (
         <table className="min-w-full bg-white shadow rounded overflow-hidden">
           <thead>
             <tr className="bg-gray-100 text-left">
@@ -87,9 +93,9 @@ const ManageUsers = () => {
             </tr>
           </thead>
           <tbody>
-            {users.map((user) => (
+            {users?.map((user) => (
               <tr key={user._id} className="border-b">
-                <td className="py-2 px-4">{user.name}</td>
+                <td className="py-2 px-4">{user.username}</td>
                 <td className="py-2 px-4">{user.email}</td>
                 <td className="py-2 px-4 capitalize">{user.role || "user"}</td>
                 <td className="py-2 px-4">
@@ -112,9 +118,11 @@ const ManageUsers = () => {
                         </button>
                       )}
                       {user.role === "agent" && (
-                        <button
+                        user.fraud ? <span>
+                          <button className="btn bg-neutral-600 text-black" disabled> Fraud</button>
+                        </span> : <button
                           className="bg-orange-500 text-white py-1 px-3 rounded"
-                          onClick={() => handleMarkAsFraud(user._id)}
+                          onClick={() => handleMarkAsFraud(user._id,user.email)}
                         >
                           Mark as Fraud
                         </button>
