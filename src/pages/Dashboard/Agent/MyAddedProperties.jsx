@@ -28,7 +28,7 @@ const MyAddedProperties = () => {
     if (!confirm) return;
 
     try {
-      await axios.delete(`http://localhost:3000//properties/${id}`);
+      await axios.delete(`http://localhost:3000/properties/${id}`);
       setProperties(properties.filter((property) => property._id !== id));
       toast.success("Property deleted successfully");
     } catch (error) {
