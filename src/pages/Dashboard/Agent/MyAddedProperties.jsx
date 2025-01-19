@@ -3,24 +3,20 @@ import { AuthContext } from "../../../providers/AuthProvider";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
 
 const MyAddedProperties = () => {
   const { user } = useContext(AuthContext);
-  const [properties, setProperties] = useState([]);
   const navigate = useNavigate();
 
-  // Fetch properties added by the agent
-  useEffect(() => {
-    const fetchProperties = async () => {
-      try {
-        const response = await axios.get(`http://localhost:3000/my-properties/${user.email}`);
-        setProperties(response.data);
-      } catch (error) {
-        toast.error("Failed to load properties");
-      }
-    };
-    fetchProperties();
-  }, [user.email]);
+  const {data:properties,isLoading,refetch}=useQuery({
+    queryKey: ["userRole", user.email],
+    queryFn: async () => {
+      const {data}= await axios.get(`http://localhost:3000/my-properties/${user.email}`);
+      return data;
+    },
+    enabled: !!user,
+})
 
   // Delete property
   const handleDelete = async (id) => {
@@ -28,8 +24,10 @@ const MyAddedProperties = () => {
     if (!confirm) return;
 
     try {
-      await axios.delete(`http://localhost:3000/properties/${id}`);
-      setProperties(properties.filter((property) => property._id !== id));
+      const result = await axios.delete(`http://localhost:3000/properties/delete/${id}`);
+      if (result.data.deletedCount === 1) {
+        refetch();
+      }
       toast.success("Property deleted successfully");
     } catch (error) {
       toast.error("Failed to delete property");
@@ -38,8 +36,9 @@ const MyAddedProperties = () => {
 
   // Redirect to update page
   const handleUpdate = (id) => {
-    navigate(`/update-property/${id}`);
+    navigate(`/dashboard/update-property/${id}`);
   };
+  isLoading && <p>Loading...</p>
 
   return (
     <div className="p-6">
