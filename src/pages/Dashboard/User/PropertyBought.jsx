@@ -1,57 +1,69 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { useParams } from 'react-router-dom'; // if you're using react-router to get the userId from URL
+import { useEffect, useState, useContext } from "react";
+import { AuthContext } from "../../../providers/AuthProvider";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const PropertyBought = () => {
-  // If using React Router, you can fetch userId from the URL params like this:
-  const { userId } = useParams(); // Assuming userId is passed in the URL
+  const { user } = useContext(AuthContext);
+  const [properties, setProperties] = useState([]);
+  const navigate = useNavigate();
 
-  const [offeredProperties, setOfferedProperties] = useState([]);
-
+  // Fetch properties for which the user has made offers
   useEffect(() => {
-    if (!userId) {
-      console.error('User ID is required');
-      return;
-    }
+    const fetchProperties = async () => {
+      try {
+        const response = await axios.get(`http://localhost:3000/offers/user/${user.email}`);
+        setProperties(response.data);
+      } catch (error) {
+        toast.error("Failed to load properties");
+      }
+    };
+    fetchProperties();
+  }, [user.email]);
 
-    // Fetch the user's offered properties
-    axios.get(`http://localhost:3000/offers/${userId}`)
-      .then(response => {
-        setOfferedProperties(response.data);
-      })
-      .catch(error => {
-        console.error('Error fetching offered properties:', error);
-      });
-  }, [userId]);
-
-  const handlePay = (offerId, propertyId) => {
-    // Redirect to the payment page, passing the offerId and propertyId
-    window.location.href = `/payment/${offerId}/${propertyId}`;
+  // Redirect to payment page
+  const handlePay = (property) => {
+    navigate("/payment", { state: { property } });
   };
 
   return (
-    <div>
-      <h1>Your Offered Properties</h1>
-      {offeredProperties.length === 0 ? (
-        <p>No properties found.</p>
+    <div className="p-6">
+      <h2 className="text-2xl font-bold mb-4">Properties You Offered</h2>
+      {properties.length > 0 ? (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {properties.map((property) => (
+            <div key={property._id} className="bg-white shadow-md rounded-lg p-4">
+              <img
+                src={property.propertyImage || "/default-property.jpg"}
+                alt="Property"
+                className="w-full h-40 object-cover rounded mb-4"
+              />
+              <h4 className="text-lg font-semibold">{property.propertyTitle}</h4>
+              <p className="text-gray-500">{property.location}</p>
+              <p className="text-gray-700">Agent: {property.agentName}</p>
+              <p className="text-gray-700">Offered Amount: ${property.offeredAmount}</p>
+              <p className={`text-lg font-bold mt-2 ${property.status === "pending" ? "text-yellow-500" : property.status === "accepted" ? "text-green-500" : "text-blue-500"}`}>
+                Status: {property.status}
+              </p>
+              {property.status === "accepted" && !property.transactionId && (
+                <button
+                  onClick={() => handlePay(property)}
+                  className="mt-4 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
+                >
+                  Pay
+                </button>
+              )}
+              {property.transactionId && (
+                <p className="text-green-500 font-semibold mt-4">
+                  Transaction ID: {property.transactionId}
+                </p>
+              )}
+            </div>
+          ))}
+        </div>
       ) : (
-        offeredProperties.map((offer) => (
-          <div key={offer._id} className="card">
-            <h3>{offer.propertyTitle}</h3>
-            <p>Location: {offer.propertyLocation}</p>
-            <img src={offer.propertyImage} alt={offer.propertyTitle} />
-            <p>Offered Amount: ${offer.offerAmount}</p>
-            <p>Status: {offer.status}</p>
-            {offer.status === 'accepted' && (
-              <button onClick={() => handlePay(offer._id, offer.propertyId)}>
-                Pay ${offer.offerAmount}
-              </button>
-            )}
-            {offer.status === 'bought' && (
-              <p>Transaction ID: {offer.transactionId}</p>
-            )}
-          </div>
-        ))
+        <p className="text-gray-500 mt-4">No properties to display.</p>
       )}
     </div>
   );

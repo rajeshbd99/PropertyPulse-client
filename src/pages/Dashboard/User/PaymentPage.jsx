@@ -1,42 +1,23 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { Elements } from '@stripe/react-stripe-js';
-import { loadStripe } from '@stripe/stripe-js';
+import { useLocation } from "react-router-dom";
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
+import CheckoutForm from "./CheckoutForm";
 
-const PaymentPage = ({ match }) => {
-  const [offer, setOffer] = useState(null);
-  const { offerId, propertyId } = match.params;
-  const stripePromise = loadStripe('your-public-stripe-key');
+const stripePromise = loadStripe("your-stripe-public-key-here");
 
-  useEffect(() => {
-    axios.get(`/api/offer/${offerId}`)
-      .then(response => {
-        setOffer(response.data);
-      })
-      .catch(error => {
-        console.error('Error fetching offer details:', error);
-      });
-  }, [offerId]);
-
-  const handlePayment = async () => {
-    const stripe = await stripePromise;
-    const { error } = await stripe.redirectToCheckout({
-      lineItems: [{ price: offer.offerAmount, quantity: 1 }],
-      mode: 'payment',
-      successUrl: `/payment-success/${offerId}`,
-      cancelUrl: '/payment-cancelled',
-    });
-
-    if (error) {
-      console.error('Payment Error:', error);
-    }
-  };
+const PaymentPage = () => {
+  const location = useLocation();
+  const property = location.state.property;
 
   return (
-    <div>
-      <h1>Payment for {offer?.propertyTitle}</h1>
-      <p>Amount: ${offer?.offerAmount}</p>
-      <button onClick={handlePayment}>Pay Now</button>
+    <div className="p-6">
+      <h2 className="text-2xl font-bold mb-4">Payment for {property.propertyTitle}</h2>
+      <p className="text-gray-700 mb-4">Offered Amount: ${property.offeredAmount}</p>
+      <div className="bg-white shadow-md rounded-lg p-6">
+        <Elements stripe={stripePromise}>
+          <CheckoutForm property={property} />
+        </Elements>
+      </div>
     </div>
   );
 };
