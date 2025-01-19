@@ -114,6 +114,18 @@ const Dashboard = () => {
               Manage Users
             </NavLink>
           </li>
+          <li>
+            <NavLink
+              to="/dashboard/advertise-property"
+              className={({ isActive }) =>
+                `block px-4 py-2 rounded ${
+                  isActive ? "bg-blue-500 text-white" : "text-gray-700 hover:bg-gray-100"
+                }`
+              }
+            >
+              Advertise property
+            </NavLink>
+          </li>
         </ul>
       </nav>
       }

@@ -1,7 +1,6 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
-
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Layout from './components/Layout/Layout'
 import Home from './pages/Home/Home'
@@ -24,17 +23,19 @@ import MyAddedProperties from './pages/Dashboard/Agent/MyAddedProperties'
 import MySoldProperties from './pages/Dashboard/Agent/MySoldProperties'
 import RequestedProperties from './pages/Dashboard/Agent/RequestedProperties'
 import UpdateProperty from './pages/Dashboard/Agent/UpdateProperty'
-
-
+import Dashboard from './pages/Dashboard/User/UserDashboard'
+import AdvertiseProperty from './pages/Dashboard/Admin/AdvertiseProperty'
+import AdminRoutes from './routes/AdminRoutes'
+import AgentRoutes from './routes/AgentRoutes'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 import {
   
   QueryClient,
   QueryClientProvider,
 } from '@tanstack/react-query'
-import Dashboard from './pages/Dashboard/User/UserDashboard'
-import AdminRoutes from './routes/AdminRoutes'
-import AgentRoutes from './routes/AgentRoutes'
-import { ToastContainer } from 'react-toastify'
+
+
 
 const router = createBrowserRouter([
   {
@@ -78,6 +79,10 @@ const router = createBrowserRouter([
             element:<MyProfile />
           },
           {
+            path:'make-offer',
+            element:<MakeOffer />
+          },
+          {
             path: 'wishlist',
             element: <Wishlist />
 
@@ -91,8 +96,16 @@ const router = createBrowserRouter([
             element: <MyReviews />
           },
           {
+            path:'advertise-property',
+            element:<AdminRoutes><AdvertiseProperty /></AdminRoutes>
+          },
+          {
             path:'manage-properties',
-            element:<ManageProperties />
+            element:<AdminRoutes><ManageProperties /></AdminRoutes>
+          },
+          {
+            path:'manage-reviews',
+            element:<AdminRoutes><ManageReviews /></AdminRoutes>  
           },
           {
             path: 'manage-users',
@@ -100,7 +113,7 @@ const router = createBrowserRouter([
           },
           {
             path: 'add-property',
-            element: <AddProperty />
+            element: <AgentRoutes><AddProperty /></AgentRoutes>
           },
           {
             path: 'my-properties',
@@ -108,19 +121,15 @@ const router = createBrowserRouter([
           },
           {
             path:'my-sold-properties',
-            element:<MySoldProperties />
+            element:<AgentRoutes><MySoldProperties /></AgentRoutes>
           },
           {
             path:'requested-properties',
-            element:<RequestedProperties />
-          },
-          {
-            path:'manage-reviews',
-            element:<ManageReviews />
+            element:<AgentRoutes><RequestedProperties /></AgentRoutes>
           },
           {
             path:'update-property',
-            element:<UpdateProperty></UpdateProperty>
+            element:<AgentRoutes><UpdateProperty></UpdateProperty></AgentRoutes>
           }
         ]
       },
