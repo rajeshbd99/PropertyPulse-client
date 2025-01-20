@@ -38,9 +38,9 @@ const AllProperties = () => {
           {/* Agent Info */}
           <div className="flex items-center mb-2">
             <img
-              src={user.photoURL}
-              alt={user.displayName}
-              className="w-8 h-8 rounded-full mr-2"
+              src={property?.agentPhoto}
+            className='w-8 h-8 object-cover rounded-full'
+              
             />
             <p className="text-gray-600">
               <strong>Agent:</strong> {property.agentName}
@@ -66,7 +66,7 @@ const AllProperties = () => {
           </p>
   
           {/* Details Button */}
-          <Link to = {`/property/${property._id}`}>
+          <Link to = {`/property/details/${property._id}`}>
           <button
             
             className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"

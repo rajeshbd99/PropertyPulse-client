@@ -4,6 +4,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 
 const AddProperty = () => {
+    
     const [loading, setLoading] = useState(false);
 
     const { user } = useContext(AuthContext);
@@ -15,6 +16,7 @@ const AddProperty = () => {
         verificationStatus: "pending",
         agentName: user.displayName,
         agentEmail: user.email,
+        agentPhoto:user.photoURL
     });
 
     const handleChange = (e) => {

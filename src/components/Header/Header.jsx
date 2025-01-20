@@ -5,7 +5,6 @@ import { AuthContext } from '../../providers/AuthProvider';
 const Header = () => {
   const { user, logoutUser } = useContext(AuthContext);
   const navigate = useNavigate();
-
   const handleLogout = async () => {
     if (user) {
       try {
@@ -98,9 +97,9 @@ const Header = () => {
         {user ? (
           <>
             <div className="flex items-center">
-              {user.photoURL ? (
+              {user?.photoURL ? (
                 <img
-                  src={user.photoURL}
+                  src={user?.photoURL}
                   alt="User Avatar"
                   className="w-8 h-8 rounded-full mr-2"
                 />

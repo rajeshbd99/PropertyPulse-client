@@ -1,7 +1,19 @@
+import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
 const Home = () => {
+  const { data: advertiseProperties, isLoading, refetch } = useQuery({
+    queryKey: ["advertiseProperties"],
+    queryFn: async () => {
+      const { data } = await axios.get(`http://localhost:3000/advertise-properties`);
+      console.log(data);
+      return data;
+    },
+  })
+  isLoading && <p>Loading...</p>
+
   return (
     <div>
       {/* Banner/Slider Section */}
@@ -17,31 +29,56 @@ const Home = () => {
       {/* Advertisement Section */}
       <section className="py-10 bg-gray-100">
         <h2 className="text-3xl font-bold text-center mb-6">Featured Properties</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 px-4">
-          {[...Array(4)].map((_, idx) => (
-            <div
-              key={idx}
-              className="bg-white shadow-md rounded-lg overflow-hidden"
-            >
-              <img
-                src={`https://via.placeholder.com/300x200?text=Property+${idx + 1}`}
-                alt={`Property ${idx + 1}`}
-                className="w-full h-40 object-cover"
-              />
-              <div className="p-4">
-                <h3 className="text-lg font-semibold">Property Location</h3>
-                <p className="text-sm text-gray-600">City, Country</p>
-                <p className="mt-2 font-bold text-blue-500">$300,000 - $400,000</p>
-                <p className="mt-2 text-green-600">Verified</p>
-                <Link
-                  to={`/property/${idx + 1}`}
-                  className="mt-4 inline-block bg-blue-500 text-white px-4 py-2 rounded-lg"
-                >
-                  View Details
-                </Link>
+        <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-4'>
+          {
+            advertiseProperties?.map((property) => (
+              <div className="max-w-sm bg-white shadow-md rounded-lg overflow-hidden">
+                {/* Property Image */}
+                <img
+                  src={property.image}
+                  className="w-full h-48 object-cover"
+                />
+
+                {/* Card Content */}
+                <div className="p-4">
+                  {/* Property Title */}
+                  <h3 className="text-xl font-semibold mb-2">{property.propertyTitle}</h3>
+
+                  {/* Property Location */}
+                  <p className="text-gray-600 mb-2">
+                    <strong>Location:</strong> {property.location}
+                  </p>
+
+                  {/* Verification Status */}
+                  <p
+                    className={`text-sm font-bold mb-2 ${property.verificationStatus === "verified"
+                        ? "text-green-500"
+                        : verificationStatus === "rejected"
+                          ? "text-red-500"
+                          : "text-gray-500"
+                      }`}
+                  >
+                    Status: {property.verificationStatus.charAt(0).toUpperCase() + property.verificationStatus.slice(1)}
+                  </p>
+
+                  {/* Price Range */}
+                  <p className="text-gray-700 mb-4">
+                    <strong>Price Range:</strong> ${property.priceRange}
+                  </p>
+
+                  {/* Details Button */}
+                  <Link to={`/property/details/${property._id}`}>
+                    <button
+
+                      className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
+                    >
+                      Details
+                    </button>
+                  </Link>
+                </div>
               </div>
-            </div>
-          ))}
+            ))
+          }
         </div>
       </section>
 
