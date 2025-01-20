@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { AuthContext } from "../../../providers/AuthProvider";
 import { useQuery } from "@tanstack/react-query";
+import { toast } from "react-toastify";
 
 const Wishlist = () => {
   const {user} = useContext(AuthContext);
@@ -19,15 +20,18 @@ const Wishlist = () => {
 
   const handleRemove = async (id) => {
     try {
-      await axios.delete(`http://localhost:3000/wishlist/${id}`);
-      // setWishlist(wishlist.filter((item) => item._id !== id));
+    const {data} =  await axios.delete(`http://localhost:3000/wishlist/${id}`);
+    if(data.deletedCount==1){
+      refetch();
+      return toast.success("Property removed from wishlist!");
+    }
     } catch (error) {
       console.error("Error removing property:", error.message);
     }
   };
 
   const handleMakeOffer = (property) => {
-    navigate("/make-offer", { state: { property } });
+    navigate("/make-offer", {state:property});
   };
   isLoading && <p>Loading...</p>;
 
@@ -61,12 +65,12 @@ const Wishlist = () => {
                 Price Range: ${item.priceRange.split("-")[0]} - ${item.priceRange.split("-")[1]}
               </p>
               <div className="mt-4 flex justify-between">
-                <button
+                {item.offerStatus === "pending" ? <span className="text-sm text-yellow-500">Offer in Pending</span> : <button
                   className="bg-blue-500 text-white px-4 py-2 rounded"
                   onClick={() => handleMakeOffer(item)}
                 >
                   Make an Offer
-                </button>
+                </button>}
                 <button
                   className="bg-red-500 text-white px-4 py-2 rounded"
                   onClick={() => handleRemove(item._id)}

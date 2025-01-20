@@ -62,6 +62,10 @@ const router = createBrowserRouter([
         </PrivateRoute>
       },
       {
+        path:'/make-offer',
+        element:<MakeOffer />
+      },
+      {
         path: '/property/details/:id',
         element: <PrivateRoute>
           <PropertyDetails />
@@ -73,14 +77,9 @@ const router = createBrowserRouter([
         <Dashboard/>
         </PrivateRoute>,
         children:[
-         
           {
             path:'profile',
             element:<MyProfile />
-          },
-          {
-            path:'make-offer',
-            element:<MakeOffer />
           },
           {
             path: 'wishlist',
