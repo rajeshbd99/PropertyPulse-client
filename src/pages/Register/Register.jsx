@@ -73,6 +73,10 @@ const Register = () => {
                     const result = await axios.put('http://localhost:3000/user', {
                         username: formData.username,
                         email: formData.email,
+                        //firebase uid
+                        uid: user.uid,
+                        photoUrl: formData.photoUrl
+                        
                         
                     });
                  

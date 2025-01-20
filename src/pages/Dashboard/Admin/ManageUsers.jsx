@@ -18,9 +18,11 @@ const ManageUsers = () => {
   // Make Admin
   const handleMakeAdmin = async (userId) => {
     try {
-      await axios.post(`http://localhost:3000/users/make-admin/${userId}`);
-      toast.success("User promoted to Admin");
-      updateUserRole(userId, "admin");
+     const {data}= await axios.put(`http://localhost:3000/users/make-admin/${userId}`);
+     if(data.modifiedCount==1 || data.upsertedCount==1){
+      refetch();
+     return toast.success("User promoted to Admin");
+     }
     } catch (error) {
       toast.error("Failed to promote user to Admin");
     }
@@ -29,9 +31,12 @@ const ManageUsers = () => {
   // Make Agent
   const handleMakeAgent = async (userId) => {
     try {
-      await axios.post(`http://localhost:3000/users/make-agent/${userId}`);
-      toast.success("User promoted to Agent");
-      updateUserRole(userId, "agent");
+    const {data} =  await axios.put(`http://localhost:3000/users/make-agent/${userId}`);
+    if(data.modifiedCount==1 || data.upsertedCount==1){
+      refetch();
+     return toast.success("User promoted to Agent");
+    }
+ 
     } catch (error) {
       toast.error("Failed to promote user to Agent");
     }
@@ -59,11 +64,13 @@ const ManageUsers = () => {
   };
 
   // Delete User
-  const handleDeleteUser = async (userId) => {
+  const handleDeleteUser = async (uid) => {
     try {
-      await axios.delete(`http://localhost:3000/users/${userId}`);
-      toast.success("User deleted successfully");
-      setUsers(users.filter((user) => user._id !== userId));
+    const {data} =  await axios.delete(`http://localhost:3000/users/${uid}`);
+    if(data.deletedCount==1){
+      refetch();
+      return toast.success("User deleted successfully");
+    }
     } catch (error) {
       toast.error("Failed to delete user");
     }
@@ -120,16 +127,23 @@ const ManageUsers = () => {
                       {user.role === "agent" && (
                         user.fraud ? <span>
                           <button className="btn bg-neutral-600 text-black" disabled> Fraud</button>
-                        </span> : <button
+                        </span> :  <div className="flex gap-2">
+                        <button
+                          className="bg-blue-500 text-white py-1 px-3 rounded"
+                          onClick={() => handleMakeAdmin(user._id)}
+                        >
+                          Make Admin
+                        </button><button
                           className="bg-orange-500 text-white py-1 px-3 rounded"
                           onClick={() => handleMarkAsFraud(user._id,user.email)}
                         >
                           Mark as Fraud
                         </button>
+                        </div>
                       )}
                       <button
                         className="bg-red-500 text-white py-1 px-3 rounded"
-                        onClick={() => handleDeleteUser(user._id)}
+                        onClick={() => handleDeleteUser(user.uid)}
                       >
                         Delete
                       </button>

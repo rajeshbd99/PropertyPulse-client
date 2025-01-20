@@ -35,7 +35,8 @@ const Login = () => {
             const {data} = await axios.put('http://localhost:3000/user', {
                 username: result?.user?.displayName,
                 email: result?.user?.email,
-
+                photoUrl: result?.user?.photoURL,
+                uid: result?.user?.uid,
             });
             console.log(result);
             if(data?.acknowledged){
