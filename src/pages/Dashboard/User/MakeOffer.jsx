@@ -33,7 +33,7 @@ const MakeOffer = () => {
       propertyId: property._id,
       propertyTitle: property.propertyTitle,
       location: property.location,
-      image: property.image,
+      image: property.propertyImage,
       agentName: property.agentName,
       agentPhoto : property.agentPhoto,
       offerAmount: parseFloat(offerAmount),

@@ -65,12 +65,12 @@ const Wishlist = () => {
                 Price Range: ${item.priceRange.split("-")[0]} - ${item.priceRange.split("-")[1]}
               </p>
               <div className="mt-4 flex justify-between">
-                {item.offerStatus === "pending" ? <span className="text-sm text-yellow-500">Offer in Pending</span> : <button
+              <button
                   className="bg-blue-500 text-white px-4 py-2 rounded"
                   onClick={() => handleMakeOffer(item)}
                 >
                   Make an Offer
-                </button>}
+                </button>
                 <button
                   className="bg-red-500 text-white px-4 py-2 rounded"
                   onClick={() => handleRemove(item._id)}
