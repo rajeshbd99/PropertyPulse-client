@@ -56,6 +56,12 @@ const PropertyDetails = () => {
         userId: user?.uid,
         propertyTitle: property.propertyTitle,
         priceRange: property.priceRange,
+        verificationStatus: property.verificationStatus,
+        agentName: property.agentName,
+        agentPhoto: property.agentPhoto,
+        location: property.location,
+        propertyImage: property.image,
+
       });
       toast.success('Property added to wishlist!');
     } catch (error) {
