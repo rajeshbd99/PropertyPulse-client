@@ -58,6 +58,7 @@ const PropertyDetails = () => {
         priceRange: property.priceRange,
         verificationStatus: property.verificationStatus,
         agentName: property.agentName,
+        agentEmail: property.agentEmail,
         agentPhoto: property.agentPhoto,
         location: property.location,
         propertyImage: property.image,
