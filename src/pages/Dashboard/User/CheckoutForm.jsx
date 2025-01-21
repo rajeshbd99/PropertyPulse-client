@@ -44,7 +44,7 @@ const CheckoutForm = ({ property }) => {
         className="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600"
         disabled={!stripe}
       >
-        Pay ${property.offeredAmount}
+        Pay ${property.offerAmount}
       </button>
     </form>
   );

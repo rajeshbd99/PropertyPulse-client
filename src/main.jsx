@@ -27,6 +27,7 @@ import Dashboard from './pages/Dashboard/User/UserDashboard'
 import AdvertiseProperty from './pages/Dashboard/Admin/AdvertiseProperty'
 import AdminRoutes from './routes/AdminRoutes'
 import AgentRoutes from './routes/AgentRoutes'
+import PaymentPage from './pages/Dashboard/User/PaymentPage'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import {
@@ -63,7 +64,15 @@ const router = createBrowserRouter([
       },
       {
         path:'/make-offer',
-        element:<MakeOffer />
+        element:<PrivateRoute>
+        <MakeOffer />
+        </PrivateRoute>
+      },
+      {
+        path:'/payment',
+        element:<PrivateRoute>
+        <PaymentPage />
+        </PrivateRoute>
       },
       {
         path: '/property/details/:id',

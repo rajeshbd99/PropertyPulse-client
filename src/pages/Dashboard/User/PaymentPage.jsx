@@ -12,7 +12,7 @@ const PaymentPage = () => {
   return (
     <div className="p-6">
       <h2 className="text-2xl font-bold mb-4">Payment for {property.propertyTitle}</h2>
-      <p className="text-gray-700 mb-4">Offered Amount: ${property.offeredAmount}</p>
+      <p className="text-gray-700 mb-4">Offered Amount: ${property.offerAmount}</p>
       <div className="bg-white shadow-md rounded-lg p-6">
         <Elements stripe={stripePromise}>
           <CheckoutForm property={property} />

@@ -15,22 +15,8 @@ const PropertyBought = () => {
       const { data } = await axios.get(`http://localhost:3000/offers/user/${user.email}`);
       return data;
     },
-  })
-
-  // Fetch properties for which the user has made offers
-  // useEffect(() => {
-  //   const fetchProperties = async () => {
-  //     try {
-  //       const response = await axios.get(`http://localhost:3000/offers/user/${user.email}`);
-  //       setProperties(response.data);
-  //     } catch (error) {
-  //       toast.error("Failed to load properties");
-  //     }
-  //   };
-  //   fetchProperties();
-  // }, [user.email]);
-
-  // Redirect to payment page
+  });
+  
   const handlePay = (property) => {
     navigate("/payment", { state: { property } });
   };

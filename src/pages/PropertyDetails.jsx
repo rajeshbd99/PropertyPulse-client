@@ -4,6 +4,8 @@ import { AuthContext } from '../providers/AuthProvider';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { format } from 'date-fns';
+import { useQuery } from '@tanstack/react-query';
 
 const PropertyDetails = () => {
   const { id } = useParams();
@@ -14,7 +16,7 @@ const PropertyDetails = () => {
   const [reviews, setReviews] = useState([]); // Initialize as an empty array
   const [newReview, setNewReview] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
-
+  console.log(isModalOpen);
   // Redirect if not authenticated
   useEffect(() => {
     if (!user) {
@@ -36,18 +38,13 @@ const PropertyDetails = () => {
     fetchProperty();
   }, [id]);
 
-  // Fetch reviews
-  useEffect(() => {
-    const fetchReviews = async () => {
-      try {
-        const { data } = await axios.get(`http://localhost:3000/property/${id}/reviews`);
-        setReviews(Array.isArray(data) ? data : []); // Ensure it's an array
-      } catch (error) {
-        console.error('Error fetching reviews:', error.message);
-      }
-    };
-    fetchReviews();
-  }, [id]);
+  const { data: reviewsCollection, isLoading, refetch } = useQuery({
+    queryKey: ["reviewsCollection", id],
+    queryFn: async () => {
+      const { data } = await axios.get(`http://localhost:3000/property/reviews/${id}`);
+      return data;
+    },
+  })
 
   const handleAddToWishlist = async () => {
     try {
@@ -74,17 +71,22 @@ const PropertyDetails = () => {
   const handleAddReview = async () => {
     if (!newReview) return;
     try {
-      await axios.post(`http://localhost:3000/property/${id}/review`, {
+      const { data } = await axios.post(`http://localhost:3000/property/review`, {
         review: newReview,
+        propertyId: property._id,
+        email: user.email,
+        formattedDate: format(new Date(), 'dd-MM-yyyy'),
         reviewerName: user.displayName,
       });
-      setReviews([...reviews, { review: newReview, reviewerName: user.displayName, createdAt: new Date() }]);
-      setNewReview('');
-      toast.success('Review added successfully!');
-      setIsModalOpen(false); // Close the modal
+      if (data.insertedId) {
+        refetch();
+        setIsModalOpen(false); // Close the modal
+        return toast.success('Review added successfully');
+      }
     } catch (error) {
+      setIsModalOpen(false); // Close the modal
       console.error('Error adding review:', error.message);
-      toast.error('Failed to add review.');
+      return toast.error('Failed to add review.');
     }
   };
 
@@ -108,12 +110,12 @@ const PropertyDetails = () => {
       <div className="reviews-section mt-8">
         <h2 className="text-xl font-bold">Reviews</h2>
         <ul className="mt-4 space-y-4">
-          {reviews.length > 0 ? (
-            reviews.map((review, index) => (
+          {reviewsCollection?.length > 0 ? (
+            reviewsCollection?.map((review, index) => (
               <li key={index} className="p-4 bg-gray-100 rounded shadow">
                 <p className="font-semibold">{review.reviewerName}</p>
                 <p className="text-gray-700 mt-1">{review.review}</p>
-                <p className="text-gray-500 text-sm">{new Date(review.createdAt).toLocaleString()}</p>
+                <p className="text-gray-500 text-sm">{review.formattedDate}</p>
               </li>
             ))
           ) : (
@@ -130,8 +132,8 @@ const PropertyDetails = () => {
 
       {/* Add Review Modal */}
       {isModalOpen && (
-        <div className="modal fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="modal-box bg-white p-6 rounded">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white p-6 rounded shadow-lg w-full max-w-md">
             <h3 className="text-xl font-bold mb-4">Add a Review</h3>
             <textarea
               value={newReview}
@@ -139,7 +141,7 @@ const PropertyDetails = () => {
               placeholder="Write your review here..."
               className="textarea textarea-bordered w-full mb-4"
             ></textarea>
-            <div className="modal-action">
+            <div className="flex justify-end gap-4">
               <button
                 onClick={() => setIsModalOpen(false)}
                 className="btn btn-outline"
