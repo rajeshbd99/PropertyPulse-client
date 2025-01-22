@@ -1,51 +1,101 @@
-import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
-import axios from "axios";
-import { toast } from "react-toastify";
+import { PaymentElement, useElements, useStripe } from '@stripe/react-stripe-js';
+import { useContext, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
+import { AuthContext } from '../../../providers/AuthProvider';
+import axios from 'axios';
+import { format } from 'date-fns';
 
 const CheckoutForm = ({ property }) => {
+  console.log(property);
+  const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
   const stripe = useStripe();
   const elements = useElements();
 
+  const [errorMessage, setErrorMessage] = useState(null);
+  const [transactionId, setTransactionId] = useState(null);
+  const [loading, setLoading] = useState(false);
+
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if (!stripe || !elements) return;
+
+    if (!stripe || !elements) {
+      setErrorMessage("Stripe is not properly initialized.");
+      return;
+    }
+
+    setLoading(true);
 
     try {
-      const { data: clientSecret } = await axios.post("http://localhost:3000/create-payment-intent", {
-        amount: property.offeredAmount,
+      const { error, paymentIntent } = await stripe.confirmPayment({
+        elements,
+        confirmParams: {
+          payment_method_data: {
+            billing_details: {
+              name: user?.displayName,
+              email: user?.email,
+            },
+          },
+        },
+        redirect: "if_required",
       });
 
-      const paymentMethod = await stripe.createPaymentMethod({
-        type: "card",
-        card: elements.getElement(CardElement),
-      });
+      if (error) {
+        setErrorMessage(error.message);
+      } else if (paymentIntent?.status === "succeeded") {
+        setTransactionId(paymentIntent.id);
 
-      const confirmPayment = await stripe.confirmCardPayment(clientSecret, {
-        payment_method: paymentMethod.paymentMethod.id,
-      });
+        const contactRequest = {
+          propertyTitle: property.propertyTitle,
+          location: property.location,
+          buyerName : property.buyerName,
+          buyerEmail : property.buyerEmail,
+          transactionId: paymentIntent.id,
+          amount: paymentIntent.amount/1000,
+          date: format(new Date(), "dd-MM-yyyy"),
+          status : 'Pending',
+        };
 
-      if (confirmPayment.paymentIntent.status === "succeeded") {
-        toast.success("Payment successful");
-        await axios.post("http://localhost:3000/properties/mark-bought", {
-          propertyId: property._id,
-          transactionId: confirmPayment.paymentIntent.id,
-        });
+        const {data} = await axios.post("http://localhost:3000/payments", contactRequest);
+
+        if (data.insertedId) {
+          console.log("Payment completed successfully");
+
+          Swal.fire({
+            title: "Payment Successful",
+            text: "Your payment has been successfully processed.",
+            icon: "success",
+            showCancelButton: false,
+            confirmButtonText: "Ok",
+          });
+          navigate("/");
+          return toast.success("Payment completed successfully.");
+        } else {
+          setErrorMessage("Payment not completed. Please try again.");
+        }
+      } else {
+        setErrorMessage("Payment not completed. Please try again.");
       }
     } catch (error) {
-      toast.error("Payment failed");
+      setErrorMessage("An error occurred while processing your payment.");
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <CardElement className="border p-4 rounded mb-4" />
+    <form onSubmit={handleSubmit} className="space-y-4">
+      <PaymentElement />
       <button
         type="submit"
-        className="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600"
-        disabled={!stripe}
+        className="btn btn-primary w-full mt-4"
+        disabled={!stripe || !elements || loading}
       >
-        Pay ${property.offerAmount}
+        {loading ? "Processing..." : "Pay Now"}
       </button>
+      {errorMessage && <div className="text-red-500 mt-2">{errorMessage}</div>}
+      {transactionId && <div className="text-green-500 mt-2">Transaction ID: {transactionId}</div>}
     </form>
   );
 };

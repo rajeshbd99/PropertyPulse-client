@@ -1,22 +1,39 @@
-import { useLocation } from "react-router-dom";
-import { loadStripe } from "@stripe/stripe-js";
-import { Elements } from "@stripe/react-stripe-js";
-import CheckoutForm from "./CheckoutForm";
+import CheckoutForm from './CheckoutForm';
+import { loadStripe } from '@stripe/stripe-js';
+import { Elements } from '@stripe/react-stripe-js';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import { useLocation } from 'react-router-dom';
 
-const stripePromise = loadStripe("your-stripe-public-key-here");
+const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY);
 
 const PaymentPage = () => {
-  const location = useLocation();
-  const property = location.state.property;
+  const {state} = useLocation();
+  const [clientSecret, setClientSecret] = useState(null);
+  const totalPrice = state.property.offerAmount;
+
+  useEffect(() => {
+    if (totalPrice > 0) {
+      const roundedPrice = Math.round(totalPrice * 100); // Convert to cents and round to nearest integer
+      axios.post("http://localhost:3000/create-payment-intent", { price: roundedPrice })
+        .then((res) => setClientSecret(res.data.clientSecret))
+        .catch(() => console.error("Failed to fetch payment intent"));
+    }
+  }, [axios, totalPrice]);
+
+  const appearance = { theme: 'stripe' };
+  const options = { clientSecret, appearance };
 
   return (
-    <div className="p-6">
-      <h2 className="text-2xl font-bold mb-4">Payment for {property.propertyTitle}</h2>
-      <p className="text-gray-700 mb-4">Offered Amount: ${property.offerAmount}</p>
-      <div className="bg-white shadow-md rounded-lg p-6">
-        <Elements stripe={stripePromise}>
-          <CheckoutForm property={property} />
-        </Elements>
+    <div>
+      <div className="max-w-3xl mx-auto">
+        {clientSecret ? (
+          <Elements stripe={stripePromise} options={options}>
+            <CheckoutForm property = {state.property} />
+          </Elements>
+        ) : (
+          <p>Loading payment details...</p>
+        )}
       </div>
     </div>
   );
