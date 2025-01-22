@@ -47,19 +47,19 @@ const CheckoutForm = ({ property }) => {
         setTransactionId(paymentIntent.id);
 
         const contactRequest = {
+          propertyId: property._id,
           propertyTitle: property.propertyTitle,
           location: property.location,
           buyerName : property.buyerName,
           buyerEmail : property.buyerEmail,
+          agentEmail: property.agentEmail,
           transactionId: paymentIntent.id,
-          amount: paymentIntent.amount/1000,
+          amount: paymentIntent.amount/100,
           date: format(new Date(), "dd-MM-yyyy"),
-          status : 'Pending',
         };
-
         const {data} = await axios.post("http://localhost:3000/payments", contactRequest);
 
-        if (data.insertedId) {
+        if (data.acknowledged) {
           console.log("Payment completed successfully");
 
           Swal.fire({
@@ -69,7 +69,7 @@ const CheckoutForm = ({ property }) => {
             showCancelButton: false,
             confirmButtonText: "Ok",
           });
-          navigate("/");
+          navigate("/dashboard/property-bought");
           return toast.success("Payment completed successfully.");
         } else {
           setErrorMessage("Payment not completed. Please try again.");

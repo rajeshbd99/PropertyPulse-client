@@ -40,12 +40,12 @@ const PropertyBought = () => {
               <p className={`text-lg font-bold mt-2 ${property.offerStatus === "Pending" ? "text-yellow-500" : property.offerStatus === "accepted" ? "text-green-500" : "text-blue-500"}`}>
                 <span className="text-gray-700">Status:</span> {property.offerStatus}
               </p>
-              {property.offerStatus === "accepted" && !property.transactionId && (
+              {property.offerStatus === "accepted" && (
                 <button
                   onClick={() => handlePay(property)}
-                  className="mt-4 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
+                  className={`mt-4 text-white py-2 px-4 rounded ${property.buyingStatus==='bought'?'bg-gray-600':'bg-blue-600'}`} disabled={property.buyingStatus === "bought" }
                 >
-                  Pay
+                  {property?.buyingStatus === "bought" ? "Bought" : "Pay"}
                 </button>
               )}
               {property.transactionId && (

@@ -1,22 +1,18 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { useQuery } from "@tanstack/react-query";
 
 const ManageReviews = () => {
   const [reviews, setReviews] = useState([]);
 
-  // Fetch all reviews
-  useEffect(() => {
-    const fetchReviews = async () => {
-      try {
-        const response = await axios.get("http://localhost:3000/reviews");
-        setReviews(response.data);
-      } catch (error) {
-        toast.error("Failed to load reviews");
-      }
-    };
-    fetchReviews();
-  }, []);
+  const { data: reviewManage, isLoading, refetch } = useQuery({
+    queryKey: ["reviewManage"],
+    queryFn: async () => {
+      const { data } = await axios.get(`http://localhost:3000/reviews`);
+      return data;
+    },
+  })
 
   // Handle delete review
   const handleDeleteReview = async (reviewId, userId) => {
@@ -32,11 +28,12 @@ const ManageReviews = () => {
       toast.error("Failed to delete review");
     }
   };
+  isLoading && <p>Loading...</p>;
 
   return (
     <div className="p-6">
       <h2 className="text-2xl font-bold mb-4">Manage Reviews</h2>
-      {reviews.length > 0 ? (
+      {reviewManage?.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {reviews.map((review) => (
             <div
