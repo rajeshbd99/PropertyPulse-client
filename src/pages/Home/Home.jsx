@@ -2,6 +2,13 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import React from 'react';
 import { Link } from 'react-router-dom';
+import man2 from '../../assets/man2.jpg';
+import women2 from '../../assets/women2.jpg';
+import women3 from '../../assets/women3.png';
+import location1 from '../../assets/Location1.jpg';
+import location2 from '../../assets/Location2.png';
+import location3 from '../../assets/Location3.jpg';
+import location4 from '../../assets/Location4.jpg';
 
 const Home = () => {
   const { data: advertiseProperties, isLoading, refetch } = useQuery({
@@ -52,10 +59,10 @@ const Home = () => {
                   {/* Verification Status */}
                   <p
                     className={`text-sm font-bold mb-2 ${property.verificationStatus === "verified"
-                        ? "text-green-500"
-                        : verificationStatus === "rejected"
-                          ? "text-red-500"
-                          : "text-gray-500"
+                      ? "text-green-500"
+                      : verificationStatus === "rejected"
+                        ? "text-red-500"
+                        : "text-gray-500"
                       }`}
                   >
                     Status: {property.verificationStatus.charAt(0).toUpperCase() + property.verificationStatus.slice(1)}
@@ -83,33 +90,67 @@ const Home = () => {
       </section>
 
       {/* Latest User Reviews */}
-      <section className="py-10">
-        <h2 className="text-3xl font-bold text-center mb-6">Latest User Reviews</h2>
+      <section className="py-10 bg-gray-100">
+        <h2 className="text-3xl font-bold text-center mb-8 text-gray-800">
+          Latest User Reviews
+        </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-4">
-          {[...Array(3)].map((_, idx) => (
-            <div
-              key={idx}
-              className="bg-white shadow-md rounded-lg overflow-hidden"
-            >
-              <div className="flex items-center p-4">
-                <img
-                  src={`https://via.placeholder.com/50?text=R${idx + 1}`}
-                  alt={`Reviewer ${idx + 1}`}
-                  className="w-12 h-12 rounded-full mr-4"
-                />
-                <div>
-                  <h3 className="text-lg font-semibold">Reviewer Name</h3>
-                  <p className="text-sm text-gray-600">Property Title</p>
-                </div>
-              </div>
-              <div className="p-4 border-t">
-                <p className="text-gray-600">
-                  This is a brief review description. The property was fantastic
-                  and met all my expectations!
-                </p>
+          {/* Review 1 */}
+          <div className="bg-white shadow-lg rounded-lg overflow-hidden transform hover:scale-105 transition-transform duration-200">
+            <div className="flex items-center p-4">
+              <img
+                src={women2}
+                className="w-20 h-20 rounded-full mr-4 border-2 border-gray-300"
+              />
+              <div>
+                <h3 className="text-lg font-semibold text-gray-800">John Doe</h3>
+                <p className="text-sm text-gray-600">Luxury Apartment in NYC</p>
               </div>
             </div>
-          ))}
+            <div className="p-4 border-t border-gray-200">
+              <p className="text-gray-700 text-sm">
+                An excellent property that truly exceeded my expectations!
+              </p>
+            </div>
+          </div>
+
+          {/* Review 2 */}
+          <div className="bg-white shadow-lg rounded-lg overflow-hidden transform hover:scale-105 transition-transform duration-200">
+            <div className="flex items-center p-4">
+              <img
+                src={man2}
+                className="w-20 h-20 rounded-full mr-4 border-2 border-gray-300"
+              />
+              <div>
+                <h3 className="text-lg font-semibold text-gray-800">Jane Smith</h3>
+                <p className="text-sm text-gray-600">Cozy Cottage in Asheville</p>
+              </div>
+            </div>
+            <div className="p-4 border-t border-gray-200">
+              <p className="text-gray-700 text-sm">
+                The location was beautiful, and I loved the interiors.
+              </p>
+            </div>
+          </div>
+
+          {/* Review 3 */}
+          <div className="bg-white shadow-lg rounded-lg overflow-hidden transform hover:scale-105 transition-transform duration-200">
+            <div className="flex items-center p-4">
+              <img
+                src={women3}
+                className="w-20 h-20 rounded-full mr-4 border-2 border-gray-300"
+              />
+              <div>
+                <h3 className="text-lg font-semibold text-gray-800">Emily Clark</h3>
+                <p className="text-sm text-gray-600">Modern Villa in LA</p>
+              </div>
+            </div>
+            <div className="p-4 border-t border-gray-200">
+              <p className="text-gray-700 text-sm">
+                Perfect for a relaxing stay! The villa was spacious and luxurious.
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -149,30 +190,94 @@ const Home = () => {
       </section>
 
       {/* Popular Locations Section */}
-      <section className="py-10">
-        <h2 className="text-3xl font-bold text-center mb-6">Popular Locations</h2>
+      <section className="py-10 bg-gray-100">
+        <h2 className="text-3xl font-bold text-center mb-8 text-gray-800">
+          Popular Locations
+        </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 px-4">
-          {[...Array(4)].map((_, idx) => (
-            <div key={idx} className="bg-white shadow-md rounded-lg overflow-hidden">
-              <img
-                src={`https://via.placeholder.com/300x200?text=Location+${idx + 1}`}
-                alt={`Location ${idx + 1}`}
-                className="w-full h-40 object-cover"
-              />
-              <div className="p-4">
-                <h3 className="text-lg font-semibold">Location Name</h3>
-                <p className="mt-2 text-gray-600">
-                  Discover the best properties in this popular location.
-                </p>
-                <Link
-                  to={`/location/${idx + 1}`}
-                  className="mt-4 inline-block bg-blue-500 text-white px-4 py-2 rounded-lg"
-                >
-                  Explore
-                </Link>
-              </div>
+          {/* Location 1 */}
+          <div className="bg-white shadow-lg rounded-lg overflow-hidden transform hover:scale-105 transition-transform duration-200">
+            <img
+              src={location1}
+              alt="New York City"
+              className="w-full h-40 object-cover"
+            />
+            <div className="p-4">
+              <h3 className="text-lg font-semibold text-gray-800">New York City</h3>
+              <p className="mt-2 text-gray-600">
+                Discover luxurious apartments and condos in the heart of NYC.
+              </p>
+              <Link
+                to="/"
+                className="mt-4 inline-block bg-blue-500 text-white px-4 py-2 rounded-lg"
+              >
+                Explore
+              </Link>
             </div>
-          ))}
+          </div>
+
+          {/* Location 2 */}
+          <div className="bg-white shadow-lg rounded-lg overflow-hidden transform hover:scale-105 transition-transform duration-200">
+            <img
+              src={location2}
+              alt="Los Angeles"
+              className="w-full h-40 object-cover"
+            />
+            <div className="p-4">
+              <h3 className="text-lg font-semibold text-gray-800">Los Angeles</h3>
+              <p className="mt-2 text-gray-600">
+                Experience modern villas and luxury homes in sunny LA.
+              </p>
+              <Link
+                to="/"
+                className="mt-4 inline-block bg-blue-500 text-white px-4 py-2 rounded-lg"
+              >
+                Explore
+              </Link>
+            </div>
+          </div>
+
+          {/* Location 3 */}
+          <div className="bg-white shadow-lg rounded-lg overflow-hidden transform hover:scale-105 transition-transform duration-200">
+            <img
+              src={location3}
+              alt="Chicago"
+              className="w-full h-40 object-cover"
+            />
+            <div className="p-4">
+              <h3 className="text-lg font-semibold text-gray-800">Chicago</h3>
+              <p className="mt-2 text-gray-600">
+                Find cozy apartments and family homes in the Windy City.
+              </p>
+              <Link
+                to="/"
+                className="mt-4 inline-block bg-blue-500 text-white px-4 py-2 rounded-lg"
+              >
+                Explore
+              </Link>
+            </div>
+          </div>
+
+          {/* Location 4 */}
+          <div className="bg-white shadow-lg rounded-lg overflow-hidden transform hover:scale-105 transition-transform duration-200">
+            <img
+              src={location4}
+              alt="Miami"
+              className="w-full h-40 object-cover"
+            />
+            <div className="p-4">
+              <h3 className="text-lg font-semibold text-gray-800">Miami</h3>
+              <p className="mt-2 text-gray-600">
+                Explore beachside properties and waterfront homes in Miami.
+              </p>
+              <Link
+                to="/"
+                className="mt-4 inline-block bg-blue-500 text-white px-4 py-2 rounded-lg"
+              >
+                Explore
+              </Link>
+            </div>
+          </div>
         </div>
       </section>
     </div>

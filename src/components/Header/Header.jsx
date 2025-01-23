@@ -1,6 +1,7 @@
 import { useContext } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../providers/AuthProvider';
+import logo from '../../assets/logo.jpg'
 
 const Header = () => {
   const { user, logoutUser } = useContext(AuthContext);
@@ -79,7 +80,7 @@ const Header = () => {
         {/* Logo and Website Name */}
         <NavLink to="/" className="text-xl font-bold flex items-center">
           <img
-            src="/logo.png"
+            src={logo}
             alt="PropertyPulse Logo"
             className="w-8 h-8 mr-2"
           />

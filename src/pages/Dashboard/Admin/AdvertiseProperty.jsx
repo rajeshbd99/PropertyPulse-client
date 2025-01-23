@@ -7,7 +7,7 @@ const AdvertiseProperty = () => {
   const { data: properties, isLoading, refetch } = useQuery({
     queryKey: ["properties"],
     queryFn: async () => {
-      const { data } = await axios.get(`http://localhost:3000/properties`);
+      const { data } = await axios.get(`http://localhost:3000/properties`,{withCredentials:true});
       return data;
     },
   })

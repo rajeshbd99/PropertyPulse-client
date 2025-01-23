@@ -12,7 +12,7 @@ const PropertyBought = () => {
   const { data: properties, isLoading, refetch } = useQuery({
     queryKey: ["properties"],
     queryFn: async () => {
-      const { data } = await axios.get(`http://localhost:3000/offers/user/${user.email}`);
+      const { data } = await axios.get(`http://localhost:3000/offers/user/${user.email} ` , { withCredentials: true });
       return data;
     },
   });

@@ -32,14 +32,11 @@ const RequestedProperties = () => {
   // Handle reject offer
   const handleReject = async (offerId) => {
     try {
-      await axios.post(`http://localhost:3000/offers/reject/${offerId}`);
-      toast.success("Offer rejected successfully");
-      // Update local state
-      setOffers((prevOffers) =>
-        prevOffers.map((offer) =>
-          offer._id === offerId ? { ...offer, status: "rejected" } : offer
-        )
-      );
+    const {data} =  await axios.patch(`http://localhost:3000/offers/reject/${offerId}`);
+    if (data.modifiedCount === 1) {
+      refetch();
+      return toast.success("Offer rejected successfully");
+    }
     } catch (error) {
       toast.error("Failed to reject the offer");
     }

@@ -1,12 +1,16 @@
 import { createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut } from 'firebase/auth';
 import { createContext, useEffect, useState } from 'react'
 import auth from '../firebase/firebase.init';
+import axios from 'axios';
+import { toast } from 'react-toastify';
 
 
 export const AuthContext = createContext(null);
 const googleProvider = new GoogleAuthProvider();
 
 const AuthProvider = ({ children }) => {
+
+
 
     const [user, setUser] = useState(null)
     const [loading, setLoading] = useState(true);
@@ -27,6 +31,15 @@ const AuthProvider = ({ children }) => {
                 console.log('User logged in:', currentUser);
                 setUser(currentUser);
                 setLoading(false);
+                 axios.post('http://localhost:3000/jwt-auth',user, {
+              withCredentials: true,
+            })
+            .then((response) => {})
+            .catch((error) => {
+              toast.success("user authenticated failed!");
+
+              // console.log(error);
+            });
             } else {
                 console.log('No user logged in');
                 setLoading(false);
@@ -40,10 +53,33 @@ const AuthProvider = ({ children }) => {
         }
     }, [user])
 
-    const logoutUser = () => {
+    const logoutUser = async () => {
         setLoading(true);
-        return signOut(auth)
-    }
+        try {
+          // Send a logout request to the server
+          await axios.post('http://localhost:3000/logout', {}, { withCredentials: true });
+    
+          // Clear all accessible cookies on the client side
+          document.cookie.split(";").forEach((cookie) => {
+            const eqPos = cookie.indexOf("=");
+            const name =
+              eqPos > -1 ? cookie.substr(0, eqPos).trim() : cookie.trim();
+            document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/";
+          });
+    
+          toast.success("Logged out successfully!", {
+            position: "top-center",
+            autoClose: 3000,
+          });
+    
+          // Clear authentication state
+          await signOut(auth);
+        } catch (error) {
+          alert("An error occurred during logout.");
+        } finally {
+          setLoading(false);
+        }
+    };
 
     const googleSignIn = () => {
         setLoading(true);

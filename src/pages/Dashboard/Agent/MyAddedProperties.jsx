@@ -55,7 +55,7 @@ const MyAddedProperties = () => {
             <p className="text-gray-600">Location: {property.location}</p>
             <p className="text-gray-600">Agent: {property.agentName}</p>
             <p className="text-gray-600">Price Range: {property.priceRange}</p>
-            <p className={`font-semibold mt-2 ${property.status === "verified" ? "text-green-600" : property.status === "rejected" ? "text-red-600" : "text-yellow-600"}`}>
+            <p className={`font-semibold mt-2 ${property.verificationStatus === "verified" ? "text-green-600" : property.verificationStatus === "rejected" ? "text-red-600" : "text-yellow-600"}`}>
               <span className="text-black font-semibold">Status</span>: {property.verificationStatus}
             </p>
 

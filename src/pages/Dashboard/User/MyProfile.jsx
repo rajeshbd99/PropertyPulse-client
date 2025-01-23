@@ -4,15 +4,6 @@ import { AuthContext } from "../../../providers/AuthProvider";
 const MyProfile = () => {
   const { user } = useContext(AuthContext);
 
-//   const handleMakeAdmin = (id) => {
-//     axiosSecure.patch(/user/make-admin/${id}).then((res) => {
-//       setLoading(false);
-//       if (res.status === 200) {
-//         toast.success("Admin made successfully!");
-//         refetch();
-//       }
-//     });
-//   };
 console.log(user);
   return (
     <div className="bg-white shadow p-6 rounded">
@@ -27,10 +18,6 @@ console.log(user);
               className="w-24 h-24 rounded-full border-2 border-gray-300"
             />
           )}
-
-          
-
-
 
           {/* User Details */}
           <div>

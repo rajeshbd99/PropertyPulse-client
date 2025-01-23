@@ -1,23 +1,32 @@
 import { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../providers/AuthProvider';
+import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
 
 const AllProperties = () => {
-  const [properties, setProperties] = useState([]);
   const [searchQuery, setSearchQuery] = useState(''); // State for search query
   const [sortOrder, setSortOrder] = useState(''); // State for sorting
   const { user } = useContext(AuthContext);
 
+  const { data: properties=[], isLoading, refetch } = useQuery({
+    queryKey: ["properties"],
+    queryFn: async () => {
+      const { data } = await axios.get(`http://localhost:3000/properties`,{withCredentials:true});
+      return data;
+    },
+  })
+
   // Fetch properties from the server
-  useEffect(() => {
-    fetch('http://localhost:3000/properties')
-      .then((res) => res.json())
-      .then((data) => setProperties(data))
-      .catch((error) => console.error('Error fetching properties:', error));
-  }, []);
+  // useEffect(() => {
+  //   fetch('http://localhost:3000/properties')
+  //     .then((res) => res.json())
+  //     .then((data) => setProperties(data))
+  //     .catch((error) => console.error('Error fetching properties:', error));
+  // }, []);
 
   // Filter properties based on the search query
-  const filteredProperties = properties.filter((property) =>
+  const filteredProperties = properties?.filter((property) =>
     property.location.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
@@ -34,6 +43,7 @@ const AllProperties = () => {
     }
     return 0; // Default order (no sorting)
   });
+  isLoading && <p>Loading...</p>;
 
   return (
     <div className="container mx-auto p-4">
@@ -62,8 +72,8 @@ const AllProperties = () => {
       </div>
 
       {/* Properties List */}
-      {sortedProperties.length > 0 ? (
-        sortedProperties.map((property) => (
+      {sortedProperties?.length > 0 ? (
+        sortedProperties?.map((property) => (
           <div key={property._id} className="max-w-sm bg-white shadow-md rounded-lg overflow-hidden mb-4">
             {/* Property Image */}
             <img src={property.image} className="w-full h-48 object-cover" alt={property.propertyTitle} />

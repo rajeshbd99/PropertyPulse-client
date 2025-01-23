@@ -8,7 +8,6 @@ import { toast } from "react-toastify";
 const MakeOffer = () => {
 
   const { state: property } = useLocation();
-  console.log(property);
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
 
@@ -19,10 +18,11 @@ const MakeOffer = () => {
   const handleOffer = async () => {
     setError("");
     setSuccess("");
+    console.log("Offer amount:", offerAmount);
 
     if (
-      offerAmount < property.priceRange.split("-")[0] ||
-      offerAmount > property.priceRange.split("-")[1]
+      parseInt(offerAmount) < property.priceRange.split("-")[0] ||
+      parseInt(offerAmount) > property.priceRange.split("-")[1]
     ) {
       setError(`Offer must be between $${property.priceRange.split("-")[0]} and $${property.priceRange.split("-")[1]}.`);
       return;
