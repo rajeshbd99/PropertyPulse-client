@@ -1,11 +1,12 @@
 import { useState, useRef, useContext } from 'react';
 import { AuthContext } from '../../providers/AuthProvider';
 import { FaGoogle } from "react-icons/fa";
-import { data, useNavigate } from 'react-router-dom';
+import { data, useLocation, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 
 const Login = () => {
+    const location = useLocation();
     const navigate = useNavigate();
     const { user, loginUser, googleSignIn } = useContext(AuthContext);
     const [formData, setFormData] = useState({ email: '', password: '' });
@@ -20,10 +21,16 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await loginUser(formData.email, formData.password);
-            setFormData({ email: '', password: '' }); // Reset form data
-            emailRef.current.value = '';
-            passwordRef.current.value = '';
+            await loginUser(formData.email, formData.password).then((result) => {
+                if(result?.user){
+                    toast.success('User logged in successfully');
+                    setFormData({ email: '', password: '' }); // Reset form data
+                    emailRef.current.value = '';
+                    passwordRef.current.value = '';
+                    navigate(location?.state ? location.state : '/');
+                }
+            });
+           
         } catch (error) {
             console.error('Error logging in:', error.message);
         }
@@ -41,7 +48,7 @@ const Login = () => {
             console.log(result);
             if(data?.acknowledged){
                 toast.success('User profile updated successfully');
-                navigate('/');
+                navigate(location?.state ? location.state : '/');
             }
             });
         } catch (error) {

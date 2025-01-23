@@ -77,6 +77,7 @@ const PropertyDetails = () => {
         email: user.email,
         formattedDate: format(new Date(), 'dd-MM-yyyy'),
         reviewerName: user.displayName,
+        reviewerPhoto: user.photoURL,
       });
       if (data.insertedId) {
         refetch();
