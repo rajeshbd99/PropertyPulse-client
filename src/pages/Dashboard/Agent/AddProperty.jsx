@@ -4,7 +4,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 
 const AddProperty = () => {
-    
+
     const [loading, setLoading] = useState(false);
 
     const { user } = useContext(AuthContext);
@@ -16,7 +16,7 @@ const AddProperty = () => {
         verificationStatus: "pending",
         agentName: user.displayName,
         agentEmail: user.email,
-        agentPhoto:user.photoURL
+        agentPhoto: user.photoURL
     });
 
     const handleChange = (e) => {
@@ -45,7 +45,7 @@ const AddProperty = () => {
                 propertyData.image = imageData.data.data.display_url;
 
                 console.log(propertyData);
-                const { data } = await axios.post("http://localhost:3000/properties/add", propertyData);
+                const { data } = await axios.post("http://localhost:3000/properties/add", propertyData, { withCredentials: true });
                 if (data.insertedId) {
                     setLoading(false);
                     toast.success("Property added successfully!");
@@ -56,10 +56,7 @@ const AddProperty = () => {
                         priceRange: "",
                     });
                 }
-
             }
-
-
         } catch (error) {
             toast.error("Failed to add property. Please try again.", error);
             setLoading(false);
@@ -82,7 +79,7 @@ const AddProperty = () => {
                         className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                     />
                 </div>
-
+                
                 {/* Property Location */}
                 <div>
                     <label className="block text-sm font-medium text-gray-700">Property Location</label>
@@ -112,7 +109,7 @@ const AddProperty = () => {
                 <div>
                     <label className="block text-sm font-medium text-gray-700">Agent Name</label>
                     <input
-                    name="agentName"
+                        name="agentName"
                         type="text"
                         value={user.displayName}
                         readOnly
@@ -124,7 +121,7 @@ const AddProperty = () => {
                 <div>
                     <label className="block text-sm font-medium text-gray-700">Agent Email</label>
                     <input
-                    name="agentEmail"
+                        name="agentEmail"
                         type="email"
                         value={user.email}
                         readOnly

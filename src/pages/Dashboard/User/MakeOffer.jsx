@@ -48,7 +48,7 @@ const MakeOffer = () => {
     };
 
     try {
-    const {data} = await axios.post(`http://localhost:3000/make-offer/${property._id}`, offerDetails);
+    const {data} = await axios.post(`http://localhost:3000/make-offer/${property._id}`, offerDetails, {withCredentials:true});
     if(data.insertedId){
       navigate("/dashboard/property-bought");
       return toast.success("Offer made successfully!");

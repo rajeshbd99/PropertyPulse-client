@@ -10,7 +10,7 @@ const ManageUsers = () => {
   const { data: users, isLoading, refetch } = useQuery({
     queryKey: ["users"],
     queryFn: async () => {
-      const { data } = await axios.get(`http://localhost:3000/users`);
+      const { data } = await axios.get(`http://localhost:3000/users`, { withCredentials: true });
       return data;
     },
   })
@@ -18,7 +18,7 @@ const ManageUsers = () => {
   // Make Admin
   const handleMakeAdmin = async (userId) => {
     try {
-     const {data}= await axios.put(`http://localhost:3000/users/make-admin/${userId}`);
+     const {data}= await axios.put(`http://localhost:3000/users/make-admin/${userId}`, { withCredentials: true });
      if(data.modifiedCount==1 || data.upsertedCount==1){
       refetch();
      return toast.success("User promoted to Admin");
@@ -31,7 +31,7 @@ const ManageUsers = () => {
   // Make Agent
   const handleMakeAgent = async (userId) => {
     try {
-    const {data} =  await axios.put(`http://localhost:3000/users/make-agent/${userId}`);
+    const {data} =  await axios.put(`http://localhost:3000/users/make-agent/${userId}`, { withCredentials: true });
     if(data.modifiedCount==1 || data.upsertedCount==1){
       refetch();
      return toast.success("User promoted to Agent");
@@ -45,19 +45,14 @@ const ManageUsers = () => {
   // Mark as Fraud
   const handleMarkAsFraud = async (userId, email) => {
     try {
-      const { data } = await axios.put(`http://localhost:3000/users/mark-fraud/${userId}`);
+      const { data } = await axios.put(`http://localhost:3000/users/mark-fraud/${userId}`, { withCredentials: true });
       if (data.modifiedCount == 1) {
         const { data: deleteProperties } = await axios.delete(`http://localhost:3000/properties/agent/${email}`);
         if (deleteProperties.deletedCount > 0) {
-          // toast.success("Agent's properties deleted successfully");
           toast.success("Agent marked as Fraud");
           refetch();
-
         }
-
       }
-      // Optionally remove the agent's properties
-
     } catch (error) {
       toast.error("Failed to mark agent as Fraud");
     }
@@ -66,7 +61,7 @@ const ManageUsers = () => {
   // Delete User
   const handleDeleteUser = async (uid) => {
     try {
-    const {data} =  await axios.delete(`http://localhost:3000/users/${uid}`);
+    const {data} =  await axios.delete(`http://localhost:3000/users/${uid}`, { withCredentials: true });
     if(data.deletedCount==1){
       refetch();
       return toast.success("User deleted successfully");

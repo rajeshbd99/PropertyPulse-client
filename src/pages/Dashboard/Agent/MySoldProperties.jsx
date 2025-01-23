@@ -10,7 +10,7 @@ const MySoldProperties = () => {
   const { data: propertiesSold, isLoading, refetch } = useQuery({
     queryKey: ["propertiesSold"],
     queryFn: async () => {
-      const { data } = await axios.get(`http://localhost:3000/sold-properties/agent/${user.email}`);
+      const { data } = await axios.get(`http://localhost:3000/sold-properties/agent/${user.email}`, { withCredentials: true });
       return data;
     },
   });
@@ -22,7 +22,6 @@ const MySoldProperties = () => {
     });
     return total;
   };
-
   isLoading && <p>Loading...</p>
 
   return (

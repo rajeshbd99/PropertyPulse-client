@@ -9,7 +9,7 @@ const ManageReviews = () => {
   const { data: reviewManage, isLoading, refetch } = useQuery({
     queryKey: ["reviewManage"],
     queryFn: async () => {
-      const { data } = await axios.get(`http://localhost:3000/reviews`);
+      const { data } = await axios.get(`http://localhost:3000/reviews`, {withCredentials:true});
       return data;
     },
   })
@@ -18,7 +18,7 @@ const ManageReviews = () => {
   const handleDeleteReview = async (reviewId, email) => {
     console.log(email);
     try {
-     const {data}= await axios.delete(`http://localhost:3000/admin/reviews/${reviewId}`,{data:{email:email}});
+     const {data}= await axios.delete(`http://localhost:3000/admin/reviews/${reviewId}`,{data:{email:email}}, {withCredentials:true});
       if(data?.deletedCount==1){
         toast.success("Review deleted successfully");
         refetch();

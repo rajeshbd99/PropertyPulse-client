@@ -8,7 +8,7 @@ const Dashboard = () => {
     <div className="min-h-screen flex bg-gray-50">
       {/* Sidebar */}
       {
-        role==='user' && <nav className="bg-white shadow w-64 p-4 fixed h-full">
+        role==='user' && <nav className="bg-white shadow w-64 p-4 h-full">
         <h1 className="text-xl font-bold mb-6 text-blue-600">User Dashboard</h1>
         <ul className="space-y-4">
           <li>
@@ -63,7 +63,7 @@ const Dashboard = () => {
       </nav>
       }
       {
-        role==='admin' && <nav className="bg-white shadow w-64 p-4 fixed h-full">
+        role==='admin' && <nav className="bg-white shadow w-64 p-4 h-full">
         <h1 className="text-xl font-bold mb-6 text-blue-600"> Admin Dashboard</h1>
         <ul className="space-y-4">
           <li>
@@ -130,7 +130,7 @@ const Dashboard = () => {
       </nav>
       }
 {
-        role==='agent' && <nav className="bg-white shadow w-64 p-4 fixed h-full">
+        role==='agent' && <nav className="bg-white shadow w-64 p-4 h-full">
         <h1 className="text-xl font-bold mb-6 text-blue-600">Agent Dashboard</h1>
         <ul className="space-y-4">
           <li>
@@ -197,7 +197,7 @@ const Dashboard = () => {
       </nav>
       }
       {/* Main Content */}
-      <main className="flex-1 ml-64 p-6">
+      <main className="flex-1 p-6">
         <Outlet />
       </main>
     </div>

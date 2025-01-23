@@ -5,8 +5,8 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 
 const AllProperties = () => {
-  const [searchQuery, setSearchQuery] = useState(''); // State for search query
-  const [sortOrder, setSortOrder] = useState(''); // State for sorting
+  const [searchQuery, setSearchQuery] = useState('');
+  const [sortOrder, setSortOrder] = useState(''); 
   const { user } = useContext(AuthContext);
 
   const { data: properties=[], isLoading, refetch } = useQuery({
@@ -17,14 +17,6 @@ const AllProperties = () => {
     },
   })
 
-  // Fetch properties from the server
-  // useEffect(() => {
-  //   fetch('http://localhost:3000/properties')
-  //     .then((res) => res.json())
-  //     .then((data) => setProperties(data))
-  //     .catch((error) => console.error('Error fetching properties:', error));
-  // }, []);
-
   // Filter properties based on the search query
   const filteredProperties = properties?.filter((property) =>
     property.location.toLowerCase().includes(searchQuery.toLowerCase())
@@ -32,16 +24,16 @@ const AllProperties = () => {
 
   // Sort properties based on price range (extracting the lower bound of the range)
   const sortedProperties = [...filteredProperties].sort((a, b) => {
-    const priceA = parseInt(a.priceRange.split('-')[0]); // Extract lower bound as a number
-    const priceB = parseInt(b.priceRange.split('-')[0]); // Extract lower bound as a number
+    const priceA = parseInt(a.priceRange.split('-')[0]); 
+    const priceB = parseInt(b.priceRange.split('-')[0]); 
 
     if (sortOrder === 'lowToHigh') {
-      return priceA - priceB; // Ascending order
+      return priceA - priceB; 
     }
     if (sortOrder === 'highToLow') {
-      return priceB - priceA; // Descending order
+      return priceB - priceA; 
     }
-    return 0; // Default order (no sorting)
+    return 0; 
   });
   isLoading && <p>Loading...</p>;
 

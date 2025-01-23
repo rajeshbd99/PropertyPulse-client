@@ -11,18 +11,17 @@ const MyReviews = () => {
   const { data: myreviews, isLoading, refetch } = useQuery({
     queryKey: ["myreviews"],
     queryFn: async () => {
-      const { data } = await axios.get(`http://localhost:3000/reviews/user/${user.email}`);
+      const { data } = await axios.get(`http://localhost:3000/reviews/user/${user.email}`, {withCredentials:true});
       return data;
     },
   })
 
-  // Handle delete review
   const handleDelete = async (reviewId) => {
     const confirm = window.confirm("Are you sure you want to delete this review?");
     if (!confirm) return;
 
     try {
-     const {data}= await axios.delete(`http://localhost:3000/reviews/${reviewId}`);
+     const {data}= await axios.delete(`http://localhost:3000/reviews/${reviewId}`, {withCredentials:true});
      if(data.deletedCount==1){
         refetch();
         return toast.success("Review deleted successfully");

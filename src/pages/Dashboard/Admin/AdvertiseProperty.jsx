@@ -7,7 +7,7 @@ const AdvertiseProperty = () => {
   const { data: properties, isLoading, refetch } = useQuery({
     queryKey: ["properties"],
     queryFn: async () => {
-      const { data } = await axios.get(`http://localhost:3000/properties`,{withCredentials:true});
+      const { data } = await axios.get(`http://localhost:3000/properties`, { withCredentials: true });
       return data;
     },
   })
@@ -15,10 +15,10 @@ const AdvertiseProperty = () => {
   // Handle advertise property
   const handleAdvertise = async (propertyId) => {
     try {
-      const {data}=await axios.put(`http://localhost:3000/properties/advertise/${propertyId}`);
-      if(data.modifiedCount==1){
+      const { data } = await axios.put(`http://localhost:3000/properties/advertise/${propertyId}`, { withCredentials: true });
+      if (data.modifiedCount == 1) {
         refetch();
-     return toast.success("Property advertised successfully!");
+        return toast.success("Property advertised successfully!");
       }
       // Optionally refresh data or update UI
     } catch (error) {
@@ -53,9 +53,9 @@ const AdvertiseProperty = () => {
                 <td className="py-2 px-4">
                   <button
                     onClick={() => handleAdvertise(property._id)}
-                    className={` text-white py-2 px-4 rounded hover:bg-blue-600 ${property.advertise==true?'bg-slate-500 hover:bg-slate-500':"bg-blue-500"}`}disabled={property.advertise?true:false}
+                    className={` text-white py-2 px-4 rounded hover:bg-blue-600 ${property.advertise == true ? 'bg-slate-500 hover:bg-slate-500' : "bg-blue-500"}`} disabled={property.advertise ? true : false}
                   >
-                    {property.advertise===true ? "Advertised" : "Advertise"}
+                    {property.advertise === true ? "Advertised" : "Advertise"}
                   </button>
                 </td>
               </tr>

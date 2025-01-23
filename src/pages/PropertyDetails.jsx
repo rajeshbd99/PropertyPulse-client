@@ -13,7 +13,7 @@ const PropertyDetails = () => {
   const { user } = useContext(AuthContext);
 
   const [property, setProperty] = useState(null);
-  const [reviews, setReviews] = useState([]); // Initialize as an empty array
+  const [reviews, setReviews] = useState([]);
   const [newReview, setNewReview] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
   console.log(isModalOpen);
@@ -29,7 +29,7 @@ const PropertyDetails = () => {
   useEffect(() => {
     const fetchProperty = async () => {
       try {
-        const { data } = await axios.get(`http://localhost:3000/property/${id}`);
+        const { data } = await axios.get(`http://localhost:3000/property/${id}` , { withCredentials: true });
         setProperty(data);
       } catch (error) {
         console.error('Error fetching property details:', error.message);
@@ -41,7 +41,7 @@ const PropertyDetails = () => {
   const { data: reviewsCollection, isLoading, refetch } = useQuery({
     queryKey: ["reviewsCollection", id],
     queryFn: async () => {
-      const { data } = await axios.get(`http://localhost:3000/property/reviews/${id}`);
+      const { data } = await axios.get(`http://localhost:3000/property/reviews/${id}`, { withCredentials: true });
       return data;
     },
   })
@@ -60,7 +60,7 @@ const PropertyDetails = () => {
         location: property.location,
         propertyImage: property.image,
 
-      });
+      }, { withCredentials: true });
       toast.success('Property added to wishlist!');
     } catch (error) {
       console.error('Error adding to wishlist:', error.message);
@@ -78,14 +78,14 @@ const PropertyDetails = () => {
         formattedDate: format(new Date(), 'dd-MM-yyyy'),
         reviewerName: user.displayName,
         reviewerPhoto: user.photoURL,
-      });
+      }, { withCredentials: true });
       if (data.insertedId) {
         refetch();
-        setIsModalOpen(false); // Close the modal
+        setIsModalOpen(false);
         return toast.success('Review added successfully');
       }
     } catch (error) {
-      setIsModalOpen(false); // Close the modal
+      setIsModalOpen(false);
       console.error('Error adding review:', error.message);
       return toast.error('Failed to add review.');
     }

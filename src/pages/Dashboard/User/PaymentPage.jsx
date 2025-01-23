@@ -14,8 +14,8 @@ const PaymentPage = () => {
 
   useEffect(() => {
     if (totalPrice > 0) {
-      const roundedPrice = Math.round(totalPrice * 100); // Convert to cents and round to nearest integer
-      axios.post("http://localhost:3000/create-payment-intent", { price: roundedPrice })
+      const roundedPrice = Math.round(totalPrice * 100);
+      axios.post("http://localhost:3000/create-payment-intent", { price: roundedPrice }, { withCredentials: true })
         .then((res) => setClientSecret(res.data.clientSecret))
         .catch(() => console.error("Failed to fetch payment intent"));
     }

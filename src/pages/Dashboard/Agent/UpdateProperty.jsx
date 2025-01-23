@@ -20,7 +20,7 @@ const UpdateProperty = () => {
   useEffect(() => {
     const fetchProperty = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/properties/${id}`);
+        const response = await axios.get(`http://localhost:3000/properties/${id}`, { withCredentials: true });
         setProperty(response.data);
       } catch (error) {
         toast.error("Failed to load property details");
@@ -48,31 +48,31 @@ const UpdateProperty = () => {
     setLoading(true);
 
     try {
-        const imageData = await axios.post(`https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMAGEBB_API_KEY}`, formData, {
-            headers: {
-                "Content-Type": "multipart/form-data",
-            },
-        })
-        if (imageData.data.success) {
-            property.image = imageData.data.data.display_url;
-            console.log(property);
-            const { data } = await axios.patch(`http://localhost:3000/properties/update/${id}`, property);
-            if (data.modifiedCount==1) {
-                setLoading(false);
-                toast.success("Property Updated successfully!");
-                setProperty({
-                    propertyTitle: "",
-                    location: "",
-                    image: null,
-                    priceRange: "",
-                });
-            }
+      const imageData = await axios.post(`https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMAGEBB_API_KEY}`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      if (imageData.data.success) {
+        property.image = imageData.data.data.display_url;
+        console.log(property);
+        const { data } = await axios.patch(`http://localhost:3000/properties/update/${id}`, property, { withCredentials: true });
+        if (data.modifiedCount == 1) {
+          setLoading(false);
+          toast.success("Property Updated successfully!");
+          setProperty({
+            propertyTitle: "",
+            location: "",
+            image: null,
+            priceRange: "",
+          });
         }
+      }
     } catch (error) {
-        toast.error("Failed to update property. Please try again.", error);
-        setLoading(false);
+      toast.error("Failed to update property. Please try again.", error);
+      setLoading(false);
     }
-};
+  };
 
   return (
     <div className="p-6">
@@ -121,13 +121,13 @@ const UpdateProperty = () => {
         </div>
 
         <button
-                    type="submit"
-                    className="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                >
-                    {
-                        loading ? "loading......" : "Update Property"
-                    }
-                </button>
+          type="submit"
+          className="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+        >
+          {
+            loading ? "loading......" : "Update Property"
+          }
+        </button>
       </form>
     </div>
   );

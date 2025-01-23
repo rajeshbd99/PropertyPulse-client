@@ -9,7 +9,7 @@ const ManageProperties = () => {
   const { data: properties, isLoading, refetch } = useQuery({
     queryKey: ["properties"],
     queryFn: async () => {
-      const { data } = await axios.get(`http://localhost:3000/all-properties`);
+      const { data } = await axios.get(`http://localhost:3000/all-properties`, { withCredentials: true });
       return data;
     },
   })
@@ -17,11 +17,12 @@ const ManageProperties = () => {
   // Handle Verify Property
   const handleVerify = async (propertyId) => {
     try {
-    const {data} =  await axios.patch(`http://localhost:3000/properties/verify/${propertyId}`);
-    if(data.modifiedCount == 1){
-      refetch();
-      toast.success("Property verified successfully");
-    }} catch (error) {
+      const { data } = await axios.patch(`http://localhost:3000/properties/verify/${propertyId}`, { withCredentials: true });
+      if (data.modifiedCount == 1) {
+        refetch();
+        toast.success("Property verified successfully");
+      }
+    } catch (error) {
       toast.error("Failed to verify the property");
     }
   };
@@ -29,15 +30,16 @@ const ManageProperties = () => {
   // Handle Reject Property
   const handleReject = async (propertyId) => {
     try {
-    const {data} =  await axios.patch(`http://localhost:3000/properties/reject/${propertyId}`);
-    if(data.modifiedCount == 1){
-      refetch();
-      toast.success("Property rejected successfully");
-    }} catch (error) {
+      const { data } = await axios.patch(`http://localhost:3000/properties/reject/${propertyId}`, { withCredentials: true });
+      if (data.modifiedCount == 1) {
+        refetch();
+        toast.success("Property rejected successfully");
+      }
+    } catch (error) {
       toast.error("Failed to reject the property");
     }
   };
-  
+
   isLoading && <p>Loading...</p>
 
   return (
@@ -65,9 +67,9 @@ const ManageProperties = () => {
                 <td className="py-2 px-4">{property.agentEmail}</td>
                 <td className="py-2 px-4">${property.priceRange}</td>
                 <td className="py-2 px-4 capitalize ">
-                  {property.verificationStatus=="verified" ? <span className="text-green-600">
+                  {property.verificationStatus == "verified" ? <span className="text-green-600">
                     {property.verificationStatus}
-                  </span> : property.verificationStatus=="rejected" ? <span className="text-red-600">
+                  </span> : property.verificationStatus == "rejected" ? <span className="text-red-600">
                     {property.verificationStatus}
                   </span> : <span className="text-yellow-600">
                     {property.verificationStatus}

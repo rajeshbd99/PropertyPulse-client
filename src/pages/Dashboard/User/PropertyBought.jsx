@@ -20,6 +20,7 @@ const PropertyBought = () => {
   const handlePay = (property) => {
     navigate("/payment", { state: { property } });
   };
+  isLoading && <p>Loading...</p>;
 
   return (
     <div className="p-6">

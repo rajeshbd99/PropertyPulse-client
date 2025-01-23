@@ -12,7 +12,7 @@ const MyAddedProperties = () => {
   const {data:properties,isLoading,refetch}=useQuery({
     queryKey: ["userRole", user.email],
     queryFn: async () => {
-      const {data}= await axios.get(`http://localhost:3000/my-properties/${user.email}`);
+      const {data}= await axios.get(`http://localhost:3000/my-properties/${user.email}`, { withCredentials: true });
       return data;
     },
     enabled: !!user,
@@ -24,7 +24,7 @@ const MyAddedProperties = () => {
     if (!confirm) return;
 
     try {
-      const result = await axios.delete(`http://localhost:3000/properties/delete/${id}`);
+      const result = await axios.delete(`http://localhost:3000/properties/delete/${id}`, { withCredentials: true });
       if (result.data.deletedCount === 1) {
         refetch();
       }
