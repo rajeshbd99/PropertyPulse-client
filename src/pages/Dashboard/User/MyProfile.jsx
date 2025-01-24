@@ -10,7 +10,6 @@ const MyProfile = () => {
   }, [location]);
   const { user } = useContext(AuthContext);
 
-console.log(user);
   return (
     <div className="bg-white shadow p-6 rounded">
       <h1 className="text-2xl font-bold mb-6">My Profile</h1>

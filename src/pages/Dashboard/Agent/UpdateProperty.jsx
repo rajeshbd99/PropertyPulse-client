@@ -25,7 +25,7 @@ const UpdateProperty = () => {
   useEffect(() => {
     const fetchProperty = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/properties/${id}`, { withCredentials: true });
+        const response = await axios.get(`http://localhost:3000/property/${id}`, { withCredentials: true });
         setProperty(response.data);
       } catch (error) {
         toast.error("Failed to load property details");
@@ -60,7 +60,6 @@ const UpdateProperty = () => {
       })
       if (imageData.data.success) {
         property.image = imageData.data.data.display_url;
-        console.log(property);
         const { data } = await axios.patch(`http://localhost:3000/properties/update/${id}`, property, { withCredentials: true });
         if (data.modifiedCount == 1) {
           setLoading(false);

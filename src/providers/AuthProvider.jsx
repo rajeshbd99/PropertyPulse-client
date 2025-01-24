@@ -28,7 +28,6 @@ const AuthProvider = ({ children }) => {
     useEffect(() => {
         const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
             if (currentUser) {
-                console.log('User logged in:', currentUser);
                 setUser(currentUser);
                 setLoading(false);
                  axios.post('http://localhost:3000/jwt-auth',user, {
@@ -37,11 +36,8 @@ const AuthProvider = ({ children }) => {
             .then((response) => {})
             .catch((error) => {
               toast.success("user authenticated failed!");
-
-              // console.log(error);
             });
             } else {
-                console.log('No user logged in');
                 setLoading(false);
                 setUser(null);
             }

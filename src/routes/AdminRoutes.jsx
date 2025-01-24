@@ -6,7 +6,6 @@ import { AuthContext } from '../providers/AuthProvider';
 const AdminRoutes = ({children}) => {
     const { user, loading } = useContext(AuthContext);
     const [role, isAdminLoading] = useUserRole();
-    console.log(role)
     if (loading || isAdminLoading) {
         return <div className="w-10 h-10 border-4 border-blue-500 rounded-full animate-spin border-t-transparent"></div>
     }

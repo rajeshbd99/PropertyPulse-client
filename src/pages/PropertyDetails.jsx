@@ -21,7 +21,6 @@ const PropertyDetails = () => {
   const [reviews, setReviews] = useState([]);
   const [newReview, setNewReview] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
-  console.log(isModalOpen);
   // Redirect if not authenticated
   useEffect(() => {
     if (!user) {

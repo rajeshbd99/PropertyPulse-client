@@ -12,7 +12,6 @@ const CheckoutForm = ({ property }) => {
     const pageTitle = "PropertyPulse | Checkout";
     document.title = pageTitle;
   }, [location]);
-  console.log(property);
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
   const stripe = useStripe();
@@ -65,8 +64,6 @@ const CheckoutForm = ({ property }) => {
         const {data} = await axios.post("http://localhost:3000/payments", contactRequest, { withCredentials: true });
 
         if (data.acknowledged) {
-          console.log("Payment completed successfully");
-
           Swal.fire({
             title: "Payment Successful",
             text: "Your payment has been successfully processed.",

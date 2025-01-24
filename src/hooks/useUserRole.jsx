@@ -15,7 +15,7 @@ const useUserRole = () => {
     const {data,isLoading:isAdminLoading}=useQuery({
         queryKey: 'userRole',
         queryFn: async () => {
-            const response = await axiosSecure.get(`/user-role/${user?.email}`);
+            const response = await axiosSecure.get(`/user-role/${user?.email}`, { withCredentials: true });
             return response.data.role;
         },
         enabled: !!user,

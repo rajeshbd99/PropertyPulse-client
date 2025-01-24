@@ -22,7 +22,6 @@ const ManageReviews = () => {
 
   // Handle delete review
   const handleDeleteReview = async (reviewId, email) => {
-    console.log(email);
     try {
      const {data}= await axios.delete(`http://localhost:3000/admin/reviews/${reviewId}`,{data:{email:email}}, {withCredentials:true});
       if(data?.deletedCount==1){

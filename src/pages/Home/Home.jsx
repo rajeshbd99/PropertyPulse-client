@@ -9,6 +9,7 @@ import location1 from '../../assets/Location1.jpg';
 import location2 from '../../assets/Location2.png';
 import location3 from '../../assets/Location3.jpg';
 import location4 from '../../assets/Location4.jpg';
+import banner from '../../assets/banner-01.jpg';
 
 const Home = () => {
   const location = useLocation();
@@ -19,8 +20,7 @@ const Home = () => {
   const { data: advertiseProperties, isLoading, refetch } = useQuery({
     queryKey: ["advertiseProperties"],
     queryFn: async () => {
-      const { data } = await axios.get(`http://localhost:3000/advertise-properties`);
-      console.log(data);
+      const { data } = await axios.get(`http://localhost:3000/advertise-properties`, { withCredentials: true });
       return data;
     },
   })
@@ -29,14 +29,32 @@ const Home = () => {
   return (
     <div>
       {/* Banner/Slider Section */}
-      <div className="relative bg-blue-500 text-white h-[400px] flex items-center justify-center">
-        <div className="text-center">
-          <h1 className="text-4xl font-bold">Welcome to PropertyPulse</h1>
-          <p className="text-lg mt-4">
-            Find, buy, or sell your dream property with ease.
+      <div className="relative bg-gradient-to-r from-blue-500 to-blue-700 text-white h-[400px] flex items-center justify-center">
+        <div className="absolute inset-0">
+          {/* Background Image */}
+          <img
+            src={banner} // Replace with your image path
+            alt="Banner Background"
+            className="w-full h-full object-cover opacity-70"
+          />
+        </div>
+
+        <div className="relative z-10 text-center">
+          <h1 className="text-4xl sm:text-5xl font-bold">
+            Welcome to <span className="text-yellow-300">PropertyPulse</span>
+          </h1>
+          <p className="text-lg sm:text-xl mt-4 max-w-2xl mx-auto">
+            Discover, buy, or sell your dream property with confidence and ease.
           </p>
+          <Link
+            to="/all-properties"
+            className="mt-6 inline-block px-6 py-3 bg-yellow-300 text-blue-800 font-semibold rounded-lg shadow-md hover:bg-yellow-400 transition"
+          >
+            Explore Properties
+          </Link>
         </div>
       </div>
+
 
       {/* Advertisement Section */}
       <section className="py-10 bg-gray-100">

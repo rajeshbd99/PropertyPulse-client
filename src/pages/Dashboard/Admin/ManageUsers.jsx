@@ -53,7 +53,7 @@ const ManageUsers = () => {
     try {
       const { data } = await axios.put(`http://localhost:3000/users/mark-fraud/${userId}`, { withCredentials: true });
       if (data.modifiedCount == 1) {
-        const { data: deleteProperties } = await axios.delete(`http://localhost:3000/properties/agent/${email}`);
+        const { data: deleteProperties } = await axios.delete(`http://localhost:3000/properties/agent/${email}`, { withCredentials: true });
         if (deleteProperties.deletedCount > 0) {
           toast.success("Agent marked as Fraud");
           refetch();

@@ -12,7 +12,6 @@ const Wishlist = () => {
     document.title = pageTitle;
   }, [location]);
   const {user} = useContext(AuthContext);
-  console.log(user);
   const navigate = useNavigate();
 
   const { data: wishlist, isLoading, refetch } = useQuery({

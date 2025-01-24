@@ -53,8 +53,6 @@ const Register = () => {
         createUser(formData.email, formData.password)
             .then(userCredential => {
                 const user = userCredential.user;
-                console.log(user);
-                console.log('User registered:', user);
                 setSuccess(true);
                 setFormData({
                     username: '',
@@ -74,16 +72,12 @@ const Register = () => {
                     photoURL: formData.photoUrl
                 }
                 ).then(async() => {
-                    console.log('User profile updated');
                     const result = await axios.put('http://localhost:3000/user', {
                         username: formData.username,
                         email: formData.email,
-                        //firebase uid
                         uid: user.uid,
                         photoUrl: formData.photoUrl
-                        
-                        
-                    });
+                    }, { withCredentials: true });
                  
                     if(result?.data?.acknowledged){
                         toast.success('User profile updated successfully');

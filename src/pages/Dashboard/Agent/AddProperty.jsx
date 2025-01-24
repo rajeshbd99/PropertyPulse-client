@@ -49,8 +49,6 @@ const AddProperty = () => {
             })
             if (imageData.data.success) {
                 propertyData.image = imageData.data.data.display_url;
-
-                console.log(propertyData);
                 const { data } = await axios.post("http://localhost:3000/properties/add", propertyData, { withCredentials: true });
                 if (data.insertedId) {
                     setLoading(false);

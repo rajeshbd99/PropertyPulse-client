@@ -23,8 +23,6 @@ const MakeOffer = () => {
   const handleOffer = async () => {
     setError("");
     setSuccess("");
-    console.log("Offer amount:", offerAmount);
-
     if (
       parseInt(offerAmount) < property.priceRange.split("-")[0] ||
       parseInt(offerAmount) > property.priceRange.split("-")[1]

@@ -49,7 +49,6 @@ const Login = () => {
                 photoUrl: result?.user?.photoURL,
                 uid: result?.user?.uid,
             });
-            console.log(result);
             if(data?.acknowledged){
                 toast.success('User profile updated successfully');
                 navigate(location?.state ? location.state : '/');
