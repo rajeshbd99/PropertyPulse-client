@@ -1,7 +1,13 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { AuthContext } from "../../../providers/AuthProvider";
+import { useLocation } from "react-router-dom";
 
 const MyProfile = () => {
+  const location = useLocation();
+  useEffect(() => {
+    const pageTitle = "PropertyPulse | My Profile";
+    document.title = pageTitle;
+  }, [location]);
   const { user } = useContext(AuthContext);
 
 console.log(user);

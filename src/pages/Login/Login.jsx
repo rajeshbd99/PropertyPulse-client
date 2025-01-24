@@ -1,4 +1,4 @@
-import { useState, useRef, useContext } from 'react';
+import { useState, useRef, useContext, useEffect } from 'react';
 import { AuthContext } from '../../providers/AuthProvider';
 import { FaGoogle } from "react-icons/fa";
 import { data, useLocation, useNavigate } from 'react-router-dom';
@@ -7,6 +7,10 @@ import axios from 'axios';
 
 const Login = () => {
     const location = useLocation();
+    useEffect(() => {
+      const pageTitle = "PropertyPulse | Login";
+      document.title = pageTitle;
+    }, [location]);
     const navigate = useNavigate();
     const { user, loginUser, googleSignIn } = useContext(AuthContext);
     const [formData, setFormData] = useState({ email: '', password: '' });

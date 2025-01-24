@@ -8,6 +8,11 @@ import { useLocation } from 'react-router-dom';
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY);
 
 const PaymentPage = () => {
+  const location = useLocation();
+  useEffect(() => {
+    const pageTitle = "PropertyPulse | Payment";
+    document.title = pageTitle;
+  }, [location]);
   const {state} = useLocation();
   const [clientSecret, setClientSecret] = useState(null);
   const totalPrice = state.property.offerAmount;

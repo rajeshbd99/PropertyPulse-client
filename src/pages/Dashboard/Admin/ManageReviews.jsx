@@ -2,8 +2,14 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useQuery } from "@tanstack/react-query";
+import { useLocation } from "react-router-dom";
 
 const ManageReviews = () => {
+  const location = useLocation();
+  useEffect(() => {
+    const pageTitle = "PropertyPulse | Manage Reviews";
+    document.title = pageTitle;
+  }, [location]);
   const [reviews, setReviews] = useState([]);
 
   const { data: reviewManage, isLoading, refetch } = useQuery({

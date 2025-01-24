@@ -3,8 +3,14 @@ import { AuthContext } from "../../../providers/AuthProvider";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useQuery } from "@tanstack/react-query";
+import { useLocation } from "react-router-dom";
 
 const RequestedProperties = () => {
+  const location = useLocation();
+  useEffect(() => {
+    const pageTitle = "PropertyPulse | Requested Properties";
+    document.title = pageTitle;
+  }, [location]);
   const { user } = useContext(AuthContext);
   const [offers, setOffers] = useState([]);
 

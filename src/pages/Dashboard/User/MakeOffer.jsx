@@ -1,11 +1,16 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../providers/AuthProvider";
 import { compareAsc, format } from "date-fns";
 import axios from "axios";
 import { toast } from "react-toastify";
 
 const MakeOffer = () => {
+  const location = useLocation();
+  useEffect(() => {
+    const pageTitle = "PropertyPulse | Make Offer";
+    document.title = pageTitle;
+  }, [location]);
 
   const { state: property } = useLocation();
   const { user } = useContext(AuthContext);

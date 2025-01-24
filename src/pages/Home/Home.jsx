@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import man2 from '../../assets/man2.jpg';
 import women2 from '../../assets/women2.jpg';
 import women3 from '../../assets/women3.png';
@@ -11,6 +11,11 @@ import location3 from '../../assets/Location3.jpg';
 import location4 from '../../assets/Location4.jpg';
 
 const Home = () => {
+  const location = useLocation();
+  useEffect(() => {
+    const pageTitle = "PropertyPulse | Home";
+    document.title = pageTitle;
+  }, [location]);
   const { data: advertiseProperties, isLoading, refetch } = useQuery({
     queryKey: ["advertiseProperties"],
     queryFn: async () => {

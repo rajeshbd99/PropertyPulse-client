@@ -1,5 +1,5 @@
 import { useEffect, useState, useContext } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { AuthContext } from '../providers/AuthProvider';
 import axios from 'axios';
 import { toast } from 'react-toastify';
@@ -8,6 +8,11 @@ import { format } from 'date-fns';
 import { useQuery } from '@tanstack/react-query';
 
 const PropertyDetails = () => {
+  const location = useLocation();
+  useEffect(() => {
+    const pageTitle = "PropertyPulse | Property Details";
+    document.title = pageTitle;
+  }, [location]);
   const { id } = useParams();
   const navigate = useNavigate();
   const { user } = useContext(AuthContext);

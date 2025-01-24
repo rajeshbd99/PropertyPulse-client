@@ -1,12 +1,17 @@
 import { PaymentElement, useElements, useStripe } from '@stripe/react-stripe-js';
-import { useContext, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useContext, useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { AuthContext } from '../../../providers/AuthProvider';
 import axios from 'axios';
 import { format } from 'date-fns';
 
 const CheckoutForm = ({ property }) => {
+  const location = useLocation();
+  useEffect(() => {
+    const pageTitle = "PropertyPulse | Checkout";
+    document.title = pageTitle;
+  }, [location]);
   console.log(property);
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();

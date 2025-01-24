@@ -1,7 +1,13 @@
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink, Outlet, useLocation } from "react-router-dom";
 import useUserRole from "../../../hooks/useUserRole";
+import { useEffect } from "react";
 
 const Dashboard = () => {
+  const location = useLocation();
+  useEffect(() => {
+    const pageTitle = "PropertyPulse | Dashboard";
+    document.title = pageTitle;
+  }, [location]);
   const [role,isAdminLoading]=useUserRole();
   if(isAdminLoading) return <div>Loading...</div>
   return (

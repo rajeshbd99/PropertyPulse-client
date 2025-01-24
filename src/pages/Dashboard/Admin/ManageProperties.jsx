@@ -2,8 +2,14 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useQuery } from "@tanstack/react-query";
+import { useLocation } from "react-router-dom";
 
 const ManageProperties = () => {
+  const location = useLocation();
+  useEffect(() => {
+    const pageTitle = "PropertyPulse | Manage Properties";
+    document.title = pageTitle;
+  }, [location]);
 
   // Fetch all properties added by agents
   const { data: properties, isLoading, refetch } = useQuery({

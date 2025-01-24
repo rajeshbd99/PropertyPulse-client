@@ -1,13 +1,18 @@
 import { createUserWithEmailAndPassword, sendEmailVerification, updateProfile } from 'firebase/auth';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import auth from '../../firebase/firebase.init';
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { AuthContext } from '../../providers/AuthProvider';
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const Register = () => {
+    const location = useLocation();
+    useEffect(() => {
+      const pageTitle = "PropertyPulse | Register";
+      document.title = pageTitle;
+    }, [location]);
     const navigate = useNavigate();
 
     const { createUser } = useContext(AuthContext);

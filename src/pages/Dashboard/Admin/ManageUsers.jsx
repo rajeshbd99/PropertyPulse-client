@@ -3,9 +3,15 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { useQuery } from "@tanstack/react-query";
 import { AuthContext } from "../../../providers/AuthProvider";
+import { useLocation } from "react-router-dom";
 
 
 const ManageUsers = () => {
+  const location = useLocation();
+  useEffect(() => {
+    const pageTitle = "PropertyPulse | Manage Users";
+    document.title = pageTitle;
+  }, [location]);
   const { user } = useContext(AuthContext);
   const { data: users, isLoading, refetch } = useQuery({
     queryKey: ["users"],

@@ -1,9 +1,15 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../providers/AuthProvider";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { useLocation } from "react-router-dom";
 
 const AddProperty = () => {
+    const location = useLocation();
+    useEffect(() => {
+      const pageTitle = "PropertyPulse | Add Property";
+      document.title = pageTitle;
+    }, [location]);
 
     const [loading, setLoading] = useState(false);
 

@@ -1,11 +1,16 @@
 import { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { AuthContext } from "../../../providers/AuthProvider";
 import { useQuery } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 
 const Wishlist = () => {
+  const location = useLocation();
+  useEffect(() => {
+    const pageTitle = "PropertyPulse | Wishlist";
+    document.title = pageTitle;
+  }, [location]);
   const {user} = useContext(AuthContext);
   console.log(user);
   const navigate = useNavigate();

@@ -2,10 +2,15 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../providers/AuthProvider";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 
 const MyAddedProperties = () => {
+  const location = useLocation();
+  useEffect(() => {
+    const pageTitle = "PropertyPulse | My Added Properties";
+    document.title = pageTitle;
+  }, [location]);
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
 
