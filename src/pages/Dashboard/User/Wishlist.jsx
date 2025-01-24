@@ -17,14 +17,14 @@ const Wishlist = () => {
   const { data: wishlist, isLoading, refetch } = useQuery({
     queryKey: ["wishlist"],
     queryFn: async () => {
-      const { data } = await axios.get(`http://localhost:3000/wishlist/${user.uid}`, {withCredentials:true});
+      const { data } = await axios.get(`https://real-estate-flax-psi.vercel.app/wishlist/${user.uid}`, {withCredentials:true});
       return data;
     },
   });
 
   const handleRemove = async (id) => {
     try {
-    const {data} =  await axios.delete(`http://localhost:3000/wishlist/${id}`, {withCredentials:true});
+    const {data} =  await axios.delete(`https://real-estate-flax-psi.vercel.app/wishlist/${id}`, {withCredentials:true});
     if(data.deletedCount==1){
       refetch();
       return toast.success("Property removed from wishlist!");

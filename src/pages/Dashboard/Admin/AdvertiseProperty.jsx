@@ -13,7 +13,7 @@ const AdvertiseProperty = () => {
   const { data: properties, isLoading, refetch } = useQuery({
     queryKey: ["properties"],
     queryFn: async () => {
-      const { data } = await axios.get(`http://localhost:3000/properties`, { withCredentials: true });
+      const { data } = await axios.get(`https://real-estate-flax-psi.vercel.app/properties`, { withCredentials: true });
       return data;
     },
   })
@@ -21,7 +21,7 @@ const AdvertiseProperty = () => {
   // Handle advertise property
   const handleAdvertise = async (propertyId) => {
     try {
-      const { data } = await axios.put(`http://localhost:3000/properties/advertise/${propertyId}`, { withCredentials: true });
+      const { data } = await axios.put(`https://real-estate-flax-psi.vercel.app/properties/advertise/${propertyId}`, { withCredentials: true });
       if (data.modifiedCount == 1) {
         refetch();
         return toast.success("Property advertised successfully!");

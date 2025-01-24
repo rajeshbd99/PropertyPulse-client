@@ -15,7 +15,7 @@ const ManageReviews = () => {
   const { data: reviewManage, isLoading, refetch } = useQuery({
     queryKey: ["reviewManage"],
     queryFn: async () => {
-      const { data } = await axios.get(`http://localhost:3000/reviews`, {withCredentials:true});
+      const { data } = await axios.get(`https://real-estate-flax-psi.vercel.app/reviews`, {withCredentials:true});
       return data;
     },
   })
@@ -23,7 +23,7 @@ const ManageReviews = () => {
   // Handle delete review
   const handleDeleteReview = async (reviewId, email) => {
     try {
-     const {data}= await axios.delete(`http://localhost:3000/admin/reviews/${reviewId}`,{data:{email:email}}, {withCredentials:true});
+     const {data}= await axios.delete(`https://real-estate-flax-psi.vercel.app/admin/reviews/${reviewId}`,{data:{email:email}}, {withCredentials:true});
       if(data?.deletedCount==1){
         toast.success("Review deleted successfully");
         refetch();

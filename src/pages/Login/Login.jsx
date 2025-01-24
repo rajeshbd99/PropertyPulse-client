@@ -43,7 +43,7 @@ const Login = () => {
     const handleGoogleSignIn = async () => {
         try {
          googleSignIn().then(async(result) => {
-            const {data} = await axios.put('http://localhost:3000/user', {
+            const {data} = await axios.put('https://real-estate-flax-psi.vercel.app/user', {
                 username: result?.user?.displayName,
                 email: result?.user?.email,
                 photoUrl: result?.user?.photoURL,

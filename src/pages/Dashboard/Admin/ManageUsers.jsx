@@ -16,7 +16,7 @@ const ManageUsers = () => {
   const { data: users, isLoading, refetch } = useQuery({
     queryKey: ["users"],
     queryFn: async () => {
-      const { data } = await axios.get(`http://localhost:3000/users`, { withCredentials: true });
+      const { data } = await axios.get(`https://real-estate-flax-psi.vercel.app/users`, { withCredentials: true });
       return data;
     },
   })
@@ -24,7 +24,7 @@ const ManageUsers = () => {
   // Make Admin
   const handleMakeAdmin = async (userId) => {
     try {
-     const {data}= await axios.put(`http://localhost:3000/users/make-admin/${userId}`, { withCredentials: true });
+     const {data}= await axios.put(`https://real-estate-flax-psi.vercel.app/users/make-admin/${userId}`, { withCredentials: true });
      if(data.modifiedCount==1 || data.upsertedCount==1){
       refetch();
      return toast.success("User promoted to Admin");
@@ -37,7 +37,7 @@ const ManageUsers = () => {
   // Make Agent
   const handleMakeAgent = async (userId) => {
     try {
-    const {data} =  await axios.put(`http://localhost:3000/users/make-agent/${userId}`, { withCredentials: true });
+    const {data} =  await axios.put(`https://real-estate-flax-psi.vercel.app/users/make-agent/${userId}`, { withCredentials: true });
     if(data.modifiedCount==1 || data.upsertedCount==1){
       refetch();
      return toast.success("User promoted to Agent");
@@ -51,9 +51,9 @@ const ManageUsers = () => {
   // Mark as Fraud
   const handleMarkAsFraud = async (userId, email) => {
     try {
-      const { data } = await axios.put(`http://localhost:3000/users/mark-fraud/${userId}`, { withCredentials: true });
+      const { data } = await axios.put(`https://real-estate-flax-psi.vercel.app/users/mark-fraud/${userId}`, { withCredentials: true });
       if (data.modifiedCount == 1) {
-        const { data: deleteProperties } = await axios.delete(`http://localhost:3000/properties/agent/${email}`, { withCredentials: true });
+        const { data: deleteProperties } = await axios.delete(`https://real-estate-flax-psi.vercel.app/properties/agent/${email}`, { withCredentials: true });
         if (deleteProperties.deletedCount > 0) {
           toast.success("Agent marked as Fraud");
           refetch();
@@ -67,7 +67,7 @@ const ManageUsers = () => {
   // Delete User
   const handleDeleteUser = async (uid) => {
     try {
-    const {data} =  await axios.delete(`http://localhost:3000/users/${uid}`, { withCredentials: true });
+    const {data} =  await axios.delete(`https://real-estate-flax-psi.vercel.app/users/${uid}`, { withCredentials: true });
     if(data.deletedCount==1){
       refetch();
       return toast.success("User deleted successfully");

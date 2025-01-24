@@ -61,7 +61,7 @@ const CheckoutForm = ({ property }) => {
           amount: paymentIntent.amount/100,
           date: format(new Date(), "dd-MM-yyyy"),
         };
-        const {data} = await axios.post("http://localhost:3000/payments", contactRequest, { withCredentials: true });
+        const {data} = await axios.post("https://real-estate-flax-psi.vercel.app/payments", contactRequest, { withCredentials: true });
 
         if (data.acknowledged) {
           Swal.fire({

@@ -15,7 +15,7 @@ const ManageProperties = () => {
   const { data: properties, isLoading, refetch } = useQuery({
     queryKey: ["properties"],
     queryFn: async () => {
-      const { data } = await axios.get(`http://localhost:3000/all-properties`, { withCredentials: true });
+      const { data } = await axios.get(`https://real-estate-flax-psi.vercel.app/all-properties`, { withCredentials: true });
       return data;
     },
   })
@@ -23,7 +23,7 @@ const ManageProperties = () => {
   // Handle Verify Property
   const handleVerify = async (propertyId) => {
     try {
-      const { data } = await axios.patch(`http://localhost:3000/properties/verify/${propertyId}`, { withCredentials: true });
+      const { data } = await axios.patch(`https://real-estate-flax-psi.vercel.app/properties/verify/${propertyId}`, { withCredentials: true });
       if (data.modifiedCount == 1) {
         refetch();
         toast.success("Property verified successfully");
@@ -36,7 +36,7 @@ const ManageProperties = () => {
   // Handle Reject Property
   const handleReject = async (propertyId) => {
     try {
-      const { data } = await axios.patch(`http://localhost:3000/properties/reject/${propertyId}`, { withCredentials: true });
+      const { data } = await axios.patch(`https://real-estate-flax-psi.vercel.app/properties/reject/${propertyId}`, { withCredentials: true });
       if (data.modifiedCount == 1) {
         refetch();
         toast.success("Property rejected successfully");

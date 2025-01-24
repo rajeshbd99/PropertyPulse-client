@@ -20,7 +20,7 @@ const Home = () => {
   const { data: advertiseProperties, isLoading, refetch } = useQuery({
     queryKey: ["advertiseProperties"],
     queryFn: async () => {
-      const { data } = await axios.get(`http://localhost:3000/advertise-properties`, { withCredentials: true });
+      const { data } = await axios.get(`https://real-estate-flax-psi.vercel.app/advertise-properties`,);
       return data;
     },
   })

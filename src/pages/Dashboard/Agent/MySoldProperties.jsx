@@ -16,7 +16,7 @@ const MySoldProperties = () => {
   const { data: propertiesSold, isLoading, refetch } = useQuery({
     queryKey: ["propertiesSold"],
     queryFn: async () => {
-      const { data } = await axios.get(`http://localhost:3000/sold-properties/agent/${user.email}`, { withCredentials: true });
+      const { data } = await axios.get(`https://real-estate-flax-psi.vercel.app/sold-properties/agent/${user.email}`, { withCredentials: true });
       return data;
     },
   });

@@ -49,7 +49,7 @@ const AddProperty = () => {
             })
             if (imageData.data.success) {
                 propertyData.image = imageData.data.data.display_url;
-                const { data } = await axios.post("http://localhost:3000/properties/add", propertyData, { withCredentials: true });
+                const { data } = await axios.post("https://real-estate-flax-psi.vercel.app/properties/add", propertyData, { withCredentials: true });
                 if (data.insertedId) {
                     setLoading(false);
                     toast.success("Property added successfully!");

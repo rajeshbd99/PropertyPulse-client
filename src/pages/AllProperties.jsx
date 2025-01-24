@@ -17,7 +17,7 @@ const AllProperties = () => {
   const { data: properties=[], isLoading, refetch } = useQuery({
     queryKey: ["properties"],
     queryFn: async () => {
-      const { data } = await axios.get(`http://localhost:3000/properties`,{withCredentials:true});
+      const { data } = await axios.get(`https://real-estate-flax-psi.vercel.app/properties`,{withCredentials:true});
       return data;
     },
   })

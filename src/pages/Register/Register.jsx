@@ -72,7 +72,7 @@ const Register = () => {
                     photoURL: formData.photoUrl
                 }
                 ).then(async() => {
-                    const result = await axios.put('http://localhost:3000/user', {
+                    const result = await axios.put('https://real-estate-flax-psi.vercel.app/user', {
                         username: formData.username,
                         email: formData.email,
                         uid: user.uid,

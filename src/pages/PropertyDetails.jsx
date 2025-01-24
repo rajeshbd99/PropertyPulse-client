@@ -33,7 +33,7 @@ const PropertyDetails = () => {
   useEffect(() => {
     const fetchProperty = async () => {
       try {
-        const { data } = await axios.get(`http://localhost:3000/property/${id}` , { withCredentials: true });
+        const { data } = await axios.get(`https://real-estate-flax-psi.vercel.app/property/${id}` , { withCredentials: true });
         setProperty(data);
       } catch (error) {
         console.error('Error fetching property details:', error.message);
@@ -45,14 +45,14 @@ const PropertyDetails = () => {
   const { data: reviewsCollection, isLoading, refetch } = useQuery({
     queryKey: ["reviewsCollection", id],
     queryFn: async () => {
-      const { data } = await axios.get(`http://localhost:3000/property/reviews/${id}`, { withCredentials: true });
+      const { data } = await axios.get(`https://real-estate-flax-psi.vercel.app/property/reviews/${id}`, { withCredentials: true });
       return data;
     },
   })
 
   const handleAddToWishlist = async () => {
     try {
-      await axios.post('http://localhost:3000/wishlist', {
+      await axios.post('https://real-estate-flax-psi.vercel.app/wishlist', {
         propertyId: property._id,
         userId: user?.uid,
         propertyTitle: property.propertyTitle,
@@ -75,7 +75,7 @@ const PropertyDetails = () => {
   const handleAddReview = async () => {
     if (!newReview) return;
     try {
-      const { data } = await axios.post(`http://localhost:3000/property/review`, {
+      const { data } = await axios.post(`https://real-estate-flax-psi.vercel.app/property/review`, {
         review: newReview,
         propertyId: property._id,
         email: user.email,

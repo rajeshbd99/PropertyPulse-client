@@ -30,7 +30,7 @@ const AuthProvider = ({ children }) => {
             if (currentUser) {
                 setUser(currentUser);
                 setLoading(false);
-                 axios.post('http://localhost:3000/jwt-auth',user, {
+                 axios.post('https://real-estate-flax-psi.vercel.app/jwt-auth',user, {
               withCredentials: true,
             })
             .then((response) => {})
@@ -53,7 +53,7 @@ const AuthProvider = ({ children }) => {
         setLoading(true);
         try {
           // Send a logout request to the server
-          await axios.post('http://localhost:3000/logout', {}, { withCredentials: true });
+          await axios.post('https://real-estate-flax-psi.vercel.app/logout', {}, { withCredentials: true });
     
           // Clear all accessible cookies on the client side
           document.cookie.split(";").forEach((cookie) => {

@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 
 const axiosSecure = axios.create({
-    baseURL: 'http://localhost:3000',
+    baseURL: 'https://real-estate-flax-psi.vercel.app',
     // headers: {  Authorization: `Bearer ${localStorage.getItem('token')}` }
 });
 

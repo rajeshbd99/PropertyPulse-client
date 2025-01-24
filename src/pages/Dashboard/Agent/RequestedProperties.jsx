@@ -17,7 +17,7 @@ const RequestedProperties = () => {
   const { data: RequestedProperties, isLoading, refetch } = useQuery({
     queryKey: ["RequestedProperties"],
     queryFn: async () => {
-      const { data } = await axios.get(`http://localhost:3000/offers/agent/${user.email}`, { withCredentials: true });
+      const { data } = await axios.get(`https://real-estate-flax-psi.vercel.app/offers/agent/${user.email}`, { withCredentials: true });
       return data;
     },
   });
@@ -25,7 +25,7 @@ const RequestedProperties = () => {
   // Handle accept offer
   const handleAccept = async (offerId, propertyId) => {
     try {
-    const {data} = await axios.patch(`http://localhost:3000/offers/accept/${offerId}`, { propertyId }, { withCredentials: true });
+    const {data} = await axios.patch(`https://real-estate-flax-psi.vercel.app/offers/accept/${offerId}`, { propertyId }, { withCredentials: true });
     if(data.modifiedCount==1){
       refetch();
      return toast.success("Offer accepted successfully");
@@ -38,7 +38,7 @@ const RequestedProperties = () => {
   // Handle reject offer
   const handleReject = async (offerId) => {
     try {
-    const {data} =  await axios.patch(`http://localhost:3000/offers/reject/${offerId}`, { withCredentials: true });
+    const {data} =  await axios.patch(`https://real-estate-flax-psi.vercel.app/offers/reject/${offerId}`, { withCredentials: true });
     if (data.modifiedCount === 1) {
       refetch();
       return toast.success("Offer rejected successfully");
