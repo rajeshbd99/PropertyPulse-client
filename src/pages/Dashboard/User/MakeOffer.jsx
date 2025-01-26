@@ -102,7 +102,7 @@ const MakeOffer = () => {
 
       {/* Offer Amount */}
       <div className="mt-6 space-y-2">
-        <label className="block text-lg font-medium text-gray-800 flex items-center gap-2">
+        <label className="text-lg font-medium text-gray-800 flex items-center gap-2">
           <HiCurrencyDollar className="text-green-500" />
           Offer Amount:
         </label>
