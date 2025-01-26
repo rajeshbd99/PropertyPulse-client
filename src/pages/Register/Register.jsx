@@ -10,8 +10,8 @@ import { useLocation, useNavigate } from 'react-router-dom';
 const Register = () => {
     const location = useLocation();
     useEffect(() => {
-      const pageTitle = "PropertyPulse | Register";
-      document.title = pageTitle;
+        const pageTitle = "PropertyPulse | Register";
+        document.title = pageTitle;
     }, [location]);
     const navigate = useNavigate();
 
@@ -71,15 +71,15 @@ const Register = () => {
                     displayName: formData.username,
                     photoURL: formData.photoUrl
                 }
-                ).then(async() => {
+                ).then(async () => {
                     const result = await axios.put('https://real-estate-flax-psi.vercel.app/user', {
                         username: formData.username,
                         email: formData.email,
                         uid: user.uid,
                         photoUrl: formData.photoUrl
                     }, { withCredentials: true });
-                 
-                    if(result?.data?.acknowledged){
+
+                    if (result?.data?.acknowledged) {
                         toast.success('User profile updated successfully');
                         navigate('/');
                     }

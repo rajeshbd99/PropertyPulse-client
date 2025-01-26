@@ -7,7 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { format } from 'date-fns';
 import { useQuery } from '@tanstack/react-query';
 import { BsHouseDoorFill } from 'react-icons/bs';
-import { AiOutlineHeart,AiOutlineClose } from 'react-icons/ai';
+import { AiOutlineHeart, AiOutlineClose } from 'react-icons/ai';
 import { FaStar } from 'react-icons/fa';
 
 const PropertyDetails = () => {
@@ -19,11 +19,11 @@ const PropertyDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { user } = useContext(AuthContext);
-
   const [property, setProperty] = useState(null);
   const [reviews, setReviews] = useState([]);
   const [newReview, setNewReview] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
+  
   // Redirect if not authenticated
   useEffect(() => {
     if (!user) {
@@ -66,7 +66,7 @@ const PropertyDetails = () => {
         agentPhoto: property.agentPhoto,
         location: property.location,
         propertyImage: property.image,
-        description : property.description,
+        description: property.description,
 
       }, { withCredentials: true });
       toast.success('Property added to wishlist!');
@@ -166,99 +166,97 @@ const PropertyDetails = () => {
       </div>
 
       {/* Reviews Section */}
-<div className="reviews-section mt-8 bg-gradient-to-br from-gray-50 via-white to-gray-100 p-6 rounded-xl shadow-lg">
-  {/* Section Header */}
-  <div className="flex items-center justify-between mb-6">
-    <h2 className="text-2xl font-extrabold text-gray-800 flex items-center gap-2">
-      <FaStar className="text-yellow-500" />
-      Reviews
-    </h2>
-    <button
-      onClick={() => setIsModalOpen(true)}
-      className="px-4 py-2 bg-indigo-500 text-white font-semibold rounded-lg shadow hover:bg-indigo-600 transition duration-300"
-    >
-      Add a Review
-    </button>
-  </div>
+      <div className="reviews-section mt-8 bg-gradient-to-br from-gray-50 via-white to-gray-100 p-6 rounded-xl shadow-lg">
+        {/* Section Header */}
+        <div className="flex items-center justify-between mb-6">
+          <h2 className="text-2xl font-extrabold text-gray-800 flex items-center gap-2">
+            <FaStar className="text-yellow-500" />
+            Reviews
+          </h2>
+          <button
+            onClick={() => setIsModalOpen(true)}
+            className="px-4 py-2 bg-indigo-500 text-white font-semibold rounded-lg shadow hover:bg-indigo-600 transition duration-300"
+          >
+            Add a Review
+          </button>
+        </div>
 
-  {/* Reviews List */}
-  {reviewsCollection?.length > 0 ? (
-    <ul className="space-y-6">
-      {reviewsCollection.map((review, index) => (
-        <li
-          key={index}
-          className="p-5 bg-white rounded-lg shadow-md border-l-4 border-indigo-500"
-        >
-          {/* Reviewer Info */}
-          <div className="flex items-center gap-4 mb-3">
-            <div className="bg-blue-500 text-white w-10 h-10 flex items-center justify-center rounded-full font-bold text-xl">
-              {review.reviewerName.charAt(0).toUpperCase()}
-            </div>
-            <div>
-              <p className="text-lg font-bold text-gray-800">
-                {review.reviewerName}
-              </p>
-              <p className="text-sm text-gray-500">{review.formattedDate}</p>
-            </div>
-          </div>
+        {/* Reviews List */}
+        {reviewsCollection?.length > 0 ? (
+          <ul className="space-y-6">
+            {reviewsCollection.map((review, index) => (
+              <li
+                key={index}
+                className="p-5 bg-white rounded-lg shadow-md border-l-4 border-indigo-500"
+              >
+                {/* Reviewer Info */}
+                <div className="flex items-center gap-4 mb-3">
+                  <div className="bg-blue-500 text-white w-10 h-10 flex items-center justify-center rounded-full font-bold text-xl">
+                    {review.reviewerName.charAt(0).toUpperCase()}
+                  </div>
+                  <div>
+                    <p className="text-lg font-bold text-gray-800">
+                      {review.reviewerName}
+                    </p>
+                    <p className="text-sm text-gray-500">{review.formattedDate}</p>
+                  </div>
+                </div>
 
-          {/* Review Content */}
-          <p className="text-gray-700 text-base leading-relaxed">
-            {review.review}
+                {/* Review Content */}
+                <p className="text-gray-700 text-base leading-relaxed">
+                  {review.review}
+                </p>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p className="text-gray-600 text-center text-lg">
+            No reviews yet. Be the first to share your experience!
           </p>
-        </li>
-      ))}
-    </ul>
-  ) : (
-    <p className="text-gray-600 text-center text-lg">
-      No reviews yet. Be the first to share your experience!
-    </p>
-  )}
-</div>
-
+        )}
+      </div>
 
       {/* Add Review Modal */}
-{isModalOpen && (
-  <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-md">
-    <div className="bg-white p-8 rounded-xl shadow-lg w-full max-w-lg">
-      {/* Modal Header */}
-      <div className="flex items-center justify-between mb-6">
-        <h3 className="text-2xl font-bold text-gray-800">Add a Review</h3>
-        <button
-          onClick={() => setIsModalOpen(false)}
-          className="text-gray-500 hover:text-gray-700 transition duration-300"
-        >
-          <AiOutlineClose className="text-2xl" />
-        </button>
-      </div>
+      {isModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-md">
+          <div className="bg-white p-8 rounded-xl shadow-lg w-full max-w-lg">
+            {/* Modal Header */}
+            <div className="flex items-center justify-between mb-6">
+              <h3 className="text-2xl font-bold text-gray-800">Add a Review</h3>
+              <button
+                onClick={() => setIsModalOpen(false)}
+                className="text-gray-500 hover:text-gray-700 transition duration-300"
+              >
+                <AiOutlineClose className="text-2xl" />
+              </button>
+            </div>
 
-      {/* Review Textarea */}
-      <textarea
-        value={newReview}
-        onChange={(e) => setNewReview(e.target.value)}
-        placeholder="Write your review here..."
-        className="w-full p-4 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 placeholder:text-gray-400 transition duration-300 mb-6"
-      ></textarea>
+            {/* Review Textarea */}
+            <textarea
+              value={newReview}
+              onChange={(e) => setNewReview(e.target.value)}
+              placeholder="Write your review here..."
+              className="w-full p-4 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 placeholder:text-gray-400 transition duration-300 mb-6"
+            ></textarea>
 
-      {/* Modal Footer */}
-      <div className="flex justify-end gap-6">
-        <button
-          onClick={() => setIsModalOpen(false)}
-          className="px-6 py-2 border-2 border-gray-400 text-gray-700 rounded-lg hover:bg-gray-100 transition duration-300"
-        >
-          Cancel
-        </button>
-        <button
-          onClick={handleAddReview}
-          className="px-6 py-2 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700 transition duration-300"
-        >
-          Submit
-        </button>
-      </div>
-    </div>
-  </div>
-)}
-
+            {/* Modal Footer */}
+            <div className="flex justify-end gap-6">
+              <button
+                onClick={() => setIsModalOpen(false)}
+                className="px-6 py-2 border-2 border-gray-400 text-gray-700 rounded-lg hover:bg-gray-100 transition duration-300"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleAddReview}
+                className="px-6 py-2 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700 transition duration-300"
+              >
+                Submit
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

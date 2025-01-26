@@ -13,7 +13,7 @@ const PaymentPage = () => {
     const pageTitle = "PropertyPulse | Payment";
     document.title = pageTitle;
   }, [location]);
-  const {state} = useLocation();
+  const { state } = useLocation();
   const [clientSecret, setClientSecret] = useState(null);
   const totalPrice = state.property.offerAmount;
 
@@ -34,7 +34,7 @@ const PaymentPage = () => {
       <div className="max-w-3xl mx-auto mt-36 mb-28">
         {clientSecret ? (
           <Elements stripe={stripePromise} options={options}>
-            <CheckoutForm property = {state.property} />
+            <CheckoutForm property={state.property} />
           </Elements>
         ) : (
           <p>Loading payment details...</p>

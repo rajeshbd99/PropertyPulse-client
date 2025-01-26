@@ -84,7 +84,7 @@ const Footer = () => {
           </div>
         </div>
       </div>
-      {/* Footer Bottom */}
+      {/* Footer */}
       <div className="border-t border-gray-700 mt-10 pt-6 text-center text-sm text-gray-400">
         Designed with ❤️ by PropertyPulse Team
       </div>

@@ -8,8 +8,8 @@ import axios from 'axios';
 const Login = () => {
     const location = useLocation();
     useEffect(() => {
-      const pageTitle = "PropertyPulse | Login";
-      document.title = pageTitle;
+        const pageTitle = "PropertyPulse | Login";
+        document.title = pageTitle;
     }, [location]);
     const navigate = useNavigate();
     const { user, loginUser, googleSignIn } = useContext(AuthContext);
@@ -26,15 +26,15 @@ const Login = () => {
         e.preventDefault();
         try {
             await loginUser(formData.email, formData.password).then((result) => {
-                if(result?.user){
+                if (result?.user) {
                     toast.success('User logged in successfully');
-                    setFormData({ email: '', password: '' }); // Reset form data
+                    setFormData({ email: '', password: '' });
                     emailRef.current.value = '';
                     passwordRef.current.value = '';
                     navigate(location?.state ? location.state : '/');
                 }
             });
-           
+
         } catch (error) {
             console.error('Error logging in:', error.message);
         }
@@ -42,17 +42,17 @@ const Login = () => {
 
     const handleGoogleSignIn = async () => {
         try {
-         googleSignIn().then(async(result) => {
-            const {data} = await axios.put('https://real-estate-flax-psi.vercel.app/user', {
-                username: result?.user?.displayName,
-                email: result?.user?.email,
-                photoUrl: result?.user?.photoURL,
-                uid: result?.user?.uid,
-            });
-            if(data?.acknowledged){
-                toast.success('User profile updated successfully');
-                navigate(location?.state ? location.state : '/');
-            }
+            googleSignIn().then(async (result) => {
+                const { data } = await axios.put('https://real-estate-flax-psi.vercel.app/user', {
+                    username: result?.user?.displayName,
+                    email: result?.user?.email,
+                    photoUrl: result?.user?.photoURL,
+                    uid: result?.user?.uid,
+                });
+                if (data?.acknowledged) {
+                    toast.success('User profile updated successfully');
+                    navigate(location?.state ? location.state : '/');
+                }
             });
         } catch (error) {
             console.error('Error logging in with Google:', error.message);
@@ -113,7 +113,7 @@ const Login = () => {
                         Login
                     </button>
                     <button
-                        onClick={()=>handleGoogleSignIn()}
+                        onClick={() => handleGoogleSignIn()}
                         className="w-full flex justify-center items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-green-500 rounded-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
                     >
                         <FaGoogle />

@@ -24,7 +24,7 @@ const AddProperty = () => {
         agentName: user.displayName,
         agentEmail: user.email,
         agentPhoto: user.photoURL,
-        description : "",
+        description: "",
     });
 
     const handleChange = (e) => {
@@ -77,7 +77,6 @@ const AddProperty = () => {
                 Add Property
             </h2>
             <form onSubmit={handleSubmit} className="space-y-6">
-                {/* Property Title */}
                 <div>
                     <label className="text-sm font-medium text-gray-700 flex items-center gap-2">
                         <FaHome className="text-gray-500" />
@@ -93,7 +92,6 @@ const AddProperty = () => {
                     />
                 </div>
 
-                {/* Property Location */}
                 <div>
                     <label className="text-sm font-medium text-gray-700 flex items-center gap-2">
                         <FaMapMarkerAlt className="text-gray-500" />
@@ -109,7 +107,6 @@ const AddProperty = () => {
                     />
                 </div>
 
-                {/* Property Image */}
                 <div>
                     <label className="text-sm font-medium text-gray-700 flex items-center gap-2">
                         <FaImage className="text-gray-500" />
@@ -124,7 +121,6 @@ const AddProperty = () => {
                     />
                 </div>
 
-                {/* Agent Name */}
                 <div>
                     <label className="text-sm font-medium text-gray-700 flex items-center gap-2">
                         <FaUser className="text-gray-500" />
@@ -139,7 +135,6 @@ const AddProperty = () => {
                     />
                 </div>
 
-                {/* Agent Email */}
                 <div>
                     <label className="text-sm font-medium text-gray-700 flex items-center gap-2">
                         <FaEnvelope className="text-gray-500" />
@@ -154,7 +149,6 @@ const AddProperty = () => {
                     />
                 </div>
 
-                {/* Property Description */}
                 <div>
                     <label className="text-sm font-medium text-gray-700 flex items-center gap-2">
                         <FaHome className="text-gray-500" />
@@ -169,7 +163,6 @@ const AddProperty = () => {
                     />
                 </div>
 
-                {/* Price Range */}
                 <div>
                     <label className="text-sm font-medium text-gray-700 flex items-center gap-2">
                         <FaDollarSign className="text-gray-500" />
@@ -185,7 +178,6 @@ const AddProperty = () => {
                     />
                 </div>
 
-                {/* Add Property Button */}
                 <button
                     type="submit"
                     className="w-full bg-indigo-600 text-white py-3 px-4 rounded-lg shadow-lg hover:bg-indigo-700 focus:outline-none focus:ring-4 focus:ring-indigo-400 transition duration-200"

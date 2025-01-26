@@ -10,7 +10,7 @@ import location2 from '../../assets/Location2.png';
 import location3 from '../../assets/Location3.jpg';
 import location4 from '../../assets/Location4.jpg';
 import banner from '../../assets/banner-01.jpg';
-import { FaMapMarkerAlt, FaDollarSign, FaCheckCircle, FaTimesCircle, FaCity, FaUmbrellaBeach, FaBuilding, FaWater } from 'react-icons/fa';  // React Icons
+import { FaMapMarkerAlt, FaDollarSign, FaCheckCircle, FaTimesCircle, FaCity, FaUmbrellaBeach, FaBuilding, FaWater } from 'react-icons/fa';
 import { FiMapPin, FiUserCheck, FiThumbsUp, FiTrendingUp } from 'react-icons/fi';
 import { Flip } from 'react-awesome-reveal';
 import ReactLoading from "react-loading";
@@ -59,12 +59,12 @@ const Home = () => {
 
   return (
     <div>
-      {/* Banner/Slider Section */}
+      {/* Banner Section */}
       <div className="relative bg-gradient-to-r from-blue-400 to-blue-600 text-white h-[800px] flex items-center justify-center">
         <div className="absolute inset-0">
           {/* Background Image */}
           <img
-            src={banner} // Replace with your image path
+            src={banner}
             alt="Banner Background"
             className="w-full h-full object-cover opacity-70"
           />
@@ -85,7 +85,6 @@ const Home = () => {
           </Link>
         </div>
       </div>
-
 
       {/* Advertisement Section */}
       <section className="container mx-auto py-12 mt-10 mb-10">
@@ -137,7 +136,6 @@ const Home = () => {
                       View Details
                     </button>
                   </Link>
-                  {/* Add a "Quick View" option for more functionality */}
                   <button className="bg-transparent text-yellow-500 border-2 border-yellow-500 py-2 px-6 rounded-full shadow-md hover:bg-yellow-500 hover:text-white transition-all duration-300 transform hover:scale-105">
                     Quick View
                   </button>
@@ -209,12 +207,10 @@ const Home = () => {
                 ))}
               </div>
 
-              {/* User Review */}
               <p className="text-gray-600 text-sm leading-relaxed">
                 "{user.review}"
               </p>
 
-              {/* Call to Action */}
               <div className="text-right mt-4">
                 <button className="bg-blue-500 text-white px-4 py-2 rounded-full hover:bg-blue-600 transition-all">
                   View Profile
@@ -274,7 +270,6 @@ const Home = () => {
           ))}
         </div>
       </section>
-
 
       <section className="py-16 bg-gradient-to-br from-blue-100 via-white to-gray-100">
         <h2 className="text-4xl font-extrabold text-center mb-12 text-gray-800">

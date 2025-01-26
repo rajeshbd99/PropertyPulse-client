@@ -2,8 +2,8 @@ import { NavLink, Outlet, useLocation } from "react-router-dom";
 import useUserRole from "../../../hooks/useUserRole";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { FiMenu, FiX, FiHome, FiUser, FiSettings } from "react-icons/fi"; // Import unique icons
-import ReactLoading from "react-loading"; // Import react-loading for loading state
+import { FiMenu, FiX, FiHome, FiUser, FiSettings } from "react-icons/fi";
+import ReactLoading from "react-loading";
 
 const Dashboard = () => {
   const location = useLocation();
@@ -18,7 +18,7 @@ const Dashboard = () => {
   if (isAdminLoading)
     return (
       <div className="flex items-center justify-center min-h-screen">
-        <ReactLoading type="cylon" color="#1E40AF" height={100} width={100} /> {/* Loading Spinner */}
+        <ReactLoading type="cylon" color="#1E40AF" height={100} width={100} />
       </div>
     );
 
@@ -51,16 +51,15 @@ const Dashboard = () => {
             <NavLink
               to={to}
               className={({ isActive }) =>
-                `block px-4 py-2 rounded-lg font-medium transition ${
-                  isActive
-                    ? "bg-blue-500 text-white shadow-md"
-                    : "text-gray-700 hover:bg-blue-200 hover:text-blue-900"
+                `block px-4 py-2 rounded-lg font-medium transition ${isActive
+                  ? "bg-blue-500 text-white shadow-md"
+                  : "text-gray-700 hover:bg-blue-200 hover:text-blue-900"
                 }`
               }
               onClick={() => setIsDrawerOpen(false)}
             >
               {/* Add icons to sidebar links */}
-              {icon && <span className="mr-2">{icon}</span>} 
+              {icon && <span className="mr-2">{icon}</span>}
               {label}
             </NavLink>
           </li>
@@ -113,9 +112,8 @@ const Dashboard = () => {
 
       {/* Sidebar for all devices */}
       <div
-        className={`fixed inset-0 z-40 bg-black bg-opacity-50 transition-opacity lg:hidden ${
-          isDrawerOpen ? "opacity-100 visible" : "opacity-0 invisible"
-        }`}
+        className={`fixed inset-0 z-40 bg-black bg-opacity-50 transition-opacity lg:hidden ${isDrawerOpen ? "opacity-100 visible" : "opacity-0 invisible"
+          }`}
         onClick={() => setIsDrawerOpen(false)}
       ></div>
       {role && (

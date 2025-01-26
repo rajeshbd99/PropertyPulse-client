@@ -5,7 +5,6 @@ import axios from 'axios';
 
 const axiosSecure = axios.create({
     baseURL: 'https://real-estate-flax-psi.vercel.app',
-    // headers: {  Authorization: `Bearer ${localStorage.getItem('token')}` }
 });
 
 const useUserRole = () => {

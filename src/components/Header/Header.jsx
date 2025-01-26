@@ -4,7 +4,6 @@ import { AuthContext } from "../../providers/AuthProvider";
 import logo from "../../assets/logo.png";
 import { FiMenu, FiX } from "react-icons/fi";
 import { IoLogOut } from "react-icons/io5";
-import { RiDashboardFill } from "react-icons/ri";
 
 const Header = () => {
   const { user, logoutUser } = useContext(AuthContext);
@@ -15,7 +14,7 @@ const Header = () => {
     if (user) {
       try {
         await logoutUser();
-        navigate("/"); // Navigate to home after logout
+        navigate("/");
       } catch (error) {
         console.error("Error logging out:", error.message);
       }
@@ -57,9 +56,8 @@ const Header = () => {
 
   return (
     <div className="navbar bg-transparent backdrop-blur-md fixed top-0 left-0 right-0 z-50 shadow-lg py-4 px-6">
-      {/* Navbar Start */}
+      {/* Navbar */}
       <div className="navbar-start flex items-center">
-        {/* Logo and Website Name */}
         <NavLink to="/" className="flex items-center text-black font-semibold text-lg space-x-2">
           <img
             src={logo}
@@ -79,7 +77,6 @@ const Header = () => {
       <div className="navbar-end hidden lg:flex items-center gap-6">
         {user ? (
           <>
-            {/* User Image and Name */}
             <div className="flex items-center space-x-3">
               {user?.photoURL ? (
                 <img
@@ -97,12 +94,11 @@ const Header = () => {
               </span>
             </div>
 
-            {/* Logout Button */}
             <button
               onClick={handleLogout}
               className="bg-primary-600 hover:bg-primary-700 text-red-600 font-bold rounded-md px-2 py-2 transition-all duration-300"
             >
-              <IoLogOut  className="text-3xl"/>
+              <IoLogOut className="text-3xl" />
             </button>
           </>
         ) : (
@@ -130,7 +126,6 @@ const Header = () => {
       {/* Mobile Dropdown Menu */}
       <div className="navbar-end lg:hidden">
         <div className="flex items-center gap-3">
-          {/* Profile Image & Name */}
           {user && (
             <div className="flex items-center">
               {user?.photoURL ? (
@@ -161,9 +156,8 @@ const Header = () => {
             </label>
             <ul
               tabIndex={0}
-              className={`menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52 ${
-                isDrawerOpen ? "block" : "hidden"
-              }`}
+              className={`menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52 ${isDrawerOpen ? "block" : "hidden"
+                }`}
             >
               {links}
               {user ? (

@@ -32,7 +32,7 @@ const AllProperties = () => {
     property.location.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  // Sort properties based on price range (extracting the lower bound of the range)
+  // Sort properties based on price range
   const sortedProperties = [...filteredProperties].sort((a, b) => {
     const priceA = parseInt(a.priceRange.split('-')[0]);
     const priceB = parseInt(b.priceRange.split('-')[0]);
@@ -49,9 +49,8 @@ const AllProperties = () => {
 
   return (
     <div className="container mx-auto p-4 mt-20 mb-20">
-      {/* Search Input and Sort Dropdown as Grid */}
       <div className="flex justify-between gap-4 mb-6">
-        {/* Search Input */}
+        {/* Search */}
         <div className="mb-6">
           <div className="relative">
             <input
@@ -67,7 +66,7 @@ const AllProperties = () => {
           </div>
         </div>
 
-        {/* Sort Dropdown */}
+        {/* Sort */}
         <div className="mb-6">
           <div className="relative">
             <select
