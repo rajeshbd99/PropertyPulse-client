@@ -4,6 +4,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { useQuery } from "@tanstack/react-query";
 import { useLocation } from "react-router-dom";
+import { FaDollarSign, FaEnvelope, FaMapMarkerAlt, FaUser } from "react-icons/fa";
 
 const MySoldProperties = () => {
   const location = useLocation();
@@ -32,48 +33,73 @@ const MySoldProperties = () => {
 
   return (
     <div className="p-6">
-      <h2 className="text-2xl font-bold mb-4">My Sold Properties</h2>
+  <h2 className="text-3xl font-bold mb-6 text-indigo-600">My Sold Properties</h2>
 
-      {propertiesSold?.length > 0 ? (
-        <>
-          {/* Table for sold properties */}
-          <table className="min-w-full bg-white shadow rounded overflow-hidden mb-6">
-            <thead>
-              <tr className="bg-gray-100 text-left">
-                <th className="py-2 px-4">Property Title</th>
-                <th className="py-2 px-4">Location</th>
-                <th className="py-2 px-4">Buyer Name</th>
-                <th className="py-2 px-4">Buyer Email</th>
-                <th className="py-2 px-4">Sold Price</th>
-              </tr>
-            </thead>
-            <tbody>
-              {propertiesSold?.map((property, index) => (
-                <tr key={index} className="border-b">
-                  <td className="py-2 px-4">{property.propertyTitle}</td>
-                  <td className="py-2 px-4">{property.location}</td>
-                  <td className="py-2 px-4">{property.buyerName}</td>
-                  <td className="py-2 px-4">{property.buyerEmail}</td>
-                  <td className="py-2 px-4">${property.amount}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+  {propertiesSold?.length > 0 ? (
+    <>
+      {/* Table for Sold Properties */}
+      <div className="overflow-x-auto">
+  <div className="max-h-[400px] overflow-y-auto">
+    <table className="min-w-full bg-white rounded-lg shadow-lg overflow-hidden border border-gray-200">
+      <thead>
+        <tr className="bg-indigo-600 text-white text-left">
+          <th className="py-3 px-4 text-sm font-semibold uppercase tracking-wider">
+            Property Title
+          </th>
+          <th className="py-3 px-4 text-sm font-semibold uppercase tracking-wider">
+            <FaMapMarkerAlt className="inline-block mr-2" /> Location
+          </th>
+          <th className="py-3 px-4 text-sm font-semibold uppercase tracking-wider">
+            <FaUser className="inline-block mr-2" /> Buyer Name
+          </th>
+          <th className="py-3 px-4 text-sm font-semibold uppercase tracking-wider">
+            <FaEnvelope className="inline-block mr-2" /> Buyer Email
+          </th>
+          <th className="py-3 px-4 text-sm font-semibold uppercase tracking-wider">
+            <FaDollarSign className="inline-block mr-2" /> Sold Price
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {propertiesSold?.map((property, index) => (
+          <tr
+            key={index}
+            className={`border-b ${
+              index % 2 === 0 ? "bg-gray-50" : "bg-white"
+            }`}
+          >
+            <td className="py-4 px-4 text-sm">{property.propertyTitle}</td>
+            <td className="py-4 px-4 text-sm">{property.location}</td>
+            <td className="py-4 px-4 text-sm">{property.buyerName}</td>
+            <td className="py-4 px-4 text-sm">{property.buyerEmail}</td>
+            <td className="py-4 px-4 text-sm font-semibold text-green-600">
+              ${property.amount}
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+</div>
 
-          {/* Total Sold Amount Section */}
-          <div className="bg-green-100 p-4 rounded shadow">
-            <h3 className="text-lg font-semibold text-green-700">
-              Total Sold Amount
-            </h3>
-            <p className="text-green-900 text-xl font-bold">
-              ${totalSoldAmount()}
-            </p>
-          </div>
-        </>
-      ) : (
-        <p className="text-gray-500 mt-4">No sold properties to display.</p>
-      )}
-    </div>
+      {/* Total Sold Amount Section */}
+<div className="mt-6 p-5 bg-gradient-to-r from-green-400 via-green-500 to-green-600 text-white rounded-lg shadow-lg flex items-center space-x-4 justify-center">
+  <div className="flex items-center justify-center p-3 bg-white rounded-full text-green-600 shadow-lg">
+    <FaDollarSign className="text-3xl" />
+  </div>
+  
+  <div>
+    <h3 className="text-xl font-semibold">Total Sold Amount</h3>
+    <p className="text-3xl font-extrabold mt-2">
+      ${totalSoldAmount()}
+    </p>
+  </div>
+</div>
+    </>
+  ) : (
+    <p className="text-gray-500 mt-4">No sold properties to display.</p>
+  )}
+</div>
   );
 };
 

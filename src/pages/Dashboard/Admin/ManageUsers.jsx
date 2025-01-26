@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import { useQuery } from "@tanstack/react-query";
 import { AuthContext } from "../../../providers/AuthProvider";
 import { useLocation } from "react-router-dom";
+import { FaUserShield, FaUserTie, FaBan, FaTrash, FaExclamationCircle } from "react-icons/fa";
 
 
 const ManageUsers = () => {
@@ -89,79 +90,107 @@ const ManageUsers = () => {
 
   return (
     <div className="p-6">
-      <h2 className="text-2xl font-bold mb-4">Manage Users</h2>
-      {users?.length > 0 ? (
-        <table className="min-w-full bg-white shadow rounded overflow-hidden">
-          <thead>
-            <tr className="bg-gray-100 text-left">
-              <th className="py-2 px-4">Name</th>
-              <th className="py-2 px-4">Email</th>
-              <th className="py-2 px-4">Role</th>
-              <th className="py-2 px-4">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {users?.map((user) => (
-              <tr key={user._id} className="border-b">
-                <td className="py-2 px-4">{user.username}</td>
-                <td className="py-2 px-4">{user.email}</td>
-                <td className="py-2 px-4 capitalize">{user.role || "user"}</td>
-                <td className="py-2 px-4">
-                  {user.role !== "admin" && (
-                    <div className="flex gap-2">
-                      {user.role !== "admin" && user.role !== "agent" && (
-                        <button
-                          className="bg-blue-500 text-white py-1 px-3 rounded"
-                          onClick={() => handleMakeAdmin(user._id)}
-                        >
-                          Make Admin
-                        </button>
-                      )}
-                      {user.role !== "agent" && user.role !== "fraud" && (
-                        <button
-                          className="bg-green-500 text-white py-1 px-3 rounded"
-                          onClick={() => handleMakeAgent(user._id)}
-                        >
-                          Make Agent
-                        </button>
-                      )}
-                      {user.role === "agent" && (
-                        user.fraud ? <span>
-                          <button className="btn bg-neutral-600 text-black" disabled> Fraud</button>
-                        </span> :  <div className="flex gap-2">
-                        <button
-                          className="bg-blue-500 text-white py-1 px-3 rounded"
-                          onClick={() => handleMakeAdmin(user._id)}
-                        >
-                          Make Admin
-                        </button><button
-                          className="bg-orange-500 text-white py-1 px-3 rounded"
-                          onClick={() => handleMarkAsFraud(user._id,user.email)}
-                        >
-                          Mark as Fraud
-                        </button>
-                        </div>
-                      )}
+  <h2 className="text-3xl font-semibold text-indigo-700 mb-6">Manage Users</h2>
+
+  {users?.length > 0 ? (
+    <div className="overflow-x-auto">
+      <table className="min-w-full bg-white shadow-lg rounded-lg border border-gray-200">
+        <thead className="bg-indigo-100 text-indigo-700">
+          <tr>
+            <th className="py-3 px-4 text-sm font-semibold">Name</th>
+            <th className="py-3 px-4 text-sm font-semibold">Email</th>
+            <th className="py-3 px-4 text-sm font-semibold">Role</th>
+            <th className="py-3 px-4 text-sm font-semibold">Actions</th>
+          </tr>
+        </thead>
+        <tbody className="text-sm">
+          {users.map((user, index) => (
+            <tr
+              key={user._id}
+              className={`border-b ${index % 2 === 0 ? 'bg-gray-50' : 'bg-white'} hover:bg-gray-100 transition-all duration-300`}
+            >
+              <td className="py-3 px-4">{user.username}</td>
+              <td className="py-3 px-4">{user.email}</td>
+              <td className="py-3 px-4 capitalize">
+                <span
+                  className={`${
+                    user.role === 'admin'
+                      ? 'text-blue-600'
+                      : user.role === 'agent'
+                      ? 'text-green-600'
+                      : user.role === 'fraud'
+                      ? 'text-red-600'
+                      : 'text-gray-600'
+                  } font-semibold`}
+                >
+                  {user.role || 'User'}
+                </span>
+              </td>
+              <td className="py-3 px-4">
+                {user.role !== 'admin' && (
+                  <div className="flex gap-3">
+                    {user.role !== 'agent' && user.role !== 'fraud' && (
                       <button
-                        className="bg-red-500 text-white py-1 px-3 rounded"
-                        onClick={() => handleDeleteUser(user.uid)}
+                        className="bg-blue-500 text-white py-1 px-3 rounded-full hover:bg-blue-600 transition-all duration-300 flex items-center gap-2"
+                        onClick={() => handleMakeAdmin(user._id)}
                       >
-                        Delete
+                        <FaUserShield /> Make Admin
                       </button>
-                    </div>
-                  )}
-                  {user.role === "fraud" && (
-                    <span className="text-red-600 font-bold">Fraud</span>
-                  )}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      ) : (
-        <p className="text-gray-500 mt-4">No users to manage.</p>
-      )}
+                    )}
+                    {user.role !== 'agent' && user.role !== 'fraud' && (
+                      <button
+                        className="bg-green-500 text-white py-1 px-3 rounded-full hover:bg-green-600 transition-all duration-300 flex items-center gap-2"
+                        onClick={() => handleMakeAgent(user._id)}
+                      >
+                        <FaUserTie /> Make Agent
+                      </button>
+                    )}
+                    {user.role === 'agent' && !user.fraud && (
+                      <div className="flex gap-2">
+                        <button
+                          className="bg-blue-500 text-white py-1 px-3 rounded-full hover:bg-blue-600 transition-all duration-300 flex items-center gap-2"
+                          onClick={() => handleMakeAdmin(user._id)}
+                        >
+                          <FaUserShield /> Make Admin
+                        </button>
+                        <button
+                          className="bg-orange-500 text-white py-1 px-3 rounded-full hover:bg-orange-600 transition-all duration-300 flex items-center gap-2"
+                          onClick={() => handleMarkAsFraud(user._id, user.email)}
+                        >
+                          <FaBan /> Mark as Fraud
+                        </button>
+                      </div>
+                    )}
+                    {user.role === 'agent' && user.fraud && (
+                      <button
+                        className="bg-neutral-600 text-white py-1 px-3 rounded-full cursor-not-allowed flex items-center gap-2"
+                        disabled
+                      >
+                        <FaExclamationCircle /> Fraud
+                      </button>
+                    )}
+                    <button
+                      className="bg-red-500 text-white py-1 px-3 rounded-full hover:bg-red-600 transition-all duration-300 flex items-center gap-2"
+                      onClick={() => handleDeleteUser(user.uid)}
+                    >
+                      <FaTrash /> Delete
+                    </button>
+                  </div>
+                )}
+                {user.role === 'fraud' && (
+                  <span className="text-red-600 font-bold">Fraud</span>
+                )}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
+  ) : (
+    <p className="text-gray-500 mt-4">No users to manage.</p>
+  )}
+</div>
+
   );
 };
 

@@ -5,6 +5,8 @@ import Swal from 'sweetalert2';
 import { AuthContext } from '../../../providers/AuthProvider';
 import axios from 'axios';
 import { format } from 'date-fns';
+import { toast } from 'react-toastify';
+import { HiOutlineCheckCircle, HiOutlineCreditCard, HiOutlineExclamationCircle, HiOutlineRefresh, HiOutlineShieldCheck,HiOutlineArrowCircleRight } from 'react-icons/hi';
 
 const CheckoutForm = ({ property }) => {
   const location = useLocation();
@@ -87,18 +89,67 @@ const CheckoutForm = ({ property }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
-      <PaymentElement />
-      <button
-        type="submit"
-        className="btn btn-primary w-full mt-4"
-        disabled={!stripe || !elements || loading}
-      >
-        {loading ? "Processing..." : "Pay Now"}
-      </button>
-      {errorMessage && <div className="text-red-500 mt-2">{errorMessage}</div>}
-      {transactionId && <div className="text-green-500 mt-2">Transaction ID: {transactionId}</div>}
-    </form>
+    <form
+  onSubmit={handleSubmit}
+  className="space-y-6 bg-white shadow-lg rounded-xl p-6 max-w-lg mx-auto"
+>
+  {/* Title */}
+  <h2 className="text-2xl font-bold text-gray-800 text-center flex items-center gap-2 mb-4">
+    <HiOutlineCreditCard className="text-blue-500" />
+    Secure Payment
+  </h2>
+
+  {/* Payment Element */}
+  <div className="border border-gray-300 rounded-lg p-4">
+    <PaymentElement />
+  </div>
+
+  {/* Error Message */}
+  {errorMessage && (
+    <div className="text-red-500 text-sm mt-2 flex items-center gap-2">
+      <HiOutlineExclamationCircle className="text-red-500" />
+      {errorMessage}
+    </div>
+  )}
+
+  {/* Transaction ID */}
+  {transactionId && (
+    <div className="text-green-500 text-sm mt-2 flex items-center gap-2">
+      <HiOutlineCheckCircle className="text-green-500" />
+      Transaction ID: {transactionId}
+    </div>
+  )}
+
+  {/* Submit Button */}
+  <button
+    type="submit"
+    className={`w-full flex items-center justify-center gap-2 text-white py-3 rounded-lg transition-colors ${
+      loading
+        ? "bg-gray-400 cursor-not-allowed"
+        : "bg-blue-600 hover:bg-blue-700"
+    }`}
+    disabled={!stripe || !elements || loading}
+  >
+    {loading ? (
+      <>
+        <HiOutlineRefresh className="animate-spin" />
+        Processing...
+      </>
+    ) : (
+      <>
+        <HiOutlineArrowCircleRight />
+        Pay Now
+      </>
+    )}
+  </button>
+
+  {/* Security Note */}
+  <p className="text-gray-500 text-sm text-center mt-4 flex items-center justify-center gap-1">
+    <HiOutlineShieldCheck className="text-blue-500" />
+    Secure and encrypted transaction
+  </p>
+</form>
+
   );
 };
 

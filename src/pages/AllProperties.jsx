@@ -3,6 +3,11 @@ import { Link, useLocation } from 'react-router-dom';
 import { AuthContext } from '../providers/AuthProvider';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
+import { MdVerified, MdStar } from "react-icons/md";
+import { BsShieldCheck } from "react-icons/bs";
+import { HiOutlineInformationCircle, HiOutlineLocationMarker } from "react-icons/hi";
+import { HiOutlineSearch, HiOutlineFilter, HiOutlineChevronDown } from "react-icons/hi";
+
 
 const AllProperties = () => {
   const location = useLocation();
@@ -11,13 +16,13 @@ const AllProperties = () => {
     document.title = pageTitle;
   }, [location]);
   const [searchQuery, setSearchQuery] = useState('');
-  const [sortOrder, setSortOrder] = useState(''); 
+  const [sortOrder, setSortOrder] = useState('');
   const { user } = useContext(AuthContext);
 
-  const { data: properties=[], isLoading, refetch } = useQuery({
+  const { data: properties = [], isLoading, refetch } = useQuery({
     queryKey: ["properties"],
     queryFn: async () => {
-      const { data } = await axios.get(`https://real-estate-flax-psi.vercel.app/properties`,{withCredentials:true});
+      const { data } = await axios.get(`https://real-estate-flax-psi.vercel.app/properties`, { withCredentials: true });
       return data;
     },
   })
@@ -29,104 +34,142 @@ const AllProperties = () => {
 
   // Sort properties based on price range (extracting the lower bound of the range)
   const sortedProperties = [...filteredProperties].sort((a, b) => {
-    const priceA = parseInt(a.priceRange.split('-')[0]); 
-    const priceB = parseInt(b.priceRange.split('-')[0]); 
+    const priceA = parseInt(a.priceRange.split('-')[0]);
+    const priceB = parseInt(b.priceRange.split('-')[0]);
 
     if (sortOrder === 'lowToHigh') {
-      return priceA - priceB; 
+      return priceA - priceB;
     }
     if (sortOrder === 'highToLow') {
-      return priceB - priceA; 
+      return priceB - priceA;
     }
-    return 0; 
+    return 0;
   });
   isLoading && <p>Loading...</p>;
 
   return (
-    <div className="container mx-auto p-4">
-      {/* Search Input */}
-      <div className="mb-4">
-        <input
-          type="text"
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          placeholder="Search by location"
-          className="w-full p-2 border rounded shadow-sm"
-        />
-      </div>
+    <div className="container mx-auto p-4 mt-20 mb-20">
+      {/* Search Input and Sort Dropdown as Grid */}
+      <div className="flex justify-between gap-4 mb-6">
+        {/* Search Input */}
+        <div className="mb-6">
+          <div className="relative">
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Search by location"
+              className="w-full p-4 pl-12 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+            <span className="absolute top-1/2 left-4 transform -translate-y-1/2 text-gray-400">
+              <HiOutlineSearch className="text-xl" />
+            </span>
+          </div>
+        </div>
 
-      {/* Sort Dropdown */}
-      <div className="mb-6">
-        <select
-          value={sortOrder}
-          onChange={(e) => setSortOrder(e.target.value)}
-          className="w-full p-2 border rounded shadow-sm"
-        >
-          <option value="">Sort by Price Range</option>
-          <option value="lowToHigh">Price: Low to High</option>
-          <option value="highToLow">Price: High to Low</option>
-        </select>
+        {/* Sort Dropdown */}
+        <div className="mb-6">
+          <div className="relative">
+            <select
+              value={sortOrder}
+              onChange={(e) => setSortOrder(e.target.value)}
+              className="w-full p-4 pl-12 border border-gray-300 rounded-lg shadow-sm bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 appearance-none"
+            >
+              <option value="">Sort by Price</option>
+              <option value="lowToHigh">Price: Low to High</option>
+              <option value="highToLow">Price: High to Low</option>
+            </select>
+            <span className="absolute top-1/2 left-4 transform -translate-y-1/2 text-gray-400">
+              <HiOutlineFilter className="text-xl" />
+            </span>
+            <span className="absolute top-1/2 right-4 transform -translate-y-1/2 text-gray-400">
+              <HiOutlineChevronDown className="text-xl" />
+            </span>
+          </div>
+        </div>
+
       </div>
 
       {/* Properties List */}
-      {sortedProperties?.length > 0 ? (
-        sortedProperties?.map((property) => (
-          <div key={property._id} className="max-w-sm bg-white shadow-md rounded-lg overflow-hidden mb-4">
-            {/* Property Image */}
-            <img src={property.image} className="w-full h-48 object-cover" alt={property.propertyTitle} />
-
-            {/* Card Content */}
-            <div className="p-4">
-              {/* Property Title */}
-              <h3 className="text-xl font-semibold mb-2">{property.propertyTitle}</h3>
-
-              {/* Property Location */}
-              <p className="text-gray-600 mb-2">
-                <strong>Location:</strong> {property.location}
-              </p>
-
-              {/* Agent Info */}
-              <div className="flex items-center mb-2">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+        {sortedProperties?.length > 0 ? (
+          sortedProperties?.map((property) => (
+            <div
+              key={property._id}
+              className="bg-white shadow-md rounded-lg overflow-hidden hover:shadow-lg transform transition duration-300 hover:scale-105"
+            >
+              {/* Property Image Section */}
+              <div className="relative">
                 <img
-                  src={property?.agentPhoto}
-                  className="w-8 h-8 object-cover rounded-full"
-                  alt={property.agentName}
+                  src={property.image}
+                  alt={property.propertyTitle}
+                  className="w-full h-52 object-cover"
                 />
-                <p className="text-gray-600">
-                  <strong>Agent:</strong> {property.agentName}
-                </p>
+                <div className="absolute top-3 left-3 bg-green-500 text-white text-xs font-bold px-3 py-1 rounded-lg flex items-center gap-1 shadow">
+                  <MdStar className="text-yellow-300" /> Featured
+                </div>
+                <div className="absolute top-3 right-3 bg-blue-600 text-white p-2 rounded-full shadow">
+                  <MdVerified className="text-white text-lg" />
+                </div>
               </div>
+              {/* Card Content */}
+              <div className="p-4">
+                <div className='flex justify-between gap-2'>
+                  <h3 className="text-lg font-semibold text-gray-900 truncate mb-1">
+                    {property.propertyTitle}
+                  </h3>
+                  <p
+                    className={`text-sm font-bold mb-3 flex items-center gap-2 ${property.verificationStatus === "verified"
+                      ? "text-green-600"
+                      : property.verificationStatus === "rejected"
+                        ? "text-red-600"
+                        : "text-gray-500"
+                      }`}
+                  >
+                    <BsShieldCheck className="text-xl" />
+                    {property.verificationStatus.charAt(0).toUpperCase() +
+                      property.verificationStatus.slice(1)}
+                  </p>
+                </div>
+                <div className=' flex justify-between gap-2'>
+                  <p className="text-red-500 font-bold text-lg mb-2">
+                    ${property.priceRange}
+                  </p>
+                  <p className="text-base font-semibold text-gray-600 flex items-center gap-2 mb-4">
+                    <HiOutlineLocationMarker className="text-blue-500" />
+                    {property.location}
+                  </p>
+                </div>
 
-              {/* Verification Status */}
-              <p
-                className={`text-sm font-bold mb-2 ${
-                  property.verificationStatus === 'verified'
-                    ? 'text-green-500'
-                    : property.verificationStatus === 'rejected'
-                    ? 'text-red-500'
-                    : 'text-gray-500'
-                }`}
-              >
-                Status: {property.verificationStatus.charAt(0).toUpperCase() + property.verificationStatus.slice(1)}
-              </p>
-
-              {/* Price Range */}
-              <p className="text-gray-700 mb-4">
-                <strong>Price Range:</strong> {property.priceRange}
-              </p>
-
-              {/* Details Button */}
-              <Link to={`/property/details/${property._id}`}>
-                <button className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">
-                  Details
-                </button>
-              </Link>
+                {/* Agent Info */}
+                <div className="flex justify-center items-center gap-3 mb-4">
+                  <img
+                    src={property.agentPhoto}
+                    alt={property.agentName}
+                    className="w-12 h-12 rounded-full border-2 border-gray-300"
+                  />
+                  <div>
+                    <p className="text-gray-800 font-medium">{property.agentName}</p>
+                  </div>
+                </div>
+                {/* Actions */}
+                <div className="flex gap-3">
+                  <Link to={`/property/details/${property._id}`} className="w-full">
+                    <button className="w-full py-2 bg-indigo-500 text-white font-semibold rounded-lg flex items-center justify-center gap-2 hover:bg-indigo-600 transition duration-300">
+                      <HiOutlineInformationCircle />
+                      Details
+                    </button>
+                  </Link>
+                </div>
+              </div>
             </div>
-          </div>
-        ))
-      ) : (
-        <p>No properties found.</p>
-      )}
+          ))
+        ) : (
+          <p className="text-gray-500 text-center col-span-full">
+            No properties found.
+          </p>
+        )}
+      </div>
     </div>
   );
 };

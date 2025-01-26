@@ -4,7 +4,7 @@ import Footer from '../Footer/Footer'
 
 const Layout = () => {
     return (
-        <div className='max-w-7xl mx-auto px-5 min-h-screen grid grid-rows-[auto_1fr_auto]'>
+        <div className='w-full mx-auto min-h-screen grid grid-rows-[auto_1fr_auto] bg-gradient-to-r from-blue-100 via-blue-200 to-blue-300'>
             <Header />
             <Outlet />
             <Footer />

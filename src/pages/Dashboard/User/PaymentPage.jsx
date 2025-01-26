@@ -31,7 +31,7 @@ const PaymentPage = () => {
 
   return (
     <div>
-      <div className="max-w-3xl mx-auto">
+      <div className="max-w-3xl mx-auto mt-36 mb-28">
         {clientSecret ? (
           <Elements stripe={stripePromise} options={options}>
             <CheckoutForm property = {state.property} />

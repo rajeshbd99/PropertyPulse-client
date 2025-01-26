@@ -3,6 +3,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { useQuery } from "@tanstack/react-query";
 import { useLocation } from "react-router-dom";
+import { FaBullhorn, FaCheckCircle } from "react-icons/fa";
 
 const AdvertiseProperty = () => {
   const location = useLocation();
@@ -35,43 +36,69 @@ const AdvertiseProperty = () => {
 
   return (
     <div className="p-6">
-      <h2 className="text-2xl font-bold mb-4">Advertise Properties</h2>
-      {properties?.length > 0 ? (
-        <table className="min-w-full bg-white shadow rounded overflow-hidden">
-          <thead>
-            <tr className="bg-gray-100 text-left">
-              <th className="py-2 px-4">Property Image</th>
-              <th className="py-2 px-4">Property Title</th>
-              <th className="py-2 px-4">Price Range</th>
-              <th className="py-2 px-4">Agent Name</th>
-              <th className="py-2 px-4">Action</th>
+  <h2 className="text-3xl font-semibold text-gray-800 mb-6">Advertise Properties</h2>
+
+  {properties?.length > 0 ? (
+    <div className="overflow-x-auto">
+      <table className="min-w-full bg-white shadow-lg rounded-lg">
+        <thead>
+          <tr className="bg-gradient-to-r from-indigo-600 to-blue-500 text-white">
+            <th className="py-3 px-6 text-left">Property Image</th>
+            <th className="py-3 px-6 text-left">Property Title</th>
+            <th className="py-3 px-6 text-left">Price Range</th>
+            <th className="py-3 px-6 text-left">Agent Name</th>
+            <th className="py-3 px-6 text-left">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {properties?.map((property) => (
+            <tr
+              key={property._id}
+              className="border-b hover:bg-gray-50 transition duration-200"
+            >
+              <td className="py-3 px-6">
+                <img
+                  src={property.image}
+                  alt={property.propertyTitle}
+                  className="w-16 h-16 object-cover rounded-lg shadow-sm"
+                />
+              </td>
+              <td className="py-3 px-6 text-lg font-medium">{property.propertyTitle}</td>
+              <td className="py-3 px-6 text-xl text-green-600">${property.priceRange}</td>
+              <td className="py-3 px-6">{property.agentName}</td>
+              <td className="py-3 px-6">
+                <button
+                  onClick={() => handleAdvertise(property._id)}
+                  className={`text-white py-2 px-4 rounded-full transition duration-200 transform ${
+                    property.advertise === true
+                      ? "bg-gray-500 cursor-not-allowed"
+                      : "bg-blue-600 hover:bg-blue-700"
+                  }`}
+                  disabled={property.advertise === true}
+                >
+                  {property.advertise === true ? (
+                    <span className="flex items-center justify-center gap-2">
+                      <FaCheckCircle className="text-white" />
+                      Advertised
+                    </span>
+                  ) : (
+                    <span className="flex items-center justify-center gap-2">
+                      <FaBullhorn className="text-white" />
+                      Advertise
+                    </span>
+                  )}
+                </button>
+              </td>
             </tr>
-          </thead>
-          <tbody>
-            {properties?.map((property) => (
-              <tr key={property._id} className="border-b">
-                <td className="py-2 px-4">
-                  <img src={property.image} alt={property.title} className="w-20 h-20 object-cover rounded" />
-                </td>
-                <td className="py-2 px-4">{property.propertyTitle}</td>
-                <td className="py-2 px-4">${property.priceRange}</td>
-                <td className="py-2 px-4">{property.agentName}</td>
-                <td className="py-2 px-4">
-                  <button
-                    onClick={() => handleAdvertise(property._id)}
-                    className={` text-white py-2 px-4 rounded hover:bg-blue-600 ${property.advertise == true ? 'bg-slate-500 hover:bg-slate-500' : "bg-blue-500"}`} disabled={property.advertise ? true : false}
-                  >
-                    {property.advertise === true ? "Advertised" : "Advertise"}
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      ) : (
-        <p className="text-gray-500 mt-4">No verified properties to advertise.</p>
-      )}
+          ))}
+        </tbody>
+      </table>
     </div>
+  ) : (
+    <p className="text-gray-500 mt-4">No verified properties to advertise.</p>
+  )}
+</div>
+
   );
 };
 

@@ -4,6 +4,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
+import { FaCheckCircle, FaExclamationCircle, FaMapMarkerAlt, FaMoneyBillAlt, FaTimesCircle, FaUser } from "react-icons/fa";
 
 const MyAddedProperties = () => {
   const location = useLocation();
@@ -47,43 +48,66 @@ const MyAddedProperties = () => {
 
   return (
     <div className="p-6">
-      <h2 className="text-2xl font-bold mb-4">My Added Properties</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {properties?.map((property) => (
-          <div key={property._id} className="bg-white shadow rounded p-4">
-            <img
-              src={property.image}
-              alt={property.propertyTitle}
-              className="w-full h-40 object-cover rounded"
-            />
-            <h3 className="text-lg font-bold mt-2">{property.propertyTitle}</h3>
-            <p className="text-gray-600">Location: {property.location}</p>
-            <p className="text-gray-600">Agent: {property.agentName}</p>
-            <p className="text-gray-600">Price Range: {property.priceRange}</p>
-            <p className={`font-semibold mt-2 ${property.verificationStatus === "verified" ? "text-green-600" : property.verificationStatus === "rejected" ? "text-red-600" : "text-yellow-600"}`}>
-              <span className="text-black font-semibold">Status</span>: {property.verificationStatus}
+  <h2 className="text-3xl font-bold text-indigo-700 mb-6">My Added Properties</h2>
+  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    {properties?.map((property) => (
+      <div key={property._id} className="bg-gradient-to-r from-gray-50 to-gray-100 shadow-md rounded-lg p-4 flex flex-col">
+        {/* Image Section */}
+        <img
+          src={property.image || "/default-property.jpg"}
+          alt={property.propertyTitle}
+          className="w-full h-40 object-cover rounded-lg"
+        />
+        {/* Content Section */}
+        <div className="mt-4 flex flex-col flex-grow">
+          <h3 className="text-xl font-bold text-indigo-700 mb-2">{property.propertyTitle}</h3>
+          <div className="text-sm text-gray-600 space-y-2">
+            <p className="flex items-center gap-2">
+              <FaMapMarkerAlt className="text-indigo-500" /> {property.location}
             </p>
-
-            <div className="flex justify-between mt-4">
-              {property.status !== "rejected" && (
-                <button
-                  onClick={() => handleUpdate(property._id)}
-                  className="bg-blue-600 text-white py-1 px-3 rounded hover:bg-blue-700"
-                >
-                  Update
-                </button>
-              )}
-              <button
-                onClick={() => handleDelete(property._id)}
-                className="bg-red-600 text-white py-1 px-3 rounded hover:bg-red-700"
-              >
-                Delete
-              </button>
-            </div>
+            <p className="flex items-center gap-2">
+              <FaUser className="text-indigo-500" /> Agent: {property.agentName}
+            </p>
+            <p className="flex items-center gap-2">
+              <FaMoneyBillAlt className="text-indigo-500" /> Price Range: {property.priceRange}
+            </p>
           </div>
-        ))}
+          <p
+            className={`mt-4 text-lg font-semibold flex items-center gap-2 ${
+              property.verificationStatus === "verified"
+                ? "text-green-600"
+                : property.verificationStatus === "rejected"
+                ? "text-red-600"
+                : "text-yellow-600"
+            }`}
+          >
+            {property.verificationStatus === "verified" && <FaCheckCircle />}
+            {property.verificationStatus === "rejected" && <FaTimesCircle />}
+            {property.verificationStatus === "pending" && <FaExclamationCircle />}
+            {property.verificationStatus}
+          </p>
+        </div>
+        {/* Action Buttons */}
+        <div className="mt-4 flex justify-between items-center">
+          {property.verificationStatus !== "rejected" && (
+            <button
+              onClick={() => handleUpdate(property._id)}
+              className="flex items-center gap-2 bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-200"
+            >
+              Update
+            </button>
+          )}
+          <button
+            onClick={() => handleDelete(property._id)}
+            className="flex items-center gap-2 bg-red-600 text-white py-2 px-4 rounded-lg hover:bg-red-700 transition duration-200"
+          >
+            Delete
+          </button>
+        </div>
       </div>
-    </div>
+    ))}
+  </div>
+</div>
   );
 };
 
