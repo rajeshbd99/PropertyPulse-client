@@ -120,7 +120,7 @@ const Dashboard = () => {
       ></div>
       {role && (
         <motion.div
-          className={`lg:block ${isDrawerOpen ? "block" : "hidden"} h-full lg:static fixed z-50 `}
+          className={`lg:block ${isDrawerOpen ? "block" : "hidden"} h-full `}
         >
           <Sidebar
             title={sidebarData[role].title}

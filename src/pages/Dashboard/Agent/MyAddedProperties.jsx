@@ -56,7 +56,7 @@ const MyAddedProperties = () => {
         <img
           src={property.image || "/default-property.jpg"}
           alt={property.propertyTitle}
-          className="w-full h-40 object-cover rounded-lg"
+          className="w-full h-60 object-cover rounded-lg"
         />
         {/* Content Section */}
         <div className="mt-4 flex flex-col flex-grow">

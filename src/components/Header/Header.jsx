@@ -4,6 +4,7 @@ import { AuthContext } from "../../providers/AuthProvider";
 import logo from "../../assets/logo.png";
 import { FiMenu, FiX } from "react-icons/fi";
 import { IoLogOut } from "react-icons/io5";
+import { RiDashboardFill } from "react-icons/ri";
 
 const Header = () => {
   const { user, logoutUser } = useContext(AuthContext);
@@ -27,7 +28,7 @@ const Header = () => {
         to="/"
         className={({ isActive }) =>
           isActive
-            ? "text-yellow-400 font-semibold px-4 py-2 transition-colors duration-300 ease-in-out"
+            ? "text-black btn hover:text-red-600 font-semibold px-4 py-2 transition-colors duration-300 ease-in-out"
             : "text-yellow-400 font-semibold hover:text-primary-100 px-4 py-2 transition-colors duration-300 ease-in-out"
         }
       >
@@ -37,7 +38,7 @@ const Header = () => {
         to="/all-properties"
         className={({ isActive }) =>
           isActive
-            ? "text-yellow-400 font-semibold px-4 py-2 transition-colors duration-300 ease-in-out"
+            ? "text-black btn hover:text-red-600 font-semibold px-4 py-2 transition-colors duration-300 ease-in-out"
             : "text-yellow-400 font-semibold hover:text-primary-100 px-4 py-2 transition-colors duration-300 ease-in-out"
         }
       >
@@ -46,7 +47,7 @@ const Header = () => {
       {user && (
         <button
           onClick={() => navigate("/dashboard")}
-          className="text-yellow-400 font-semibold hover:text-primary-100 bg-transparent px-4 py-2 transition-all duration-300 rounded-md"
+          className="text-black btn hover:text-red-600 font-semibold hover:text-primary-100 bg-transparent px-4 py-2 transition-all duration-300 rounded-md"
         >
           Dashboard
         </button>
@@ -55,7 +56,7 @@ const Header = () => {
   );
 
   return (
-    <div className="navbar bg-transparent backdrop-blur-md  fixed top-0 left-0 right-0 z-50 shadow-lg py-4 px-6">
+    <div className="navbar bg-transparent backdrop-blur-md fixed top-0 left-0 right-0 z-50 shadow-lg py-4 px-6">
       {/* Navbar Start */}
       <div className="navbar-start flex items-center">
         {/* Logo and Website Name */}

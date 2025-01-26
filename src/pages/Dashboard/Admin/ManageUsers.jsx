@@ -96,7 +96,7 @@ const ManageUsers = () => {
     <div className="overflow-x-auto">
       <table className="min-w-full bg-white shadow-lg rounded-lg border border-gray-200">
         <thead className="bg-indigo-100 text-indigo-700">
-          <tr>
+          <tr className="text-left">
             <th className="py-3 px-4 text-sm font-semibold">Name</th>
             <th className="py-3 px-4 text-sm font-semibold">Email</th>
             <th className="py-3 px-4 text-sm font-semibold">Role</th>

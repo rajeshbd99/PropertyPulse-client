@@ -66,6 +66,7 @@ const PropertyDetails = () => {
         agentPhoto: property.agentPhoto,
         location: property.location,
         propertyImage: property.image,
+        description : property.description,
 
       }, { withCredentials: true });
       toast.success('Property added to wishlist!');

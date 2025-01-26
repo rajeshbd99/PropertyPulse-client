@@ -60,6 +60,7 @@ const AddProperty = () => {
                         location: "",
                         image: null,
                         priceRange: "",
+                        description: "",
                     });
                 }
             }
