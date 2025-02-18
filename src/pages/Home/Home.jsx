@@ -89,7 +89,7 @@ const Home = () => {
       {/* Advertisement Section */}
       <section className="container mx-auto py-12 mt-10 mb-10">
         <h2 className="text-5xl font-bold text-center mb-10 text-gray-800 text-shadow-md">Featured Properties</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 px-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 px-6">
           {advertiseProperties?.map((property) => (
             <div className="max-w-sm bg-gradient-to-b from-blue-500 to-blue-800 rounded-lg overflow-hidden shadow-lg transform hover:scale-105 transition-all duration-500 ease-in-out hover:shadow-2xl hover:translate-y-2">
               {/* Property Image */}
