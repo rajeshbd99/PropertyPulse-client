@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
 import { FaHandshake, FaRocket, FaHeart, FaUserShield } from "react-icons/fa";
-import { FaLinkedin, FaTwitter, FaFacebook } from "react-icons/fa";
 import img from '../assets/img1.jpg';
 import img1 from "../assets/team1.jpg"; 
 import img2 from "../assets/team2.jpg"; 
@@ -26,30 +25,49 @@ const teamMembers = [
 const AboutUs = () => {
   return (
     <div className="bg-gray-100">
-      {/* Hero Section */}
-      <section className="relative flex flex-col-reverse lg:flex-row items-center justify-between px-6 py-16 lg:py-24 max-w-7xl mx-auto">
-        <div className="lg:w-1/2 text-center lg:text-left">
-          <motion.h1
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-4xl sm:text-5xl font-bold text-gray-800 mb-4"
-          >
-            About <span className="text-blue-600">PropertyPulse</span>
-          </motion.h1>
-          <p className="text-gray-600 text-lg mb-6">
-            We help you find your dream property effortlessly. With verified listings and expert agents, we make buying, selling, and renting homes simple and secure.
-          </p>
-        </div>
-        <motion.img 
-          initial={{ opacity: 0, scale: 0.8 }} 
-          animate={{ opacity: 1, scale: 1 }} 
-          transition={{ duration: 0.6 }} 
-          src= {img}
-          alt="Real Estate" 
-          className="lg:w-1/2 w-full rounded-lg shadow-lg"
+      <section className="relative flex flex-col-reverse lg:flex-row items-center justify-between px-6 py-16 lg:py-24 max-w-7xl mx-auto mt-12 gap-4">
+      {/* Background Gradient */}
+      <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-blue-700 opacity-20 -z-10"></div>
+
+      {/* Left Content */}
+      <div className="lg:w-1/2 text-center lg:text-left">
+        <motion.h1
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="text-4xl sm:text-5xl font-extrabold text-gray-900 leading-tight"
+        >
+          Welcome to <span className="text-blue-600">PropertyPulse</span>
+        </motion.h1>
+        <p className="text-gray-700 text-lg mt-4 mb-6">
+          Your trusted real estate partner. Discover verified listings, expert agents, and seamless property transactions.
+        </p>
+
+        {/* Call-to-Action Button */}
+        <motion.a
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          href="/all-properties#explore"
+          className="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold text-lg shadow-md hover:bg-blue-700 transition duration-300"
+        >
+          Explore Properties
+        </motion.a>
+      </div>
+
+      {/* Right Image with Floating Effect */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.6 }}
+        className="lg:w-1/2 w-full flex justify-center"
+      >
+        <img
+          src={img}
+          alt="Real Estate"
+          className="rounded-lg shadow-2xl transform transition duration-300 hover:scale-105"
         />
-      </section>
+      </motion.div>
+    </section>
 
       {/* Our Mission */}
       <section className="py-16 px-6 bg-white">
