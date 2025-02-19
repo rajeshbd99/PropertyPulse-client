@@ -43,6 +43,16 @@ const Header = () => {
       >
         All Properties
       </NavLink>
+      <NavLink
+        to="/aboutUs"
+        className={({ isActive }) =>
+          isActive
+            ? "text-black btn hover:text-red-600 font-semibold px-4 py-2 transition-colors duration-300 ease-in-out"
+            : "text-yellow-400 font-semibold hover:text-primary-100 px-4 py-2 transition-colors duration-300 ease-in-out"
+        }
+      >
+        About Us
+      </NavLink>
       {user && (
         <button
           onClick={() => navigate("/dashboard")}

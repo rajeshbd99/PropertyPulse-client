@@ -35,6 +35,7 @@ import {
   QueryClient,
   QueryClientProvider,
 } from '@tanstack/react-query'
+import AboutUs from './pages/AboutUs'
 
 
 
@@ -55,6 +56,10 @@ const router = createBrowserRouter([
       {
         path: '/register',
         element: <Register />
+      },
+      {
+        path: '/aboutUs',
+        element: <AboutUs/>
       },
       {
         path:'/all-properties',
