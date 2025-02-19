@@ -14,6 +14,9 @@ import { FaMapMarkerAlt, FaDollarSign, FaCheckCircle, FaTimesCircle, FaCity, FaU
 import { FiMapPin, FiUserCheck, FiThumbsUp, FiTrendingUp } from 'react-icons/fi';
 import { Flip } from 'react-awesome-reveal';
 import ReactLoading from "react-loading";
+import WhyChooseUs from './WhyChooseUs';
+import HowItWorks from './HowItWorks';
+import Testimonials from './Testimonials';
 
 const locations = [
   {
@@ -88,10 +91,15 @@ const Home = () => {
 
       {/* Advertisement Section */}
       <section className="container mx-auto py-12 mt-10 mb-10">
-        <h2 className="text-5xl font-bold text-center mb-10 text-gray-800 text-shadow-md">Featured Properties</h2>
+        <h2 className="text-5xl font-bold text-center mb-10 text-gray-800 text-shadow-md">
+          Featured Properties
+        </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 px-6">
           {advertiseProperties?.map((property) => (
-            <div className="max-w-sm bg-gradient-to-b from-blue-500 to-blue-800 rounded-lg overflow-hidden shadow-lg transform hover:scale-105 transition-all duration-500 ease-in-out hover:shadow-2xl hover:translate-y-2">
+            <div
+              key={property._id}
+              className="max-w-sm bg-gradient-to-b from-blue-500 to-blue-800 rounded-lg overflow-hidden shadow-lg transform hover:scale-105 transition-all duration-500 ease-in-out hover:shadow-2xl hover:translate-y-2"
+            >
               {/* Property Image */}
               <div className="relative">
                 <img
@@ -115,11 +123,22 @@ const Home = () => {
 
                 {/* Verification Status */}
                 <div className="flex items-center space-x-2">
-                  {property.verificationStatus === "verified"
-                    ? <FaCheckCircle className="text-green-500 text-xl" />
-                    : <FaTimesCircle className="text-red-500 text-xl" />}
+                  {property.verificationStatus === "verified" ? (
+                    <FaCheckCircle className="text-green-500 text-xl" />
+                  ) : (
+                    <FaTimesCircle className="text-red-500 text-xl" />
+                  )}
                   <p className="text-sm font-medium text-white">
-                    Status: <span className={`${property.verificationStatus === 'verified' ? 'text-green-500' : 'text-red-500'}`}>{property.verificationStatus.charAt(0).toUpperCase() + property.verificationStatus.slice(1)}</span>
+                    Status:{" "}
+                    <span
+                      className={`${property.verificationStatus === "verified"
+                          ? "text-green-500"
+                          : "text-red-500"
+                        }`}
+                    >
+                      {property.verificationStatus.charAt(0).toUpperCase() +
+                        property.verificationStatus.slice(1)}
+                    </span>
                   </p>
                 </div>
 
@@ -143,6 +162,15 @@ const Home = () => {
               </div>
             </div>
           ))}
+        </div>
+
+        {/* See More Button */}
+        <div className="flex justify-center mt-12">
+          <Link to="/all-properties">
+            <button className="bg-blue-600 text-white text-lg font-semibold py-3 px-8 rounded-full shadow-lg hover:bg-blue-700 transition-all duration-300 transform hover:scale-105">
+              See More Properties
+            </button>
+          </Link>
         </div>
       </section>
 
@@ -304,6 +332,9 @@ const Home = () => {
           ))}
         </div>
       </section>
+      <WhyChooseUs />
+      <HowItWorks />
+      <Testimonials />  
     </div>
   );
 };
