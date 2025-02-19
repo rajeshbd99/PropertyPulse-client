@@ -16,7 +16,7 @@ import { Flip } from 'react-awesome-reveal';
 import ReactLoading from "react-loading";
 import WhyChooseUs from './WhyChooseUs';
 import HowItWorks from './HowItWorks';
-import Testimonials from './Testimonials';
+import Achievements from './Achievements';
 
 const locations = [
   {
@@ -334,7 +334,7 @@ const Home = () => {
       </section>
       <WhyChooseUs />
       <HowItWorks />
-      <Testimonials />  
+      <Achievements />  
     </div>
   );
 };
