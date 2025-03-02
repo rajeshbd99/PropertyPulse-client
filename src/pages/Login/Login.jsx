@@ -60,8 +60,8 @@ const Login = () => {
     }
 
     return (
-        <div className="flex items-center justify-center min-h-screen bg-gray-50 px-4">
-            <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-md">
+        <div className="login flex items-center justify-center min-h-screen bg-white px-4">
+            <div className="login-form w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-md">
                 <div className="">
                     {user && (
                         <div className="p-4 text-center text-green-600 bg-green-100 rounded-md flex flex-col justify-center items-center gap-2">
@@ -70,10 +70,10 @@ const Login = () => {
                         </div>
                     )}
                 </div>
-                <h2 className="text-2xl font-bold text-center text-gray-700">Login to Your Account</h2>
+                <h2 className="text-2xl font-bold text-center text-indigo-700">Login to Your Account</h2>
                 <form onSubmit={handleSubmit} className="space-y-5">
                     <div>
-                        <label htmlFor="email" className="block text-sm font-medium text-gray-600">
+                        <label htmlFor="email" className="block text-sm font-medium text-gray-700">
                             Email
                         </label>
                         <input
@@ -86,11 +86,11 @@ const Login = () => {
                             autoComplete="email"
                             required
                             placeholder="Enter your email"
-                            className="w-full px-4 py-2 mt-1 text-sm border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+                            className="w-full text-black px-4 py-2 mt-1 text-sm border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
                         />
                     </div>
                     <div>
-                        <label htmlFor="password" className="block text-sm font-medium text-gray-600">
+                        <label htmlFor="password" className="block text-sm font-medium text-gray-700">
                             Password
                         </label>
                         <input
@@ -103,7 +103,7 @@ const Login = () => {
                             autoComplete="current-password"
                             required
                             placeholder="Enter your password"
-                            className="w-full px-4 py-2 mt-1 text-sm border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+                            className="w-full text-black px-4 py-2 mt-1 text-sm border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
                         />
                     </div>
                     <button
@@ -117,7 +117,7 @@ const Login = () => {
                         className="w-full flex justify-center items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-green-500 rounded-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
                     >
                         <FaGoogle />
-                        <p className="">Login with Google</p>
+                        Login with Google
                     </button>
 
 

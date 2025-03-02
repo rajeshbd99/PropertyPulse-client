@@ -80,7 +80,7 @@ const UpdateProperty = () => {
   };
 
   return (
-    <div className="p-8 max-w-lg mx-auto bg-white shadow-lg rounded-lg border border-gray-200 mt-16 mb-16">
+    <div className="update p-8 max-w-lg mx-auto bg-white shadow-lg rounded-lg border border-gray-200 mt-16 mb-16">
       <h2 className="text-3xl font-extrabold text-indigo-600 mb-6 flex items-center gap-2">
         <FaEdit /> Update Property
       </h2>

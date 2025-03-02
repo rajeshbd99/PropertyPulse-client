@@ -50,7 +50,7 @@ const MyReviews = () => {
           {myreviews?.map((review) => (
             <div
               key={review._id}
-              className="bg-white shadow-lg rounded-lg p-5 flex flex-col gap-4"
+              className="review bg-white shadow-lg rounded-lg p-5 flex flex-col gap-4"
             >
               {/* Property Title */}
               <h4 className="text-lg font-semibold text-blue-600">

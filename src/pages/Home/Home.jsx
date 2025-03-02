@@ -63,26 +63,26 @@ const Home = () => {
   return (
     <div>
       {/* Banner Section */}
-      <div className="relative bg-gradient-to-r from-blue-400 to-blue-600 text-white h-[800px] flex items-center justify-center">
+      <div className="relative bg-gradient-to-r from-blue-400 to-blue-500 text-white h-[800px] flex items-center justify-center">
         <div className="absolute inset-0">
           {/* Background Image */}
           <img
             src={banner}
             alt="Banner Background"
-            className="w-full h-full object-cover opacity-70"
+            className="w-full h-full object-cover opacity-75"
           />
         </div>
 
         <div className="relative z-0 text-center">
           <h1 className="text-4xl sm:text-5xl font-bold">
-            Welcome to <span className="text-yellow-300">PropertyPulse</span>
+            Welcome to PropertyPulse
           </h1>
-          <p className="text-lg sm:text-xl mt-4 max-w-2xl mx-auto">
+          <p className="text-lg sm:text-xl mt-4 max-w-2xl mx-auto text-gray-300">
             Discover, buy, or sell your dream property with confidence and ease.
           </p>
           <Link
             to="/all-properties"
-            className="mt-6 inline-block px-6 py-3 bg-yellow-300 text-blue-800 font-semibold rounded-lg shadow-md hover:bg-yellow-400 transition"
+            className="mt-6 inline-block px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 transition"
           >
             Explore Properties
           </Link>
@@ -91,14 +91,15 @@ const Home = () => {
 
       {/* Advertisement Section */}
       <section className="container mx-auto py-12 mt-10 mb-10">
-        <h2 className="text-5xl font-bold text-center mb-10 text-gray-800 text-shadow-md">
-          Featured Properties
+        <h2 className="text-4xl font-bold text-center mb-10 text-gray-800 drop-shadow-md">
+          Featured <span className='text-blue-600'>Properties</span>
         </h2>
+
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 px-6">
           {advertiseProperties?.map((property) => (
             <div
               key={property._id}
-              className="max-w-sm bg-gradient-to-b from-blue-500 to-blue-800 rounded-lg overflow-hidden shadow-lg transform hover:scale-105 transition-all duration-500 ease-in-out hover:shadow-2xl hover:translate-y-2"
+              className="max-w-sm mission-card bg-white rounded-lg overflow-hidden shadow-lg transform hover:scale-105 transition-all duration-500 ease-in-out hover:shadow-2xl hover:translate-y-2"
             >
               {/* Property Image */}
               <div className="relative">
@@ -107,57 +108,44 @@ const Home = () => {
                   alt={property.propertyTitle}
                   className="w-full h-56 object-cover transition-transform duration-300 ease-in-out transform hover:scale-105"
                 />
+                {/* Verified Badge */}
+                {property.verificationStatus === "verified" && (
+                  <div className="absolute top-3 right-3 bg-green-500 text-white px-3 py-1 text-sm font-semibold rounded-full flex items-center">
+                    <FaCheckCircle className="mr-1" /> Verified
+                  </div>
+                )}
                 {/* Overlay with Property Title */}
                 <div className="absolute bottom-0 left-0 bg-gradient-to-t from-black via-transparent to-transparent w-full text-white p-4">
-                  <h3 className="text-2xl font-semibold shadow-lg">{property.propertyTitle}</h3>
+                  <h3 className="text-2xl font-semibold">{property.propertyTitle}</h3>
                 </div>
               </div>
 
               {/* Card Content */}
               <div className="p-6 space-y-4">
-                {/* Property Location */}
-                <div className="flex items-center text-white space-x-2">
-                  <FaMapMarkerAlt className="text-yellow-400 text-xl" />
-                  <p className="text-lg">{property.location}</p>
+                {/* Location & Price (Aligned Horizontally) */}
+                <div className="flex justify-between items-center text-gray-800">
+                  <div className="flex items-center space-x-2">
+                    <FaMapMarkerAlt className="text-red-500 text-xl" />
+                    <p className="text-sm font-semibold">{property.location}</p>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <FaDollarSign className="text-green-500 text-xl" />
+                    <p className="text-sm font-bold">{property.priceRange}</p>
+                  </div>
                 </div>
 
-                {/* Verification Status */}
-                <div className="flex items-center space-x-2">
-                  {property.verificationStatus === "verified" ? (
-                    <FaCheckCircle className="text-green-500 text-xl" />
-                  ) : (
-                    <FaTimesCircle className="text-red-500 text-xl" />
-                  )}
-                  <p className="text-sm font-medium text-white">
-                    Status:{" "}
-                    <span
-                      className={`${property.verificationStatus === "verified"
-                          ? "text-green-500"
-                          : "text-red-500"
-                        }`}
-                    >
-                      {property.verificationStatus.charAt(0).toUpperCase() +
-                        property.verificationStatus.slice(1)}
-                    </span>
-                  </p>
-                </div>
-
-                {/* Price Range */}
-                <div className="flex items-center space-x-2 text-white">
-                  <FaDollarSign className="text-yellow-500 text-xl" />
-                  <p className="text-lg font-semibold">${property.priceRange}</p>
-                </div>
+                {/* Property Description */}
+                <p className="text-gray-700 text-sm leading-relaxed">
+                  {property.description.split(" ").slice(0, 17).join(" ")}...
+                </p>
 
                 {/* View Details Button */}
-                <div className="flex justify-between items-center mt-4">
+                <div className="flex justify-center mt-4">
                   <Link to={`/property/details/${property._id}`}>
-                    <button className="bg-yellow-500 text-white py-2 px-6 rounded-full shadow-lg hover:bg-yellow-600 transition-all duration-300 transform hover:scale-105">
+                    <button className="bg-blue-600 text-white py-2 px-6 rounded-full shadow-lg hover:bg-blue-700 transition-all duration-300 transform hover:scale-105">
                       View Details
                     </button>
                   </Link>
-                  <button className="bg-transparent text-yellow-500 border-2 border-yellow-500 py-2 px-6 rounded-full shadow-md hover:bg-yellow-500 hover:text-white transition-all duration-300 transform hover:scale-105">
-                    Quick View
-                  </button>
                 </div>
               </div>
             </div>
@@ -175,9 +163,9 @@ const Home = () => {
       </section>
 
       {/* Latest User Reviews Section */}
-      <section className="py-16 bg-gray-100">
+      <section className="py-16">
         <h2 className="text-4xl font-extrabold text-center text-gray-800 mb-12">
-          What Our Users Say
+          What Our <span className='text-blue-600'>Users Say</span>
         </h2>
         <div className="container mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 px-6">
           {[
@@ -207,7 +195,7 @@ const Home = () => {
           ].map((user, index) => (
             <div
               key={index}
-              className="bg-white rounded-lg shadow-lg p-6 flex flex-col space-y-4 hover:shadow-xl hover:-translate-y-2 transform transition-all duration-300"
+              className="mission-card bg-white rounded-lg shadow-lg p-6 flex flex-col space-y-4 hover:shadow-xl hover:-translate-y-2 transform transition-all duration-300"
             >
               {/* User Info */}
               <div className="flex items-center space-x-4">
@@ -238,12 +226,6 @@ const Home = () => {
               <p className="text-gray-600 text-sm leading-relaxed">
                 "{user.review}"
               </p>
-
-              <div className="text-right mt-4">
-                <button className="bg-blue-500 text-white px-4 py-2 rounded-full hover:bg-blue-600 transition-all">
-                  View Profile
-                </button>
-              </div>
             </div>
           ))}
         </div>
@@ -253,7 +235,7 @@ const Home = () => {
       {/* Why Choose Us Section */}
       <section className="py-16">
         <h2 className="text-4xl font-bold text-center mb-12 text-gray-800">
-          Why Choose Us
+          Why <span className='text-blue-600'>Choose Us</span>
         </h2>
         <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 px-6">
           {[
@@ -299,9 +281,9 @@ const Home = () => {
         </div>
       </section>
 
-      <section className="py-16 bg-gradient-to-br from-blue-100 via-white to-gray-100">
+      <section className="py-16">
         <h2 className="text-4xl font-extrabold text-center mb-12 text-gray-800">
-          Popular Locations
+          Popular <span className='text-blue-600'>Locations</span>
         </h2>
         <div className="container mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 px-6">
           {locations.map((location, index) => (
@@ -319,13 +301,15 @@ const Home = () => {
                     {location.icon}
                   </div>
                   <h3 className="text-2xl font-semibold mb-2">{location.name}</h3>
-                  <p className="text-sm mb-4">{location.description}</p>
-                  <Link
-                    to="/"
+                  <p className="text-sm mb-4 text-gray-200">{location.description}</p>
+                  <a
+                    href={`https://www.google.com/search?q=${encodeURIComponent(location.name)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="inline-block bg-blue-500 text-white px-6 py-2 rounded-lg shadow-lg hover:bg-blue-600 transition-all duration-300"
                   >
                     Explore
-                  </Link>
+                  </a>
                 </div>
               </div>
             </Flip>
@@ -334,7 +318,7 @@ const Home = () => {
       </section>
       <WhyChooseUs />
       <HowItWorks />
-      <Achievements />  
+      <Achievements />
     </div>
   );
 };

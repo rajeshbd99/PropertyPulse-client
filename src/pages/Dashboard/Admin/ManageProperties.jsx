@@ -52,12 +52,12 @@ const ManageProperties = () => {
 
   return (
     <div className="p-6">
-      <h2 className="text-3xl font-semibold text-indigo-700 mb-6">Manage Properties</h2>
+      <h2 className=" text-3xl font-semibold text-indigo-700 mb-6">Manage Properties</h2>
 
       {properties?.length > 0 ? (
         <div className="overflow-x-auto overflow-hidden">
           <table className="min-w-full bg-white shadow-lg rounded-lg border border-gray-200">
-            <thead className="bg-indigo-100 text-indigo-700">
+            <thead className="manage-th bg-indigo-100 text-indigo-700">
               <tr className="text-left">
                 <th className="py-3 px-4 text-sm font-semibold">Property Title</th>
                 <th className="py-3 px-4 text-sm font-semibold">Location</th>
@@ -72,7 +72,7 @@ const ManageProperties = () => {
               {properties.map((property, index) => (
                 <tr
                   key={index}
-                  className={`border-b ${index % 2 === 0 ? 'bg-gray-50' : 'bg-white'} hover:bg-gray-100 transition-all duration-300`}
+                  className={`border-b ${index % 2 === 0 ? 'manage-tr bg-gray-50' : 'manage-tr bg-white'} hover:bg-gray-500 transition-all duration-300`}
                 >
                   <td className="py-3 px-4">{property.propertyTitle}</td>
                   <td className="py-3 px-4">{property.location}</td>

@@ -14,13 +14,13 @@ const features = [
 
 const WhyChooseUs = () => {
   return (
-    <section className="py-16 bg-gradient-to-r from-gray-100 to-gray-50">
+    <section className="py-16">
       <div className="container mx-auto px-4 sm:px-6 lg:px-12 text-center">
         <motion.h2 
           initial={{ opacity: 0, y: -20 }} 
           animate={{ opacity: 1, y: 0 }} 
           transition={{ duration: 0.6 }}
-          className="text-3xl sm:text-4xl font-bold mb-10 text-gray-800"
+          className="text-4xl sm:text-4xl font-bold mb-10 text-gray-800"
         >
           Why Choose <span className="text-blue-600">PropertyPulse?</span>
         </motion.h2>
@@ -34,7 +34,7 @@ const WhyChooseUs = () => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.2 }}
               viewport={{ once: true }}
-              className="p-6 md:p-8 bg-white rounded-xl shadow-md hover:shadow-xl transform hover:scale-105 transition duration-300 flex flex-col items-center"
+              className="p-6 md:p-8 mission-card bg-white rounded-xl shadow-md hover:shadow-xl transform hover:scale-105 transition duration-300 flex flex-col items-center"
             >
               <motion.div 
                 className="mb-4"
@@ -42,7 +42,7 @@ const WhyChooseUs = () => {
               >
                 {item.icon}
               </motion.div>
-              <h3 className="text-lg sm:text-xl font-semibold text-gray-800">{item.title}</h3>
+              <h3 className="text-lg sm:text-xl font-semibold text-gray-900">{item.title}</h3>
               <p className="text-sm sm:text-base text-gray-600 mt-2">{item.desc}</p>
             </motion.div>
           ))}

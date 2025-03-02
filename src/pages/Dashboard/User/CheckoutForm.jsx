@@ -91,7 +91,7 @@ const CheckoutForm = ({ property }) => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="space-y-6 bg-white shadow-lg rounded-xl p-6 max-w-lg mx-auto"
+      className="payment space-y-6 bg-white shadow-lg rounded-xl p-6 max-w-lg mx-auto"
     >
       {/* Title */}
       <h2 className="text-2xl font-bold text-gray-800 text-center flex items-center gap-2 mb-4">

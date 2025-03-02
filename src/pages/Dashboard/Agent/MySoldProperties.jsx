@@ -39,9 +39,9 @@ const MySoldProperties = () => {
           {/* Table for Sold Properties */}
           <div className="overflow-x-auto">
             <div className="max-h-[400px] overflow-y-auto">
-              <table className="min-w-full bg-white rounded-lg shadow-lg overflow-hidden border border-gray-200">
+              <table className="min-w-full  bg-white rounded-lg shadow-lg overflow-hidden border border-gray-200">
                 <thead>
-                  <tr className="bg-indigo-600 text-white text-left">
+                  <tr className="sold bg-indigo-600 text-white text-left">
                     <th className="py-3 px-4 text-sm font-semibold uppercase tracking-wider">
                       Property Title
                     </th>
@@ -63,7 +63,7 @@ const MySoldProperties = () => {
                   {propertiesSold?.map((property, index) => (
                     <tr
                       key={index}
-                      className={`border-b ${index % 2 === 0 ? "bg-gray-50" : "bg-white"
+                      className={`border-b ${index % 2 === 0 ? "bg-gray-50 sold-card" : "bg-white sold-card"
                         }`}
                     >
                       <td className="py-4 px-4 text-sm">{property.propertyTitle}</td>
@@ -87,7 +87,7 @@ const MySoldProperties = () => {
             </div>
             <div>
               <h3 className="text-xl font-semibold">Total Sold Amount</h3>
-              <p className="text-3xl font-extrabold mt-2">
+              <p className="text-3xl font-extrabold mt-2 sold-ammount">
                 ${totalSoldAmount()}
               </p>
             </div>

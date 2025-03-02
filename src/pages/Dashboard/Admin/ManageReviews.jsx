@@ -45,7 +45,7 @@ const ManageReviews = () => {
           {reviewManage?.map((review) => (
             <div
               key={review._id}
-              className="bg-white shadow-lg rounded-lg p-5 relative overflow-hidden border-t-4 border-blue-500"
+              className="manage-review bg-white shadow-lg rounded-lg p-5 relative overflow-hidden border-t-4 border-blue-500"
             >
               <div className="flex items-center gap-5 mb-4">
                 <div className="w-16 h-16 rounded-full overflow-hidden border-4 border-blue-500">

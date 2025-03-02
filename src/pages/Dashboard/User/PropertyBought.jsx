@@ -28,7 +28,7 @@ const PropertyBought = () => {
   isLoading && <p>Loading...</p>;
 
   return (
-    <div className="p-6 bg-gradient-to-b from-blue-50 to-white min-h-screen">
+    <div className="bought p-6 bg-white min-h-screen">
       {/* Title */}
       <h2 className="text-3xl font-bold mb-6 text-gray-800 flex items-center gap-2">
         <HiOutlineClipboardList className="text-blue-500" />
@@ -41,7 +41,7 @@ const PropertyBought = () => {
           {properties.map((property) => (
             <div
               key={property._id}
-              className="bg-white shadow-lg rounded-xl p-5 transition-transform transform hover:scale-105"
+              className="bought-card bg-white shadow-lg rounded-xl p-5 transition-transform transform hover:scale-105"
             >
               {/* Property Image */}
               <img
@@ -52,7 +52,7 @@ const PropertyBought = () => {
 
               {/* Property Details */}
               <div className="space-y-2">
-                <h4 className="text-xl font-semibold text-gray-800 flex items-center gap-2">
+                <h4 className="text-xl font-semibold text-indigo-700 flex items-center gap-2">
                   <HiOutlineHome className="text-blue-500" />
                   {property.propertyTitle}
                 </h4>

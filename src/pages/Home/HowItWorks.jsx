@@ -15,7 +15,7 @@ const steps = [
 
 const HowItWorks = () => {
   return (
-    <section className="py-16 bg-gray-100 flex justify-center">
+    <section className="py-16 flex justify-center">
       <div className="container mx-auto px-4 sm:px-6 md:px-12 lg:px-20">
         
         {/* Title */}
@@ -23,7 +23,7 @@ const HowItWorks = () => {
           initial={{ opacity: 0, y: -20 }} 
           animate={{ opacity: 1, y: 0 }} 
           transition={{ duration: 0.6 }}
-          className="text-3xl sm:text-4xl font-bold text-center text-gray-800 mb-16"
+          className="text-4xl sm:text-4xl font-bold text-center text-gray-800 mb-16"
         >
           How It <span className="text-blue-600">Works?</span>
         </motion.h2>
@@ -40,7 +40,7 @@ const HowItWorks = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                className="relative w-full p-6 sm:p-8 bg-white rounded-lg shadow-lg flex flex-col items-center"
+                className="relative w-full p-6 sm:p-8 mission-card bg-white rounded-lg shadow-lg flex flex-col items-center"
               >
                 {/* Step Number Badge */}
                 <div className="absolute -top-10 left-1/2 transform -translate-x-1/2 w-14 h-14 sm:w-16 sm:h-16 bg-blue-600 text-white font-bold text-lg sm:text-xl flex items-center justify-center rounded-full shadow-lg">
@@ -51,7 +51,7 @@ const HowItWorks = () => {
                 <div className="mb-4">{item.icon}</div>
 
                 {/* Title & Description */}
-                <h3 className="text-lg sm:text-xl font-semibold text-gray-800">{item.title}</h3>
+                <h3 className="text-lg sm:text-xl font-semibold text-gray-900">{item.title}</h3>
                 <p className="text-gray-600 mt-2 text-sm sm:text-base">{item.desc}</p>
               </motion.div>
 

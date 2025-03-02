@@ -95,7 +95,7 @@ const ManageUsers = () => {
       {users?.length > 0 ? (
         <div className="overflow-x-auto">
           <table className="min-w-full bg-white shadow-lg rounded-lg border border-gray-200">
-            <thead className="bg-indigo-100 text-indigo-700">
+            <thead className="manage-user-th bg-indigo-100 text-indigo-700">
               <tr className="text-left">
                 <th className="py-3 px-4 text-sm font-semibold">Name</th>
                 <th className="py-3 px-4 text-sm font-semibold">Email</th>
@@ -107,7 +107,7 @@ const ManageUsers = () => {
               {users.map((user, index) => (
                 <tr
                   key={user._id}
-                  className={`border-b ${index % 2 === 0 ? 'bg-gray-50' : 'bg-white'} hover:bg-gray-100 transition-all duration-300`}
+                  className={`border-b ${index % 2 === 0 ? 'bg-gray-50 manage-user-tr' : 'bg-white manage-user-tr'} hover:bg-gray-500 transition-all duration-300`}
                 >
                   <td className="py-3 px-4">{user.username}</td>
                   <td className="py-3 px-4">{user.email}</td>

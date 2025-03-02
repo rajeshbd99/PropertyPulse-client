@@ -71,15 +71,15 @@ const AddProperty = () => {
     };
 
     return (
-        <div className="bg-gradient-to-r from-blue-50 to-indigo-100 p-8 rounded-xl shadow-lg max-w-3xl mx-auto mt-16">
+        <div className="add bg-white p-8 rounded-xl shadow-lg max-w-3xl mx-auto mt-16">
             <h2 className="text-3xl font-bold text-indigo-700 mb-6 flex items-center gap-2">
                 <FaHome className="text-indigo-600" />
                 Add Property
             </h2>
             <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
-                    <label className="text-sm font-medium text-gray-700 flex items-center gap-2">
-                        <FaHome className="text-gray-500" />
+                    <label className="text-sm font-medium text-gray-900 flex items-center gap-2">
+                        <FaHome className="text-gray-900" />
                         Property Title
                     </label>
                     <input
@@ -88,13 +88,13 @@ const AddProperty = () => {
                         value={propertyData.propertyTitle}
                         onChange={handleChange}
                         required
-                        className="mt-2 w-full rounded-lg border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 text-sm p-2"
+                        className="mt-2 w-full rounded-lg border border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 text-sm p-2"
                     />
                 </div>
 
                 <div>
-                    <label className="text-sm font-medium text-gray-700 flex items-center gap-2">
-                        <FaMapMarkerAlt className="text-gray-500" />
+                    <label className="text-sm font-medium text-gray-900 flex items-center gap-2">
+                        <FaMapMarkerAlt className="text-gray-900" />
                         Property Location
                     </label>
                     <input
@@ -103,13 +103,13 @@ const AddProperty = () => {
                         value={propertyData.location}
                         onChange={handleChange}
                         required
-                        className="mt-2 w-full rounded-lg border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 text-sm p-2"
+                        className="mt-2 w-full rounded-lg border border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 text-sm p-2"
                     />
                 </div>
 
                 <div>
-                    <label className="text-sm font-medium text-gray-700 flex items-center gap-2">
-                        <FaImage className="text-gray-500" />
+                    <label className="text-sm font-medium text-gray-900 flex items-center gap-2">
+                        <FaImage className="text-gray-900" />
                         Property Image
                     </label>
                     <input
@@ -117,13 +117,13 @@ const AddProperty = () => {
                         name="image"
                         onChange={handleImageUpload}
                         required
-                        className="mt-2 w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-indigo-200 file:text-indigo-700 hover:file:bg-indigo-300"
+                        className="mt-2 w-full border text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-indigo-200 file:text-indigo-700 hover:file:bg-indigo-300"
                     />
                 </div>
 
                 <div>
-                    <label className="text-sm font-medium text-gray-700 flex items-center gap-2">
-                        <FaUser className="text-gray-500" />
+                    <label className="text-sm font-medium text-gray-900 flex items-center gap-2">
+                        <FaUser className="text-gray-900" />
                         Agent Name
                     </label>
                     <input
@@ -131,13 +131,13 @@ const AddProperty = () => {
                         type="text"
                         value={user.displayName}
                         readOnly
-                        className="mt-2 w-full bg-gray-100 rounded-lg border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 text-sm p-2"
+                        className="mt-2 w-full text-gray-500 bg-gray-100 rounded-lg border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 text-sm p-2"
                     />
                 </div>
 
                 <div>
-                    <label className="text-sm font-medium text-gray-700 flex items-center gap-2">
-                        <FaEnvelope className="text-gray-500" />
+                    <label className="text-sm font-medium text-gray-900 flex items-center gap-2">
+                        <FaEnvelope className="text-gray-900" />
                         Agent Email
                     </label>
                     <input
@@ -145,13 +145,13 @@ const AddProperty = () => {
                         type="email"
                         value={user.email}
                         readOnly
-                        className="mt-2 w-full bg-gray-100 rounded-lg border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 text-sm p-2"
+                        className="mt-2 w-full text-gray-500 bg-gray-100 rounded-lg border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 text-sm p-2"
                     />
                 </div>
 
                 <div>
-                    <label className="text-sm font-medium text-gray-700 flex items-center gap-2">
-                        <FaHome className="text-gray-500" />
+                    <label className="text-sm font-medium text-gray-900 flex items-center gap-2">
+                        <FaHome className="text-gray-900" />
                         Property Description
                     </label>
                     <textarea
@@ -159,13 +159,13 @@ const AddProperty = () => {
                         value={propertyData.description}
                         onChange={handleChange}
                         required
-                        className="mt-2 w-full rounded-lg border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 text-sm p-2"
+                        className="mt-2 w-full rounded-lg border border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 text-sm p-2"
                     />
                 </div>
 
                 <div>
-                    <label className="text-sm font-medium text-gray-700 flex items-center gap-2">
-                        <FaDollarSign className="text-gray-500" />
+                    <label className="text-sm font-medium text-gray-900 flex items-center gap-2">
+                        <FaDollarSign className="text-gray-900" />
                         Price Range
                     </label>
                     <input
@@ -174,7 +174,7 @@ const AddProperty = () => {
                         value={propertyData.priceRange}
                         onChange={handleChange}
                         required
-                        className="mt-2 w-full rounded-lg border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 text-sm p-2"
+                        className="mt-2 w-full rounded-lg border border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 text-sm p-2"
                     />
                 </div>
 

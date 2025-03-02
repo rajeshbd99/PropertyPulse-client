@@ -54,8 +54,8 @@ const RequestedProperties = () => {
       <h2 className="text-3xl font-bold text-indigo-600 mb-6">Requested/Offered Properties</h2>
       {RequestedProperties?.length > 0 ? (
         <div className="overflow-x-auto rounded-lg shadow-lg flex flex-col justify-center">
-          <table className="min-w-full bg-white text-gray-900 rounded-lg border-collapse">
-            <thead className="bg-gradient-to-r from-indigo-600 to-indigo-800 text-white">
+          <table className="min-w-full  bg-white text-gray-900 rounded-lg border-collapse">
+            <thead className="req-properties bg-indigo-800 text-white">
               <tr>
                 <th className="py-3 px-4 text-sm font-semibold">Property Title</th>
                 <th className="py-3 px-4 text-sm font-semibold">
@@ -78,7 +78,7 @@ const RequestedProperties = () => {
               {RequestedProperties?.map((offer, index) => (
                 <tr
                   key={index}
-                  className={`transition duration-300 ease-in-out hover:bg-indigo-50 hover:shadow-md ${index % 2 === 0 ? "bg-white" : "bg-gray-50"
+                  className={`transition duration-300 ease-in-out hover:bg-indigo-50 hover:shadow-md ${index % 2 === 0 ? "bg-white req-properties-card" : "bg-gray-50 req-properties-card"
                     }`}
                 >
                   <td className="py-4 px-4 text-sm font-medium">{offer.propertyTitle}</td>

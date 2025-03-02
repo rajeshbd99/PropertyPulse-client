@@ -65,7 +65,7 @@ const MakeOffer = () => {
   };
 
   return (
-    <div className="bg-gradient-to-r from-white to-blue-50 shadow-lg rounded-xl p-8 max-w-xl mx-auto space-y-6 mt-32 mb-24">
+    <div className="offer bg-white shadow-lg rounded-xl p-8 max-w-xl mx-auto space-y-6 mt-32 mb-24">
       {/* Title */}
       <h1 className="text-3xl font-bold text-gray-800 flex items-center gap-3 mb-6">
         <HiOutlineDocumentText className="text-blue-500" />
@@ -102,13 +102,13 @@ const MakeOffer = () => {
 
       {/* Offer Amount */}
       <div className="mt-6 space-y-2">
-        <label className="text-lg font-medium text-gray-800 flex items-center gap-2">
+        <label className="text-lg font-medium text-gray-900 flex items-center gap-2">
           <HiCurrencyDollar className="text-green-500" />
           Offer Amount:
         </label>
         <input
           type="number"
-          className="w-full p-3 border-2 border-blue-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+          className="w-full text-black p-3 border-2 border-blue-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
           value={offerAmount}
           onChange={(e) => setOfferAmount(e.target.value)}
         />

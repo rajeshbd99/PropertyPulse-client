@@ -34,12 +34,12 @@ const AdvertiseProperty = () => {
   isLoading && <p>Loading...</p>
 
   return (
-    <div className="p-6">
+    <div className="ad p-6">
       <h2 className="text-3xl font-semibold text-gray-800 mb-6">Advertise Properties</h2>
 
       {properties?.length > 0 ? (
         <div className="overflow-x-auto">
-          <table className="min-w-full bg-white shadow-lg rounded-lg">
+          <table className="ad-text min-w-full bg-white shadow-lg rounded-lg">
             <thead>
               <tr className="bg-gradient-to-r from-indigo-600 to-blue-500 text-white">
                 <th className="py-3 px-6 text-left">Property Image</th>
@@ -53,7 +53,7 @@ const AdvertiseProperty = () => {
               {properties?.map((property) => (
                 <tr
                   key={property._id}
-                  className="border-b hover:bg-gray-50 transition duration-200"
+                  className="border-b hover:bg-gray-600 transition duration-200"
                 >
                   <td className="py-3 px-6">
                     <img

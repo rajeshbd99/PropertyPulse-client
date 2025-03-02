@@ -51,7 +51,7 @@ const MyAddedProperties = () => {
       <h2 className="text-3xl font-bold text-indigo-700 mb-6">My Added Properties</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {properties?.map((property) => (
-          <div key={property._id} className="bg-gradient-to-r from-gray-50 to-gray-100 shadow-md rounded-lg p-4 flex flex-col">
+          <div key={property._id} className="added bg-white shadow-md rounded-lg p-4 flex flex-col">
             {/* Image Section */}
             <img
               src={property.image || "/default-property.jpg"}

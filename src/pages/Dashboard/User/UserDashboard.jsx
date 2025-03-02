@@ -29,7 +29,7 @@ const Dashboard = () => {
 
   const Sidebar = ({ title, links }) => (
     <motion.nav
-      className="bg-gradient-to-b from-blue-50 to-blue-100 shadow w-64 p-4 h-full lg:static lg:translate-x-0 fixed top-0 left-0 z-50"
+      className="sidebar bg-blue-50 shadow w-64 p-4 h-full lg:static lg:translate-x-0 fixed top-0 left-0 z-50"
       initial="hidden"
       animate="visible"
       exit="hidden"
@@ -39,7 +39,7 @@ const Dashboard = () => {
       <div className="flex justify-between items-center mb-8 lg:mb-0">
         <h1 className="text-2xl font-bold text-blue-600">{title}</h1>
         <button
-          className="lg:hidden text-2xl text-gray-700"
+          className="lg:hidden text-2xl text-gray-900"
           onClick={() => setIsDrawerOpen(false)}
         >
           <FiX />
@@ -53,7 +53,7 @@ const Dashboard = () => {
               className={({ isActive }) =>
                 `block px-4 py-2 rounded-lg font-medium transition ${isActive
                   ? "bg-blue-500 text-white shadow-md"
-                  : "text-gray-700 hover:bg-blue-200 hover:text-blue-900"
+                  : "text-gray-600 hover:bg-blue-200 hover:text-blue-900"
                 }`
               }
               onClick={() => setIsDrawerOpen(false)}
@@ -101,10 +101,10 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="min-h-screen flex bg-gray-50 mt-20">
+    <div className="min-h-screen flex bg-white mt-20">
       {/* Drawer toggle for smaller screens */}
       <button
-        className="lg:hidden fixed top-4 left-4 z-50 text-blue-600 text-3xl bg-white shadow-lg p-2 rounded-full"
+        className="lg:hidden fixed top-4 left-4 z-50 text-blue-600 text-3xl bg-gray-800 shadow-lg p-2 rounded-full"
         onClick={() => setIsDrawerOpen(!isDrawerOpen)}
       >
         <FiMenu />
@@ -112,7 +112,7 @@ const Dashboard = () => {
 
       {/* Sidebar for all devices */}
       <div
-        className={`fixed inset-0 z-40 bg-black bg-opacity-50 transition-opacity lg:hidden ${isDrawerOpen ? "opacity-100 visible" : "opacity-0 invisible"
+        className={` fixed inset-0 z-40 bg-black bg-opacity-50 transition-opacity lg:hidden ${isDrawerOpen ? "opacity-100 visible" : "opacity-0 invisible"
           }`}
         onClick={() => setIsDrawerOpen(false)}
       ></div>
@@ -128,7 +128,7 @@ const Dashboard = () => {
       )}
 
       {/* Main Content */}
-      <main className="flex-1 p-6 overflow-auto bg-white shadow-inner">
+      <main className="area flex-1 p-6 overflow-auto bg-white shadow-inner">
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}

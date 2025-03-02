@@ -58,7 +58,7 @@ const AllProperties = () => {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search by location"
-              className="w-full p-4 pl-12 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full p-4 pl-12 mission-card border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
             <span className="absolute top-1/2 left-4 transform -translate-y-1/2 text-gray-400">
               <HiOutlineSearch className="text-xl" />
@@ -72,11 +72,11 @@ const AllProperties = () => {
             <select
               value={sortOrder}
               onChange={(e) => setSortOrder(e.target.value)}
-              className="w-full p-4 pl-12 border border-gray-300 rounded-lg shadow-sm bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 appearance-none"
+              className="w-full p-4 pl-12 border border-gray-300 rounded-lg shadow-sm mission-card bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 appearance-none"
             >
-              <option value="">Sort by Price</option>
-              <option value="lowToHigh">Price: Low to High</option>
-              <option value="highToLow">Price: High to Low</option>
+              <option value="" className='text-gray-800'>Sort by Price</option>
+              <option value="lowToHigh" className='text-gray-800'>Price: Low to High</option>
+              <option value="highToLow" className='text-gray-800'>Price: High to Low</option>
             </select>
             <span className="absolute top-1/2 left-4 transform -translate-y-1/2 text-gray-400">
               <HiOutlineFilter className="text-xl" />
@@ -95,7 +95,7 @@ const AllProperties = () => {
           sortedProperties?.map((property) => (
             <div
               key={property._id}
-              className="bg-white shadow-md rounded-lg overflow-hidden hover:shadow-lg transform transition duration-300 hover:scale-105"
+              className=" mission-card bg-white shadow-md rounded-lg overflow-hidden hover:shadow-lg transform transition duration-300 hover:scale-105"
             >
               {/* Property Image Section */}
               <div className="relative">
@@ -139,6 +139,9 @@ const AllProperties = () => {
                     {property.location}
                   </p>
                 </div>
+                <p className="text-sm text-gray-500 mb-4">
+                      {property.description.split(" ").slice(0, 20).join(" ")}...
+                    </p>
 
                 {/* Agent Info */}
                 <div className="flex justify-center items-center gap-3 mb-4">

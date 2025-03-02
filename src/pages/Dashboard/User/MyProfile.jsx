@@ -11,8 +11,8 @@ const MyProfile = () => {
   const { user } = useContext(AuthContext);
 
   return (
-    <div className="bg-white shadow-lg rounded-xl p-8 space-y-6">
-      <h1 className="text-3xl font-semibold text-gray-800 mb-4 text-center">My Profile</h1>
+    <div className="my-profile bg-white shadow-lg rounded-xl p-8 space-y-6">
+      <h1 className="text-3xl font-semibold text-indigo-700 mb-4 text-center">My Profile</h1>
 
       {user ? (
         <div className="flex flex-col lg:flex-row items-center justify-center gap-8 lg:gap-12">

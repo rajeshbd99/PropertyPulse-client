@@ -3,24 +3,24 @@ import { FaFacebookF, FaTwitter, FaYoutube, FaInstagram, FaPhoneAlt, FaEnvelope 
 
 const Footer = () => {
   return (
-    <footer className="bg-blue-900 text-white py-10">
+    <footer className="bg-blue-900 text-white py-6">
       <div className="container mx-auto px-6">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {/* About Section */}
           <div>
-            <h3 className="text-2xl font-bold mb-4">PropertyPulse</h3>
-            <p className="text-gray-300 mb-4">
+            <h3 className="text-xl font-bold mb-2">PropertyPulse</h3>
+            <p className="text-gray-300 text-sm mb-2">
               Your ultimate destination for finding the perfect property. Reliable, trusted, and tailored to your needs.
             </p>
-            <p className="text-gray-400 text-sm">
+            <p className="text-gray-400 text-xs">
               &copy; {new Date().getFullYear()} PropertyPulse. All rights reserved.
             </p>
           </div>
 
           {/* Quick Links */}
           <div>
-            <h4 className="text-xl font-semibold mb-4">Quick Links</h4>
-            <ul className="space-y-2">
+            <h4 className="text-lg font-semibold mb-2">Quick Links</h4>
+            <ul className="space-y-1 text-sm">
               <li>
                 <a href="/" className="hover:text-blue-300 transition-colors duration-300">
                   Home
@@ -37,7 +37,7 @@ const Footer = () => {
                 </a>
               </li>
               <li>
-                <a href="/" className="hover:text-blue-300 transition-colors duration-300">
+                <a href="/contactUs" className="hover:text-blue-300 transition-colors duration-300">
                   Contact Us
                 </a>
               </li>
@@ -46,46 +46,46 @@ const Footer = () => {
 
           {/* Contact Section */}
           <div>
-            <h4 className="text-xl font-semibold mb-4">Contact Us</h4>
-            <div className="flex items-center mb-4">
-              <FaPhoneAlt className="text-blue-300 mr-3" />
+            <h4 className="text-lg font-semibold mb-2">Contact Us</h4>
+            <div className="flex items-center mb-2 text-sm">
+              <FaPhoneAlt className="text-blue-300 mr-2" />
               <p className="text-gray-300">+1 234 567 890</p>
             </div>
-            <div className="flex items-center mb-4">
-              <FaEnvelope className="text-blue-300 mr-3" />
+            <div className="flex items-center mb-2 text-sm">
+              <FaEnvelope className="text-blue-300 mr-2" />
               <p className="text-gray-300">support@propertypulse.com</p>
             </div>
-            <div className="flex space-x-4 mt-4">
+            <div className="flex space-x-3 mt-2">
               <a
                 href="https://facebook.com"
-                className="w-10 h-10 flex items-center justify-center bg-blue-500 rounded-full hover:bg-blue-600 transition duration-300"
+                className="w-8 h-8 flex items-center justify-center bg-blue-500 rounded-full hover:bg-blue-600 transition duration-300"
               >
-                <FaFacebookF />
+                <FaFacebookF size={14} />
               </a>
               <a
                 href="https://twitter.com"
-                className="w-10 h-10 flex items-center justify-center bg-blue-500 rounded-full hover:bg-blue-600 transition duration-300"
+                className="w-8 h-8 flex items-center justify-center bg-blue-500 rounded-full hover:bg-blue-600 transition duration-300"
               >
-                <FaTwitter />
+                <FaTwitter size={14} />
               </a>
               <a
                 href="https://instagram.com"
-                className="w-10 h-10 flex items-center justify-center bg-blue-500 rounded-full hover:bg-blue-600 transition duration-300"
+                className="w-8 h-8 flex items-center justify-center bg-blue-500 rounded-full hover:bg-blue-600 transition duration-300"
               >
-                <FaInstagram />
+                <FaInstagram size={14} />
               </a>
               <a
                 href="https://youtube.com"
-                className="w-10 h-10 flex items-center justify-center bg-blue-500 rounded-full hover:bg-blue-600 transition duration-300"
+                className="w-8 h-8 flex items-center justify-center bg-blue-500 rounded-full hover:bg-blue-600 transition duration-300"
               >
-                <FaYoutube />
+                <FaYoutube size={14} />
               </a>
             </div>
           </div>
         </div>
       </div>
-      {/* Footer */}
-      <div className="border-t border-gray-700 mt-10 pt-6 text-center text-sm text-gray-400">
+      {/* Footer Bottom */}
+      <div className="border-t border-gray-700 mt-6 pt-4 text-center text-xs text-gray-400">
         Designed with ❤️ by PropertyPulse Team
       </div>
     </footer>

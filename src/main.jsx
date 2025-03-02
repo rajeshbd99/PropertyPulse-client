@@ -15,7 +15,7 @@ import PropertyBought from './pages/Dashboard/User/PropertyBought'
 import MyReviews from './pages/Dashboard/User/MyReviews'
 import MakeOffer from './pages/Dashboard/User/MakeOffer'
 import PropertyDetails from './pages/PropertyDetails'
-import ManageUsers from'./pages/Dashboard/Admin/ManageUsers'
+import ManageUsers from './pages/Dashboard/Admin/ManageUsers'
 import ManageReviews from './pages/Dashboard/Admin/ManageReviews'
 import ManageProperties from './pages/Dashboard/Admin/ManageProperties'
 import AddProperty from './pages/Dashboard/Agent/AddProperty'
@@ -31,11 +31,13 @@ import PaymentPage from './pages/Dashboard/User/PaymentPage'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import {
-  
   QueryClient,
   QueryClientProvider,
 } from '@tanstack/react-query'
 import AboutUs from './pages/AboutUs'
+import ContactUs from './pages/ContactUs'
+import Overview from './pages/Dashboard/Agent/Overview'
+import ThemeProvider from './pages/ThemeProvider'
 
 
 
@@ -59,24 +61,28 @@ const router = createBrowserRouter([
       },
       {
         path: '/aboutUs',
-        element: <AboutUs/>
+        element: <AboutUs />
       },
       {
-        path:'/all-properties',
+        path: '/contactUs',
+        element: <ContactUs />
+      },
+      {
+        path: '/all-properties',
         element: <PrivateRoute>
-        <AllProperties /> 
+          <AllProperties />
         </PrivateRoute>
       },
       {
-        path:'/make-offer',
-        element:<PrivateRoute>
-        <MakeOffer />
+        path: '/make-offer',
+        element: <PrivateRoute>
+          <MakeOffer />
         </PrivateRoute>
       },
       {
-        path:'/payment',
-        element:<PrivateRoute>
-        <PaymentPage />
+        path: '/payment',
+        element: <PrivateRoute>
+          <PaymentPage />
         </PrivateRoute>
       },
       {
@@ -86,18 +92,18 @@ const router = createBrowserRouter([
         </PrivateRoute>
       },
       {
-        path:'/dashboard',
+        path: '/dashboard',
         element: <PrivateRoute>
-        <Dashboard/>
+          <Dashboard />
         </PrivateRoute>,
-        children:[
+        children: [
           {
-            path:'',
-            element:<MyProfile />
+            path: '',
+            element: <Overview />
           },
           {
-            path:'profile',
-            element:<MyProfile />
+            path: 'profile',
+            element: <MyProfile />
           },
           {
             path: 'wishlist',
@@ -113,20 +119,24 @@ const router = createBrowserRouter([
             element: <MyReviews />
           },
           {
-            path:'advertise-property',
-            element:<AdminRoutes><AdvertiseProperty /></AdminRoutes>
+            path: 'advertise-property',
+            element: <AdminRoutes><AdvertiseProperty /></AdminRoutes>
           },
           {
-            path:'manage-properties',
-            element:<AdminRoutes><ManageProperties /></AdminRoutes>
+            path: 'manage-properties',
+            element: <AdminRoutes><ManageProperties /></AdminRoutes>
           },
           {
-            path:'manage-reviews',
-            element:<AdminRoutes><ManageReviews /></AdminRoutes>  
+            path: 'manage-reviews',
+            element: <AdminRoutes><ManageReviews /></AdminRoutes>
           },
           {
             path: 'manage-users',
             element: <AdminRoutes><ManageUsers></ManageUsers></AdminRoutes>
+          },
+          {
+            path: 'agent-home',
+            element: <AgentRoutes><Overview /></AgentRoutes>
           },
           {
             path: 'add-property',
@@ -134,19 +144,19 @@ const router = createBrowserRouter([
           },
           {
             path: 'my-properties',
-            element: <AgentRoutes><MyAddedProperties/></AgentRoutes>
+            element: <AgentRoutes><MyAddedProperties /></AgentRoutes>
           },
           {
-            path:'my-sold-properties',
-            element:<AgentRoutes><MySoldProperties /></AgentRoutes>
+            path: 'my-sold-properties',
+            element: <AgentRoutes><MySoldProperties /></AgentRoutes>
           },
           {
-            path:'requested-properties',
-            element:<AgentRoutes><RequestedProperties /></AgentRoutes>
+            path: 'requested-properties',
+            element: <AgentRoutes><RequestedProperties /></AgentRoutes>
           },
           {
-            path:'update-property/:id',
-            element:<AgentRoutes><UpdateProperty></UpdateProperty></AgentRoutes>
+            path: 'update-property/:id',
+            element: <AgentRoutes><UpdateProperty></UpdateProperty></AgentRoutes>
           }
         ]
       },
@@ -158,11 +168,13 @@ const queryClient = new QueryClient()
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <AuthProvider>
-      <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />
-      </QueryClientProvider>
-      <ToastContainer />
-    </AuthProvider>
+    <ThemeProvider>
+      <AuthProvider>
+        <QueryClientProvider client={queryClient}>
+          <RouterProvider router={router} />
+        </QueryClientProvider>
+        <ToastContainer />
+      </AuthProvider>
+    </ThemeProvider>
   </StrictMode>,
 )

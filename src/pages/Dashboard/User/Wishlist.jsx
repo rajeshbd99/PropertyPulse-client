@@ -41,9 +41,9 @@ const Wishlist = () => {
   isLoading && <p>Loading...</p>;
 
   return (
-    <div className="p-6 bg-gradient-to-br from-white to-blue-50 shadow-lg rounded-lg">
+    <div className="wishlist p-6 bg-white shadow-lg rounded-lg">
       {/* Title */}
-      <h1 className="text-3xl font-bold mb-6 text-gray-800 flex items-center gap-2">
+      <h1 className="wishlist text-3xl font-bold mb-6 text-indigo-700 flex items-center gap-2">
         <HiHeart className="text-red-500" />
         Wishlist
       </h1>
@@ -54,7 +54,7 @@ const Wishlist = () => {
           {wishlist.map((item) => (
             <div
               key={item._id}
-              className="bg-white shadow-md hover:shadow-lg rounded-xl overflow-hidden transition-transform transform hover:scale-105"
+              className="wishlist-card bg-white shadow-md hover:shadow-lg rounded-xl overflow-hidden transition-transform transform hover:scale-105"
             >
               {/* Image */}
               <img
@@ -84,7 +84,7 @@ const Wishlist = () => {
                     alt={item.agentName}
                     className="w-10 h-10 rounded-full border border-gray-300"
                   />
-                  <span className="text-sm text-gray-800">{item.agentName}</span>
+                  <span className="text-sm text-indigo-800">{item.agentName}</span>
                 </div>
 
                 {/* Verification and Price */}

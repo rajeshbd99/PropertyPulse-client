@@ -11,7 +11,7 @@ const achievements = [
 
 const Achievements = () => {
   return (
-    <section className="py-16 px-4 sm:px-6 lg:px-12 bg-gray-100">
+    <section className="py-16 px-4 sm:px-6 lg:px-12">
       <div className="container mx-auto">
         
         {/* Section Title */}
@@ -19,7 +19,7 @@ const Achievements = () => {
           initial={{ opacity: 0, y: -20 }} 
           animate={{ opacity: 1, y: 0 }} 
           transition={{ duration: 0.6 }}
-          className="text-3xl sm:text-4xl font-bold text-center text-gray-800 mb-12"
+          className="text-4xl sm:text-4xl font-bold text-center text-gray-800 mb-12"
         >
           Our <span className="text-blue-600">Achievements</span>
         </motion.h2>
@@ -33,10 +33,10 @@ const Achievements = () => {
               whileInView={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.6, delay: index * 0.2 }}
               viewport={{ once: true }}
-              className="bg-white shadow-lg p-8 rounded-lg flex flex-col items-center hover:shadow-xl transition-shadow"
+              className="mission-card bg-white shadow-lg p-8 rounded-lg flex flex-col items-center hover:shadow-xl transition-shadow"
             >
               <div className="mb-4">{item.icon}</div>
-              <h3 className="text-3xl font-bold text-gray-800">
+              <h3 className="text-3xl font-bold text-gray-900">
                 <CountUp end={item.count} duration={3} separator="," />
                 {item.label === "Cities Covered" ? "+" : ""}
               </h3>
